@@ -29,6 +29,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>/Users/mshepher/Projects/Manatee5/Manatee5.Android/APK.keystore</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>spades</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>manatee5apk</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>spades</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
