@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             ControlTemplate="{StaticResource DebugTemplate}"
+             x:Name="This"
+             BindingContext="{x:Reference This}"
+             x:Class="Manatee5.NewGamePage"
+             Title="New Game">
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness">
+      <OnPlatform.Platforms>
+        <On Platform="iOS"
+            Value="0, 20, 0, 20" />
+        <On Platform="Android"
+            Value="0, 0, 0, 0" />
+      </OnPlatform.Platforms>
+    </OnPlatform>
+  </ContentPage.Padding>
+
+  <StackLayout Padding="25">
+    <Label Text="Waiting for players to join..."
+           FontSize="Large" />
+
+    <StackLayout VerticalOptions="StartAndExpand">
+      <sflistview:SfListView x:Name="VisiblePlayersListView"
+                             AutoFitMode="Height"
+                             IsScrollBarVisible="true"
+                             ItemsSource="{Binding DistinctJoinedPlayers, Mode=OneWay}"
+                             DragStartMode="OnHold"
+                             VerticalOptions="Start">
+        <sflistview:SfListView.HeaderTemplate>
+          <DataTemplate>
+            <Grid Padding="10">
+              <Label FontAttributes="Bold"
+                     HorizontalOptions="Center"
+                     FontSize="Medium"
+                     Text="Players" />
+            </Grid>
+          </DataTemplate>
+        </sflistview:SfListView.HeaderTemplate>
+
+        <sflistview:SfListView.FooterTemplate>
+          <DataTemplate>
+            <Grid Padding="10">
+              <ActivityIndicator Color="Teal"
+                                 IsRunning="true" />
+            </Grid>
+          </DataTemplate>
+
+        </sflistview:SfListView.FooterTemplate>
+        <sflistview:SfListView.ItemTemplate>
+          <DataTemplate>
+            <Grid Padding="10">
+              <Label Text="{Binding Name}"
+                     FontSize="Medium"
+                     HorizontalOptions="CenterAndExpand" />
+            </Grid>
+          </DataTemplate>
+        </sflistview:SfListView.ItemTemplate>
+      </sflistview:SfListView>
+    </StackLayout>
+    <Button x:Name="StartGameButton"
+            FontSize="Large"
+            Clicked="StartButtonClicked"
+            Text="Start Game" />
+
+    <Button x:Name="CancelButton"
+            Text="Cancel" Clicked="CancelButtonClicked" />
+  </StackLayout>
+</ContentPage>

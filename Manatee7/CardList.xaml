@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sflistview:SfListView xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="Manatee5.CardList"
+                       ItemSpacing="5"
+                       SelectionMode="Multiple"
+                       xmlns:local="clr-namespace:Manatee5"
+                       AutoFitMode="Height"
+                       SelectionBackgroundColor="Transparent"
+                       IsScrollBarVisible="true"
+                       DragStartMode="OnHold"
+                       IsStickyHeader="true"
+                       IsStickyFooter="true">
+  <sflistview:SfListView.Resources>
+  </sflistview:SfListView.Resources>
+  <sflistview:SfListView.HeaderTemplate>
+    <DataTemplate x:DataType="local:Model.Card"
+                  x:Name="headerTemplate">
+      <Frame Style="{StaticResource CallCardFrame}">
+        <Grid VerticalOptions="StartAndExpand">
+          <Label Style="{StaticResource CallCardLabel}">
+            <Label.FormattedText>
+              <FormattedString>
+                <Span Text="{Binding Source={StaticResource GameInstance}, Path=CallCard.Text}" />
+                <Span Text=" ." TextColor="Transparent"/>
+              </FormattedString>
+            </Label.FormattedText>
+          </Label>
+        </Grid>
+      </Frame>
+    </DataTemplate>
+  </sflistview:SfListView.HeaderTemplate>
+  <sflistview:SfListView.ItemTemplate>
+    <DataTemplate x:DataType="local:Model.Card"> 
+      <Frame Style="{StaticResource CardFrame}">
+        <Grid VerticalOptions="StartAndExpand">
+        <Label Style="{StaticResource CardLabel}">
+            <Label.FormattedText>
+              <FormattedString>
+                <Span Text="{Binding DisplayText}" />
+              </FormattedString>
+            </Label.FormattedText>
+          </Label>
+          </Grid>
+      </Frame>
+    </DataTemplate>
+  </sflistview:SfListView.ItemTemplate>
+  <sflistview:SfListView.SelectedItemTemplate>
+    <DataTemplate>
+      <Frame Style="{StaticResource SelectedCardFrame}">
+        <Grid VerticalOptions="StartAndExpand">
+          <Label Style="{StaticResource SelectedCardLabel}">
+            <Label.FormattedText>
+              <FormattedString>
+                <Span Text="{Binding DisplayText}" />
+              </FormattedString>
+            </Label.FormattedText>
+          </Label>
+        </Grid>
+      </Frame>
+    </DataTemplate>
+  </sflistview:SfListView.SelectedItemTemplate>
+</sflistview:SfListView>

@@ -1,7 +1,66 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Manatee7" x:Class="Manatee7.MainPage">
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             ControlTemplate="{StaticResource DebugTemplate}"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:local="clr-namespace:Manatee5"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:Class="Manatee5.MainPage"
+             x:Name="This"
+             BindingContext="{StaticResource GameController}"
+             Title="Manatee">
+  <!-- ControlTemplate="{StaticResource AlertTemplate}" -->
+  <ContentPage.Resources>
+    <ResourceDictionary>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.Content>
+      <StackLayout Padding="25" VerticalOptions="StartAndExpand">
+          <Label Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Welcome, {0}', Mode=OneWay}"
+                 HorizontalOptions="Center"
+                 FontSize="Large" />
+          <syncfusion:SfListView x:Name="VisibleGamesListView"
+                                 ItemsSource="{Binding Path=Invitations, Source={x:Reference 
+                                 This}}"
+                                 RowSpacing="10"
+                                 AutoFitMode="Height"
+                                 VerticalOptions="Start"
+                                 IsStickyHeader="True">
+            <syncfusion:SfListView.HeaderTemplate>
+              <DataTemplate>
+                  <Label FontAttributes="Bold"
+                         Text="Found nearby games:" HorizontalOptions="Center">
+                    <Label.Triggers>
+                      <DataTrigger TargetType="Label"
+                                   Binding="{Binding VisibleInvitations.Count}"
+                                   Value="0">
+                        <Setter Property="Text"
+                                Value="Looking for nearby games..." />
+                      </DataTrigger>
+                    </Label.Triggers>
+                  </Label>
+              </DataTemplate>
+            </syncfusion:SfListView.HeaderTemplate>
+            <syncfusion:SfListView.FooterTemplate>
+            <DataTemplate>
+          <Grid>
+            <ActivityIndicator Color="Teal" IsRunning="True"/>
+          </Grid>
+          </DataTemplate>
+        </syncfusion:SfListView.FooterTemplate>
+            <syncfusion:SfListView.ItemTemplate>
+              <DataTemplate>
+                <Button Text="{Binding GameName, StringFormat='Join {0}'}"
+                        Clicked="GameSelected" />
+              </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+          </syncfusion:SfListView>
+          <Button x:Name="StartGameButton"
+                  Text="Host A New Game"
+                  Clicked="CreateGameButtonClicked" />
+          <Button x:Name="SettingsButton"
+                  Text="Settings &amp; Decks"
+                  Clicked="SettingsButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="Manatee5.StarterDecksPage">
+  <ContentPage.Content>
+    <Grid VerticalOptions="Center">
+    <StackLayout Padding="40" VerticalOptions="Center" Margin="0,0,0,0">
+      <Label Text="Want some decks to start with?" Margin="0,20,0,20" FontSize="Large" FontAttributes="Bold"/>
+      <syncfusion:SfListView x:Name="DecksListView"
+                             SelectionMode="Multiple"
+                             ItemsSource="{Binding SuggestedDecks}"
+                             >
+          <syncfusion:SfListView.HeaderTemplate>
+            <DataTemplate>
+              <Grid Padding="0">
+                <Label FontAttributes="Bold" Text="Pick a few to download:" />
+              </Grid>
+            </DataTemplate>
+          </syncfusion:SfListView.HeaderTemplate>
+        <syncfusion:SfListView.ItemTemplate>
+          <DataTemplate>
+            <Grid Padding="10">
+              <Label 
+                     Text="{Binding Key}" FontSize="Small" />
+            </Grid>
+          </DataTemplate>
+        </syncfusion:SfListView.ItemTemplate>
+      </syncfusion:SfListView>
+      <Label FontAttributes="Bold" Text="(These are some popular options, but you can add more in Settings later.)" />
+      <!--Button Text="Pause" Clicked="Pause"/-->
+      <Button Text="Done" Clicked="Handle_Clicked"/>
+      </StackLayout>
+      </Grid>
+  </ContentPage.Content>
+</ContentPage>

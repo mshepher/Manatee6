@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:CardList xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:local="clr-namespace:Manatee5"
+                xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                SelectionMode="SingleDeselect"
+                AutoFitMode="Height"
+                SelectionGesture="Tap"
+                VerticalOptions="StartAndExpand"
+                x:Name="This"
+                x:Class="Manatee5.SubmissionList">
+  <local:CardList.Resources>
+    <ResourceDictionary>
+      <local:SubmissionToLabelStackConverter x:Key="SubmissionConverter" />
+    </ResourceDictionary>
+  </local:CardList.Resources>
+  <local:CardList.ItemTemplate>
+    <DataTemplate>
+      <Frame Style="{StaticResource CardFrame}"
+             Content="{Binding ., Converter={StaticResource SubmissionConverter}}" />
+    </DataTemplate>
+  </local:CardList.ItemTemplate>
+  <local:CardList.SelectedItemTemplate>
+    <DataTemplate>
+      <Frame Style="{StaticResource SelectedCardFrame}"
+             Content="{Binding ., Converter={StaticResource SubmissionConverter}}" />
+    </DataTemplate>
+  </local:CardList.SelectedItemTemplate>
+</local:CardList>

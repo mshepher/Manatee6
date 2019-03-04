@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Manatee5.SidebarPage"
+             BindingContext="{StaticResource GameInstance}"
+             Title="☰">
+  <ContentPage.Content>
+    <StackLayout Margin="30" Spacing="30">
+      <ListView ItemsSource="{Binding Path=Score}" x:Name="ScoreBoard">
+        <ListView.Header><Label Text="Scoreboard:" FontSize="Large"/></ListView.Header>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <!--TextCell Text="{Binding Key.Name}" Detail="{Binding Value}"/-->
+            <ViewCell>
+            <Grid VerticalOptions="CenterAndExpand">
+                      <Label Grid.Column="0" Text="{Binding Key.Name}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                      <Label Grid.Column="1" Text="{Binding Value}" VerticalOptions="Center" HorizontalOptions="End"/>
+                      </Grid>
+                      </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+        <Label Text="Sound Effects:" HorizontalOptions="Start"/>
+        <Switch IsToggled="{Binding SoundEffects, Source={StaticResource Preferences}, 
+        Mode=TwoWay}" HorizontalOptions="EndAndExpand" />
+      </StackLayout>
+    <Button
+              Text="Exit Game"
+              Clicked="ExitButtonClicked" />
+
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Manatee5"
+             x:Class="Manatee5.SettingsPage"
+             x:Name="This"
+             xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             Title="Settings">
+             <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness">
+      <OnPlatform.Platforms>
+        <On Platform="iOS"
+            Value="0, 30, 0, 30" />
+        <On Platform="Android"
+            Value="0, 0, 0, 0" />
+      </OnPlatform.Platforms>
+    </OnPlatform>
+  </ContentPage.Padding>
+  <ContentPage.Content>
+    <StackLayout Margin="10,10,10,10"
+                 VerticalOptions="Center">
+      <Label Text="Preferred screen name:"
+             FontSize="Medium" />
+      <Entry x:Name="entry"
+             Text="{Binding PlayerName, Source={StaticResource Preferences}}"
+             MaxLength="48"
+             HorizontalOptions="FillAndExpand"
+             Unfocused="Handle_Unfocused">
+        <Entry.Keyboard>
+          <Keyboard x:FactoryMethod="Create">
+            <x:Arguments>
+              <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+            </x:Arguments>
+          </Keyboard>
+        </Entry.Keyboard>
+      </Entry>
+      <Grid VerticalOptions="StartAndExpand"
+            BindingContext="{StaticResource Preferences}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="0.65*" />
+          <ColumnDefinition Width="0.35*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="35" />
+          <RowDefinition Height="35" />
+          <RowDefinition Height="35" />
+          <RowDefinition Height="35" />
+          <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+
+        <Label Text="Cards Per Hand:"
+               FontSize="Medium"
+               Grid.Column="0"
+               Grid.Row="0" />
+        <numeric:SfNumericUpDown SpinButtonAlignment="Both"
+                                 FormatString="n"
+                                 ParsingMode="Double"
+                                 MaximumDecimalDigits="0"
+                                 Minimum="5"
+                                 Maximum="20"
+                                 Value="{Binding CardsPerHand, Mode=TwoWay}"
+                                 Grid.Column="1"
+                                 Grid.Row="0" />
+        <Label Text="Robot Players:"
+               FontSize="Medium"
+               Grid.Column="0"
+               Grid.Row="1" />
+        <numeric:SfNumericUpDown SpinButtonAlignment="Both"
+                                 FormatString="n"
+                                 FontSize="Default"
+                                 ParsingMode="Double"
+                                 MaximumDecimalDigits="0"
+                                 Minimum="0"
+                                 Maximum="5"
+                                 Value="{Binding Robots,Mode=TwoWay}"
+                                 Grid.Column="1"
+                                 Grid.Row="1" />
+        <Label Text="Allow NSFW Cards:"
+               FontSize="Medium"
+               Grid.Column="0"
+               Grid.Row="2" />
+        <Switch Grid.Column="1"
+                Grid.Row="2"
+                IsToggled="{Binding NSFWAllowed, Mode=TwoWay}" />
+        <Label Text="Sound Effects:"
+               FontSize="Medium"
+               Grid.Column="0"
+               Grid.Row="3" />
+        <Switch Grid.Column="1"
+                Grid.Row="3"
+                IsToggled="{Binding SoundEffects, Mode=TwoWay}" />
+
+        <Label Text="Use Nearby:"
+               FontSize="Medium"
+               Grid.Column="0"
+               Grid.Row="4" />
+        <Switch Grid.Column="1"
+                Grid.Row="4"
+                IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
+      </Grid>
+      <ListView x:Name="listView" Header="Saved Decks"
+                SelectionMode="None"
+                Margin="0,10,0,0"
+                BindingContext="{StaticResource DeckLibrary}"
+                ItemsSource="{Binding Decks}">
+        <ListView.HeaderTemplate>
+          <DataTemplate>
+            <ContentView>
+              <Grid Padding="0">
+                <Label FontAttributes="Bold"
+                       Text="{Binding .}" />
+              </Grid>
+            </ContentView>
+          </DataTemplate>
+        </ListView.HeaderTemplate>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+            <ViewCell.ContextActions>
+              <MenuItem Clicked="Delete"
+                        CommandParameter="{Binding Key}"
+                        Text="Delete"
+                        IsDestructive="True" />
+            </ViewCell.ContextActions>
+            <StackLayout Orientation="Horizontal">
+             <buttons:SfCheckBox x:Name="checkBox" Text="{Binding Value.Name}" 
+                                 IsChecked="{Binding Value.Enabled}"/>
+            </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <StackLayout Orientation="Horizontal">
+        <Entry x:Name="CodeEntry"
+               MaxLength="5"
+               HorizontalOptions="FillAndExpand"
+               Placeholder="DECK">
+          <Entry.Keyboard>
+            <Keyboard x:FactoryMethod="Create">
+              <x:Arguments>
+                <KeyboardFlags>CapitalizeCharacter</KeyboardFlags>
+              </x:Arguments>
+            </Keyboard>
+          </Entry.Keyboard>
+        </Entry>
+        <Button x:Name="AddButton"
+                IsEnabled="False"
+                Text="Add"
+                Clicked="AddDeckFromEntry">
+          <Button.Triggers>
+            <DataTrigger TargetType="Button"
+                         Binding="{Binding Source={x:Reference CodeEntry},
+            Path=Text.Length}"
+                         Value="5">
+              <Setter Property="IsEnabled"
+                      Value="True" />
+            </DataTrigger>
+          </Button.Triggers>
+        </Button>
+      </StackLayout>
+      <Label
+        Text="Enter a 5 letter deck code from cardcastgame.com to add a deck to your collection.">
+        <!-- https://xamarinhelp.com/hyperlink-in-xamarin-forms-label/ -->
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Enter a 5-letter deck code from " />
+            <Span Text="cardcastgame.com"
+                  TextColor="Blue"
+                  TextDecorations="Underline">
+              <Span.GestureRecognizers>
+                <TapGestureRecognizer x:Name="LinkTapped" />
+              </Span.GestureRecognizers>
+            </Span>
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

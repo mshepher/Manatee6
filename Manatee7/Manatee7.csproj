@@ -13,4 +13,32 @@
     <PackageReference Include="Xamarin.Forms" Version="3.5.0.169047" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.2" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="FlippedCardsPage.xaml" />
+    <EmbeddedResource Remove="MultiSelectCardList.xaml" />
+    <EmbeddedResource Remove="NewGamePage.xaml" />
+    <EmbeddedResource Remove="SelectCardPage.xaml" />
+    <EmbeddedResource Remove="SettingsPage.xaml" />
+    <EmbeddedResource Remove="SidebarPage.xaml" />
+    <EmbeddedResource Remove="StarterDecksPage.xaml" />
+    <EmbeddedResource Remove="SubmissionList.xaml" />
+    <EmbeddedResource Remove="WelcomePage.xaml" />
+    <EmbeddedResource Remove="WinningCardPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BaseGamePage.xaml" />
+    <None Include="CardList.xaml" />
+    <None Include="FlippedCardsPage.xaml" />
+    <None Include="JoinGamePage.xaml" />
+    <None Include="JudgingPage.xaml" />
+    <None Include="MultiSelectCardList.xaml" />
+    <None Include="NewGamePage.xaml" />
+    <None Include="SelectCardPage.xaml" />
+    <None Include="SettingsPage.xaml" />
+    <None Include="SidebarPage.xaml" />
+    <None Include="StarterDecksPage.xaml" />
+    <None Include="SubmissionList.xaml" />
+    <None Include="WelcomePage.xaml" />
+    <None Include="WinningCardPage.xaml" />
+  </ItemGroup>
 </Project>

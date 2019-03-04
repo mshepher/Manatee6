@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:local="clr-namespace:Manatee5"
+                    x:Class="Manatee5.FlippedCardsPage"
+                    x:Name="This"
+                    BindingContext="{x:Reference This}"
+                    BackgroundColor="#555">
+  <local:BaseGamePage.Resources>
+    <ResourceDictionary>
+      <local:IsNotZeroConverter x:Key="IsNotZeroConverter" />
+      <local:InvertBool x:Key="InvertBool" />
+      <local:ToColor x:Key="ToColor" />
+      <local:BoolToSelectionModeConverter x:Key="JudgeConverter" />
+    </ResourceDictionary>
+  </local:BaseGamePage.Resources>
+  <local:BaseGamePage.Triggers>
+    <DataTrigger TargetType="local:BaseGamePage"
+                 Binding="{Binding Source={StaticResource GameInstance}, Path=IAmJudge}"
+                 Value="False">
+      <Setter Property="BackgroundColor" Value="#AAA" />
+    </DataTrigger>
+  </local:BaseGamePage.Triggers>
+  <local:BaseGamePage.Content>
+    <StackLayout Spacing="0">
+      <local:SubmissionList x:Name="SubmissionListView"
+                            IsScrollBarVisible="true"
+                            ItemsSource="{Binding Source={StaticResource GameInstance}, Path=OrderedSubmissions}">
+        <local:SubmissionList.Triggers>
+          <DataTrigger TargetType="local:SubmissionList"
+                       Binding="{Binding Source={StaticResource GameInstance}, Path=IAmJudge}"
+                       Value="false">
+            <Setter Property="SelectionMode" Value="None" />
+          </DataTrigger>
+        </local:SubmissionList.Triggers>
+      </local:SubmissionList>
+      <Button HorizontalOptions="Center"
+              Margin="10,5,10,15"
+              BindingContext="{x:Reference Name=SubmissionListView}"
+              FontSize="Medium"
+              IsEnabled="true"
+              Clicked="WinningCardButtonClicked"
+              IsVisible="{Binding Source={StaticResource GameInstance}, Path=IAmJudge}"
+              Text="Select the Winning Combo">
+        <Button.Triggers>
+          <DataTrigger TargetType="Button"
+                       Binding="{Binding Source={StaticResource 
+          GameInstance}, Path=CallCard.Blanks}"
+                       Value="1">
+            <Setter Property="Text" Value="Select the Winning Card" />
+          </DataTrigger>
+          <DataTrigger TargetType="Button"
+                       Binding="{Binding SelectedItems.Count, Source={x:Reference 
+          SubmissionListView}}"
+                       Value="0">
+            <Setter Property="IsEnabled" Value="False" />
+          </DataTrigger>
+        </Button.Triggers>
+      </Button>
+      <Label Margin="10"
+             TextColor="White"
+             x:Name="AwaitingLabel"
+             FontSize="Large"
+             HorizontalOptions="Center"
+             HorizontalTextAlignment="Center"
+             IsVisible="{Binding Path=IAmJudge, 
+                                 Source={StaticResource GameInstance},
+                                 Converter={StaticResource InvertBool}}"
+             Text="Awaiting Judgement...">
+        <Label.Triggers>
+          <DataTrigger TargetType="Label"
+                       Binding="{Binding Path=IAmJudge, Source={StaticResource GameInstance}}"
+                       Value="True">
+            <Setter Property="IsVisible" Value="False" />
+          </DataTrigger>
+        </Label.Triggers>
+      </Label>
+    </StackLayout>
+  </local:BaseGamePage.Content>
+</local:BaseGamePage>

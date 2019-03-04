@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:local="clr-namespace:Manatee5"
+                    x:Class="Manatee5.SelectCardPage"
+                    BackgroundColor="White">
+  <local:BaseGamePage.Resources>
+    <ResourceDictionary>
+       
+      <local:ToColor x:Key="ToColor" />
+    </ResourceDictionary>
+  </local:BaseGamePage.Resources>
+  <local:BaseGamePage.Content>
+    <StackLayout>
+      <local:MultiSelectCardList
+        x:Name="HandListView"
+        ItemsSource="{Binding Source={StaticResource GameInstance}, Path=Hand}" />
+      <Button HorizontalOptions="Center" x:Name="PlayCardButton"
+              Padding="10,0,10,0"
+              Clicked="PlayCardButtonClicked"
+              BindingContext="{x:Reference Name=HandListView}"
+              Text="Play Selected Cards"
+              IsVisible="true">
+        <Button.Triggers>
+          <DataTrigger TargetType="Button"
+                       Binding="{Binding Source={StaticResource 
+            GameInstance}, Path=CallCard.Blanks}"
+                       Value="1">
+            <Setter Property="Text" Value="Play Selected Card" />
+          </DataTrigger>
+        </Button.Triggers>
+      </Button>
+      <Label x:Name="WaitingLabel"
+             IsVisible="false"
+             Margin="0,10,0,20"
+             HorizontalOptions="Center"
+             FontSize="Medium"
+             Text="Waiting for other players..." />
+    </StackLayout>
+  </local:BaseGamePage.Content>
+</local:BaseGamePage>

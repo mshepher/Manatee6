@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:local="clr-namespace:Manatee5"
+                    BackgroundColor="DimGray"
+                    x:Name="This"
+                    BindingContext="{x:Reference This}"
+                    x:Class="Manatee5.JudgingPage">
+  <local:BaseGamePage.Content>
+    <StackLayout>
+      <StackLayout Margin="20"
+                   Spacing="20"
+                   VerticalOptions="CenterAndExpand">
+        <Frame Style="{StaticResource CallCardFrame}">
+          <Label Font="Large"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center"
+                 FontSize="24"
+                 Text="{Binding Path=CallCard.Text, Source={StaticResource GameInstance}, StringFormat='{0}'}"
+                 TextColor="White" />
+        </Frame>
+        <ListView x:Name="WallOfShameDisplay"
+                  Margin="10"
+                  SelectionMode="None"
+                  BackgroundColor="Transparent"
+                  SeparatorVisibility="None"
+                  ItemsSource="{Binding WallOfShame}">
+          <ListView.Header>
+            <Label HorizontalOptions="Start" Text="Waiting on cards from:"
+                   TextColor="White" FontAttributes="Bold" />
+
+          </ListView.Header>
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <TextCell Text="{Binding Path=Name}" TextColor="White" />
+            </DataTemplate>
+          </ListView.ItemTemplate>
+          <ListView.Footer>
+
+            <StackLayout>
+              <ActivityIndicator IsRunning="true" Color="White" />
+            </StackLayout>
+          </ListView.Footer>
+        </ListView>
+        <Button Text="Continue without remaining players" IsVisible="{Binding CanOverride}"
+                Clicked="JustGo" />
+      </StackLayout>
+    </StackLayout>
+  </local:BaseGamePage.Content>
+</local:BaseGamePage>
