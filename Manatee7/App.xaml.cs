@@ -170,7 +170,7 @@ namespace Manatee7 {
     protected override void OnStart() {
       base.OnStart();
       AppCenter.Start("ios=7ffbc593-93c0-4fc4-b493-347adaf55192;" +
-                      "android=6cd2aa37-4cc1-44a5-9f4d-43c4783d232e;", typeof(Crashes));
+                      "android=a85016c7-bd85-42eb-a9eb-ba2cd88caea8;", typeof(Crashes));
     }
   }
 }
