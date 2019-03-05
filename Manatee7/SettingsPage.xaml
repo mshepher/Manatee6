@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -42,13 +42,13 @@
           <ColumnDefinition Width="0.65*" />
           <ColumnDefinition Width="0.35*" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
+        <!--Grid.RowDefinitions>
           <RowDefinition Height="35" />
           <RowDefinition Height="35" />
           <RowDefinition Height="35" />
           <RowDefinition Height="35" />
           <RowDefinition Height="35" />
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions-->
 
         <Label Text="Cards Per Hand:"
                FontSize="Medium"
@@ -83,6 +83,7 @@
                Grid.Row="2" />
         <Switch Grid.Column="1"
                 Grid.Row="2"
+                OnColor="Teal"
                 IsToggled="{Binding NSFWAllowed, Mode=TwoWay}" />
         <Label Text="Sound Effects:"
                FontSize="Medium"
@@ -125,7 +126,8 @@
                         IsDestructive="True" />
             </ViewCell.ContextActions>
             <StackLayout Orientation="Horizontal">
-             <buttons:SfCheckBox x:Name="checkBox" Text="{Binding Value.Name}" 
+             <buttons:SfCheckBox x:Name="checkBox" CheckedColor="Teal"
+                                    Text="{Binding Value.Name}" 
                                  IsChecked="{Binding Value.Enabled}"/>
             </StackLayout>
             </ViewCell>

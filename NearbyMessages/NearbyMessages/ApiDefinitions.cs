@@ -6,7 +6,6 @@ using AVFoundation;
 using ObjCRuntime;
 using Security;
 
-//[assembly: LinkWith("libGNSMessages.a", LinkTarget.ArmV7 | LinkTarget.Arm64 | LinkTarget.ArmV6 | LinkTarget.x86_64 | LinkTarget.ArmV7s, Frameworks = "CoreBluetooth AVFoundation", ForceLoad = true)]
 
 namespace NearbyMessages
 {
