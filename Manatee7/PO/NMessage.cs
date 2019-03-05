@@ -4,14 +4,14 @@ using System.IO;
 using Log = Serilog.Log;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using Manatee5.Model;
+using Manatee7.Model;
 using Medallion;
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
 //Serializable objects cannot have read-only properties, or most of these would 
 //be get-only or private
 
-namespace Manatee5 {
+namespace Manatee7 {
   public static class GlobalConstants {
     public const double MessageVersion = 1.0;
   }

@@ -7,10 +7,10 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Medallion;
-using static Manatee5.Model.Card.Type;
+using static Manatee7.Model.Card.Type;
 #pragma warning disable 4014
 
-namespace Manatee5.Model {
+namespace Manatee7.Model {
   public sealed class DeckLibrary : INotifyPropertyChanged {
 
     //the list of decks is small enough that it can be read and written as a single object
@@ -25,6 +25,7 @@ namespace Manatee5.Model {
             Where(s => _properties.ContainsKey(s) && _properties.ContainsKey(EnabledKey(s)));
       }
     }
+
     private const string CardSuffix = "-cards";
     private const string EnabledSuffix = "-enabled";
     private static string CardKey(string code) {

@@ -1,17 +1,17 @@
 ﻿using System;
-using static Manatee5.GameController.GameStatus;
-using static Manatee5.Model.Card.Type;
+using static Manatee7.GameController.GameStatus;
+using static Manatee7.Model.Card.Type;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using Manatee5.Model;
+using Manatee7.Model;
 using Xamarin.Forms;
 using Log = Serilog.Log;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public class GameController : INotifyPropertyChanged {
     public ObservableCollection<Invitation> VisibleInvitations { get; } = new
         ObservableCollection<Invitation>();

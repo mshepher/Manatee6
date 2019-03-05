@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class SelectCardPage {
 
     public SelectCardPage() {

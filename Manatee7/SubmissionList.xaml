@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <local:CardList xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Manatee5"
+                xmlns:local="clr-namespace:Manatee7"
                 xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
                 SelectionMode="SingleDeselect"
                 AutoFitMode="Height"
                 SelectionGesture="Tap"
                 VerticalOptions="StartAndExpand"
                 x:Name="This"
-                x:Class="Manatee5.SubmissionList">
+                x:Class="Manatee7.SubmissionList">
   <local:CardList.Resources>
     <ResourceDictionary>
       <local:SubmissionToLabelStackConverter x:Key="SubmissionConverter" />

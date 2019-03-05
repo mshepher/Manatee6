@@ -1,8 +1,8 @@
 ﻿using System;
-using Manatee5.Model;
+using Manatee7.Model;
 using Xamarin.Forms;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class SidebarPage : ContentPage {
     public SidebarPage() {
       InitializeComponent();

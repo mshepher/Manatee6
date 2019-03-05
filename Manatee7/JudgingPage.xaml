@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:local="clr-namespace:Manatee5"
+                    xmlns:local="clr-namespace:Manatee7"
                     BackgroundColor="DimGray"
                     x:Name="This"
                     BindingContext="{x:Reference This}"
-                    x:Class="Manatee5.JudgingPage">
+                    x:Class="Manatee7.JudgingPage">
   <local:BaseGamePage.Content>
     <StackLayout>
       <StackLayout Margin="20"

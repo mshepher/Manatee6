@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Data.SqlTypes;
 using Xamarin.Forms;
 using Log = Serilog.Log;
-using static Manatee5.Model.Card.Type;
+using static Manatee7.Model.Card.Type;
 using Syncfusion.DataSource.Extensions;
 
-namespace Manatee5.Model {
+namespace Manatee7.Model {
   public class Game : INotifyPropertyChanged {
 
     public string GameName { internal set; get; }

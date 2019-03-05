@@ -1,11 +1,11 @@
 ﻿using Log = Serilog.Log;
-using Manatee5.Model;
+using Manatee7.Model;
 
 using Xamarin.Forms;
 // ReSharper disable InconsistentNaming -- protected classes should count as private
 
 
-namespace Manatee5 {
+namespace Manatee7 {
   public abstract partial class BaseGamePage : ContentPage {
 
     protected static readonly Game game = Game.Instance;

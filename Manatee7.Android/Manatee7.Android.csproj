@@ -64,6 +64,8 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BluetoothManager_Droid.cs" />
+    <Compile Include="PostOffice_Droid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -100,6 +102,9 @@
       <Project>{7B2F86FB-7EAB-4393-9549-EB9CBEAA8342}</Project>
       <Name>Manatee7</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidEnvironment Include="environment.txt" />
   </ItemGroup>
  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -1,7 +1,7 @@
-using System;
+﻿using System;
 using System.Data.SqlTypes;
 
-namespace Manatee5.Model {
+namespace Manatee7.Model {
   [Serializable]
   public struct Invitation : IEquatable<Invitation> {
     

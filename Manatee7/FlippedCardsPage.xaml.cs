@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee5.Model;
+using Manatee7.Model;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class FlippedCardsPage : BaseGamePage {
 
     public List<List<Card>> SubmittedCards { get; } = game.OrderedSubmissions;

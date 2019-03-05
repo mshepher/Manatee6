@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using Serilog;
 using Xamarin.Forms;
@@ -6,14 +6,14 @@ using Plugin.Connectivity;
 using Xamarin.Forms.Xaml;
 using System.Reflection;
 using System.Threading.Tasks;
-using Manatee5.Model;
+using Manatee7.Model;
 using Plugin.SimpleAudioPlayer;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Crashes;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
-namespace Manatee5 {
+namespace Manatee7 {
 
   public partial class App : Application {
     public static ObservableCollection<string> AppAlerts { private set; get; } = new ObservableCollection<string>();
@@ -61,8 +61,8 @@ namespace Manatee5 {
         Whoosh.Volume = 75;
         Jingle.Volume = 75;
         Log.Information("Loading audio files");
-        Whoosh.Load(assembly.GetManifestResourceStream("Manatee5.Resources.whoosh.wav"));
-        Jingle.Load(assembly.GetManifestResourceStream("Manatee5.Resources.jingle.wav"));
+        Whoosh.Load(assembly.GetManifestResourceStream("Manatee7.Resources.whoosh.wav"));
+        Jingle.Load(assembly.GetManifestResourceStream("Manatee7.Resources.jingle.wav"));
         Log.Information("Loaded audio player");
       });
 

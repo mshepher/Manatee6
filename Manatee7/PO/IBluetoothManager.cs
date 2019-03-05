@@ -1,4 +1,4 @@
-namespace Manatee5 {
+﻿namespace Manatee7 {
   public interface IBluetoothManager {
     bool HasPermission { get; }
     bool HasBluetooth { get; }

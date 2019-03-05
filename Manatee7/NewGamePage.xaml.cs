@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Log = Serilog.Log;
-using Manatee5.Model;
+using Manatee7.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class NewGamePage {
     private static Preferences Preferences => Preferences.Instance;
     private readonly PostOffice _px = PostOffice.Instance;

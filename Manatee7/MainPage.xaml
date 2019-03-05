@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              ControlTemplate="{StaticResource DebugTemplate}"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-             xmlns:local="clr-namespace:Manatee5"
+             xmlns:local="clr-namespace:Manatee7"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             x:Class="Manatee5.MainPage"
+             x:Class="Manatee7.MainPage"
              x:Name="This"
              BindingContext="{StaticResource GameController}"
              Title="Manatee">

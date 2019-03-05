@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Manatee5.Model;
+using Manatee7.Model;
 using Syncfusion.ListView.XForms;
 using Serilog;
 using Xamarin.Forms;
 using Rg.Plugins.Popup.Services;
 using Log = Serilog.Log;
-using static Manatee5.GameController.GameStatus;
+using static Manatee7.GameController.GameStatus;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class JoinGamePage : Rg.Plugins.Popup.Pages.PopupPage {
 
     public JoinGamePage(Invitation invite) {

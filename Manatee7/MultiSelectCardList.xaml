@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <local:CardList xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:local="clr-namespace:Manatee5"
+                xmlns:local="clr-namespace:Manatee7"
                 x:Name="This"
-                x:Class="Manatee5.MultiSelectCardList">
+                x:Class="Manatee7.MultiSelectCardList">
   <local:CardList.Resources>
     <ResourceDictionary>
       <local:CardOrderConverter x:Key="Converter" />

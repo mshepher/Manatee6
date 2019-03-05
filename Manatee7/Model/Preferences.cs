@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 
-namespace Manatee5.Model {
+namespace Manatee7.Model {
   public class Preferences : INotifyPropertyChanged {
     private Preferences() {
     }

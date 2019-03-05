@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
-using Manatee5.Model;
+using Manatee7.Model;
 using Syncfusion.ListView.XForms;
 using Serilog;
 using Xamarin.Forms;
@@ -12,7 +12,7 @@ using Rg.Plugins.Popup.Services;
 using Log = Serilog.Log;
 using Xamarin.Forms.Internals;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class WinningCardPage : Rg.Plugins.Popup.Pages.PopupPage {
     public Player WinningPlayer { get; }
     public String WinningString { get; }

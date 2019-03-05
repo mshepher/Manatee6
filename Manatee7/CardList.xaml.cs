@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Manatee5.Model;
+using Manatee7.Model;
 using Syncfusion.ListView.XForms;
 using Xamarin.Forms;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class CardList : SfListView {
     private string[] SelectedCards;
     

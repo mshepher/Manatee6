@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Manatee5.Model;
+using Manatee7.Model;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Manatee5.Model {
+namespace Manatee7.Model {
 
   [Serializable]
   public class Card : IEquatable<Card> {

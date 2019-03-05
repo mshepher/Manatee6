@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using Manatee5.Model;
+using Manatee7.Model;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class MultiSelectCardList : CardList {
     private readonly CardOrderConverter _converter;
 

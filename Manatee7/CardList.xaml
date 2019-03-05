@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <sflistview:SfListView xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       x:Class="Manatee5.CardList"
+                       x:Class="Manatee7.CardList"
                        ItemSpacing="5"
                        SelectionMode="Multiple"
-                       xmlns:local="clr-namespace:Manatee5"
+                       xmlns:local="clr-namespace:Manatee7"
                        AutoFitMode="Height"
                        SelectionBackgroundColor="Transparent"
                        IsScrollBarVisible="true"

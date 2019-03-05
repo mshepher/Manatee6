@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public class IsZeroConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter,
                           System.Globalization.CultureInfo culture) {

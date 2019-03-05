@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Manatee5.Model {
+namespace Manatee7.Model {
 [Serializable]
   public class Deck {
     public string Name { get; set; }

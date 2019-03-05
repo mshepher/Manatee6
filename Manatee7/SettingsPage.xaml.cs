@@ -1,9 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
-using Manatee5.Model;
+using Manatee7.Model;
 using Log = Serilog.Log;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class SettingsPage {
     public SettingsPage() {
       InitializeComponent();

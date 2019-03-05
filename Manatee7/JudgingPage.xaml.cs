@@ -3,11 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Manatee5.Model;
+using Manatee7.Model;
 using Xamarin.Forms;
 using Serilog;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class JudgingPage : BaseGamePage {
 
     public ObservableCollection<Player> WallOfShame { set; get; }

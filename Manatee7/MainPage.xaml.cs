@@ -6,10 +6,10 @@ using System.Linq;
 using Serilog;
 using Xamarin.Forms;
 using Plugin.Connectivity;
-using Manatee5.Model;
+using Manatee7.Model;
 using System.Threading.Tasks;
 
-namespace Manatee5 {
+namespace Manatee7 {
   public partial class MainPage {
     public MainPage() {
       InitializeComponent();

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-using Manatee5.Model;
+using Manatee7.Model;
 using Serilog;
 using Xamarin.Forms;
 
 
-namespace Manatee5 {
+namespace Manatee7 {
   public class PostOffice {
     private readonly HashSet<Guid> processed = new HashSet<Guid>();
 
