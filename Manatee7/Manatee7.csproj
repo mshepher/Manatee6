@@ -34,7 +34,6 @@
     <None Include="SelectCardPage.xaml" />
     <None Include="SettingsPage.xaml" />
     <None Include="SidebarPage.xaml" />
-    <None Include="StarterDecksPage.xaml" />
     <None Include="SubmissionList.xaml" />
     <None Include="WelcomePage.xaml" />
     <None Include="WinningCardPage.xaml" />
