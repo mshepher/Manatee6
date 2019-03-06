@@ -8,25 +8,30 @@
              xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              Title="Settings">
-             <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness">
-      <OnPlatform.Platforms>
-        <On Platform="iOS"
-            Value="0, 30, 0, 30" />
-        <On Platform="Android"
-            Value="0, 0, 0, 0" />
-      </OnPlatform.Platforms>
-    </OnPlatform>
-  </ContentPage.Padding>
+  <ContentPage.Resources>
+    <Style TargetType="numeric:SfNumericUpDown">
+      <Setter Property="Margin" Value="3" />
+      <Setter Property="HorizontalOptions" Value="End" />
+      <Setter Property="SpinButtonAlignment" Value="Both" />
+      <Setter Property="ParsingMode" Value="Double" />
+      <Setter Property="MaximumDecimalDigits" Value="0" />
+    </Style>
+    <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+      <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+  </ContentPage.Resources>
   <ContentPage.Content>
     <StackLayout Margin="10,10,10,10"
+                 Spacing="0"
                  VerticalOptions="Center">
-      <Label Text="Preferred screen name:"
-             FontSize="Medium" />
-      <Entry x:Name="entry"
+
+      <Label Text="Screen name:" Grid.Column="0" Grid.Row="0" />
+      <Entry x:Name="Entry"
              Text="{Binding PlayerName, Source={StaticResource Preferences}}"
              MaxLength="48"
              HorizontalOptions="FillAndExpand"
+             Grid.Column="1" Grid.Row="0"
              Unfocused="Handle_Unfocused">
         <Entry.Keyboard>
           <Keyboard x:FactoryMethod="Create">
@@ -36,65 +41,55 @@
           </Keyboard>
         </Entry.Keyboard>
       </Entry>
+
       <Grid VerticalOptions="StartAndExpand"
             BindingContext="{StaticResource Preferences}">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="0.65*" />
           <ColumnDefinition Width="0.35*" />
         </Grid.ColumnDefinitions>
-        <!--Grid.RowDefinitions>
-          <RowDefinition Height="35" />
-          <RowDefinition Height="35" />
-          <RowDefinition Height="35" />
-          <RowDefinition Height="35" />
-          <RowDefinition Height="35" />
-        </Grid.RowDefinitions-->
+        <Grid.RowDefinitions>
+          <RowDefinition x:Name="TopRow" Height="Auto" />
+          <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
+          <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
+          <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
+          <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
         <Label Text="Cards Per Hand:"
-               FontSize="Medium"
                Grid.Column="0"
                Grid.Row="0" />
-        <numeric:SfNumericUpDown SpinButtonAlignment="Both"
-                                 FormatString="n"
-                                 ParsingMode="Double"
-                                 MaximumDecimalDigits="0"
-                                 Minimum="5"
-                                 Maximum="20"
-                                 Value="{Binding CardsPerHand, Mode=TwoWay}"
-                                 Grid.Column="1"
-                                 Grid.Row="0" />
+        <numeric:SfNumericUpDown
+          FormatString="n"
+          Minimum="5"
+          Maximum="20"
+          Value="{Binding CardsPerHand, Mode=TwoWay}"
+          Grid.Column="1"
+          Grid.Row="0" />
         <Label Text="Robot Players:"
-               FontSize="Medium"
                Grid.Column="0"
                Grid.Row="1" />
-        <numeric:SfNumericUpDown SpinButtonAlignment="Both"
-                                 FormatString="n"
-                                 FontSize="Default"
-                                 ParsingMode="Double"
-                                 MaximumDecimalDigits="0"
-                                 Minimum="0"
-                                 Maximum="5"
-                                 Value="{Binding Robots,Mode=TwoWay}"
-                                 Grid.Column="1"
-                                 Grid.Row="1" />
+        <numeric:SfNumericUpDown
+          FormatString="n"
+          Minimum="0"
+          Maximum="5"
+          Value="{Binding Robots,Mode=TwoWay}"
+          Grid.Column="1"
+          Grid.Row="1" />
         <Label Text="Allow NSFW Cards:"
-               FontSize="Medium"
                Grid.Column="0"
                Grid.Row="2" />
         <Switch Grid.Column="1"
                 Grid.Row="2"
-                OnColor="Teal"
                 IsToggled="{Binding NSFWAllowed, Mode=TwoWay}" />
         <Label Text="Sound Effects:"
-               FontSize="Medium"
                Grid.Column="0"
                Grid.Row="3" />
         <Switch Grid.Column="1"
                 Grid.Row="3"
                 IsToggled="{Binding SoundEffects, Mode=TwoWay}" />
-
         <Label Text="Use Nearby:"
-               FontSize="Medium"
                Grid.Column="0"
                Grid.Row="4" />
         <Switch Grid.Column="1"
@@ -103,6 +98,7 @@
       </Grid>
       <ListView x:Name="listView" Header="Saved Decks"
                 SelectionMode="None"
+                VerticalOptions="Start"
                 Margin="0,10,0,0"
                 BindingContext="{StaticResource DeckLibrary}"
                 ItemsSource="{Binding Decks}">
@@ -119,17 +115,17 @@
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-            <ViewCell.ContextActions>
-              <MenuItem Clicked="Delete"
-                        CommandParameter="{Binding Key}"
-                        Text="Delete"
-                        IsDestructive="True" />
-            </ViewCell.ContextActions>
-            <StackLayout Orientation="Horizontal">
-             <buttons:SfCheckBox x:Name="checkBox" CheckedColor="Teal"
-                                    Text="{Binding Value.Name}" 
-                                 IsChecked="{Binding Value.Enabled}"/>
-            </StackLayout>
+              <ViewCell.ContextActions>
+                <MenuItem Clicked="Delete"
+                          CommandParameter="{Binding Key}"
+                          Text="Delete"
+                          IsDestructive="True" />
+              </ViewCell.ContextActions>
+              <StackLayout Orientation="Horizontal">
+                <buttons:SfCheckBox x:Name="checkBox" CheckedColor="Teal"
+                                    Text="{Binding Value.Name}"
+                                    IsChecked="{Binding Value.Enabled}" />
+              </StackLayout>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>

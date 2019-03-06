@@ -36,7 +36,7 @@ namespace Manatee7 {
     private async void AddDeckFromEntry(object sender, EventArgs e) {
       if (CodeEntry.Text.Length != 5) return;
       AddButton.IsEnabled = false;
-      AddButton.Text = "Adding...";
+      AddButton.Text = "Adding deck...";
       var code = CodeEntry.Text.ToUpper();
       try {
         await _library.AddDeckFromCode(code);
@@ -48,7 +48,7 @@ namespace Manatee7 {
         CodeEntry.Placeholder = "Not found!";
       }
       AddButton.IsEnabled = true;
-      AddButton.Text = "Look Up Deck";
+      AddButton.Text = "Add Deck";
     }
   }
 }

@@ -123,7 +123,9 @@ namespace Manatee7.Model {
             : score[player];
       }
       if (Score.ContainsKey(winner))
-        Score[winner]++;
+        Score[winner]++; 
+      else // in case it's a robot
+        Score[winner] = 1;
       OnPropertyChanged(nameof(Score));
 
       Round = ++round;
