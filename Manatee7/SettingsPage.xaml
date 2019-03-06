@@ -130,11 +130,29 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
+            <Label
+        Text="Enter a 5 letter deck code from cardcastgame.com to add a deck to your collection.">
+        <!-- https://xamarinhelp.com/hyperlink-in-xamarin-forms-label/ -->
+        <Label.FormattedText>
+          <FormattedString>
+            <Span Text="Enter a deck code from " />
+            <Span Text="cardcastgame.com"
+                  TextColor="Blue"
+                  TextDecorations="Underline">
+              <Span.GestureRecognizers>
+                <TapGestureRecognizer x:Name="LinkTapped" />
+              </Span.GestureRecognizers>
+            </Span>
+                                    <Span Text=" to add a deck to your collection." />
+
+          </FormattedString>
+        </Label.FormattedText>
+      </Label>
       <StackLayout Orientation="Horizontal">
         <Entry x:Name="CodeEntry"
                MaxLength="5"
                HorizontalOptions="FillAndExpand"
-               Placeholder="DECK">
+               Placeholder="Enter 5-letter code">
           <Entry.Keyboard>
             <Keyboard x:FactoryMethod="Create">
               <x:Arguments>
@@ -158,22 +176,6 @@
           </Button.Triggers>
         </Button>
       </StackLayout>
-      <Label
-        Text="Enter a 5 letter deck code from cardcastgame.com to add a deck to your collection.">
-        <!-- https://xamarinhelp.com/hyperlink-in-xamarin-forms-label/ -->
-        <Label.FormattedText>
-          <FormattedString>
-            <Span Text="Enter a 5-letter deck code from " />
-            <Span Text="cardcastgame.com"
-                  TextColor="Blue"
-                  TextDecorations="Underline">
-              <Span.GestureRecognizers>
-                <TapGestureRecognizer x:Name="LinkTapped" />
-              </Span.GestureRecognizers>
-            </Span>
-          </FormattedString>
-        </Label.FormattedText>
-      </Label>
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

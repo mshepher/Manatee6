@@ -16,7 +16,7 @@ namespace Manatee7 {
     public ObservableCollection<Invitation> VisibleInvitations { get; } = new
         ObservableCollection<Invitation>();
     
-    private readonly PostOffice px = PostOffice.Instance;
+    private readonly PostOffice _px = PostOffice.Instance;
     private readonly Game _game = Game.Instance;
     private Player _me => Preferences.Instance.Me;
     
@@ -29,15 +29,15 @@ namespace Manatee7 {
     private Card _nextCallCard;
 
     private GameController() {
-      px = PostOffice.Instance;
-      px.OnProposeGameMessageSeen += message => {
+      _px = PostOffice.Instance;
+      _px.OnProposeGameMessageSeen += message => {
         VisibleInvitations.Add(message.Invitation);
         Log.Information("Added {game} to Visible Invitations",
             message.Invitation.GameName);
         //px.ProcessMessage(message);
       };
 
-      px.OnProposeGameMessageWithdrawn += message => {
+      _px.OnProposeGameMessageWithdrawn += message => {
         Device.BeginInvokeOnMainThread(() =>
             VisibleInvitations.Remove(message.Invitation));
       };
@@ -49,9 +49,9 @@ namespace Manatee7 {
         //'new card played' is the only really state-dependent command
         var oldValue = _status;
         if (_status == WAIT_AS_JUDGE && value != WAIT_AS_JUDGE)
-          px.OnPlayedCardMessageSeen -= SawCard;
+          _px.OnPlayedCardMessageSeen -= SawCard;
         if (value == WAIT_AS_JUDGE && _status != WAIT_AS_JUDGE)
-          px.OnPlayedCardMessageSeen += SawCard;
+          _px.OnPlayedCardMessageSeen += SawCard;
         _status = value;
         StatusUpdated?.Invoke(oldValue, value);
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(StatusString)));
@@ -109,10 +109,10 @@ namespace Manatee7 {
       _game.SetUpGame(message);
 
       //https://forums.xamarin.com/discussion/112676/eventhandler-not-being-removed-despite-being-unsubscribed
-      px.OnWinningCardSelectedMessageSeen -= WinningCardPicked;
-      px.OnWinningCardSelectedMessageSeen += WinningCardPicked;
-      px.OnSubmissionsFlippedMessageSeen -= SubmissionsArrived;
-      px.OnSubmissionsFlippedMessageSeen += SubmissionsArrived;
+      _px.OnWinningCardSelectedMessageSeen -= WinningCardPicked;
+      _px.OnWinningCardSelectedMessageSeen += WinningCardPicked;
+      _px.OnSubmissionsFlippedMessageSeen -= SubmissionsArrived;
+      _px.OnSubmissionsFlippedMessageSeen += SubmissionsArrived;
       Status = _game.IAmJudge
           ? WAIT_AS_JUDGE
           : CHOOSING_SUBMISSION;
@@ -124,8 +124,8 @@ namespace Manatee7 {
     }
 
     public void ExitGame() {
-      px.OnWinningCardSelectedMessageSeen -= WinningCardPicked;
-      px.OnSubmissionsFlippedMessageSeen -= SubmissionsArrived;
+      _px.OnWinningCardSelectedMessageSeen -= WinningCardPicked;
+      _px.OnSubmissionsFlippedMessageSeen -= SubmissionsArrived;
       if (_game.Host.Equals(_me)) {
         WithdrawInvite();
       }
@@ -140,13 +140,13 @@ namespace Manatee7 {
     private void StartGameAsGuest(StartGameMessage message) {
       CheckStatus(WAIT_AS_GUEST);
       if (message.Sender != _game.Host) return;
-      px.ProcessMessage(message);
+      _px.ProcessMessage(message);
       if (!message.Recipient.Equals(_me)) return;
 
       SetUpGame(message);
 
       if (MyRSVPMessage != null) {
-        px.Unpublish(MyRSVPMessage);
+        _px.Unpublish(MyRSVPMessage);
         MyRSVPMessage = null;
       }
       CheckStatus(new[] { WAIT_AS_JUDGE, CHOOSING_SUBMISSION });
@@ -154,7 +154,7 @@ namespace Manatee7 {
 
     //  CHOOSING_SUBMISSION -> SUBMISSION_CHOSEN
     public void PlayCards(List<Card> cards) {
-      px.Publish(new PlayedCardMessage(cards, _game.Round));
+      _px.Publish(new PlayedCardMessage(cards, _game.Round));
       _game.PlayCards(cards);
       App.PlayWhoosh();
       Status = SUBMISSION_CHOSEN;
@@ -164,9 +164,9 @@ namespace Manatee7 {
     // SCANNING -> WAIT_AS_HOST
     public void SendInvite(Invitation i) {
       WithdrawInvite();
-      px.ClearPublications();
+      _px.ClearPublications();
       MyInviteMessage = new ProposeGameMessage(i);
-      px.Publish(MyInviteMessage);
+      _px.Publish(MyInviteMessage);
 
       Status = WAIT_AS_HOST;
     }
@@ -176,7 +176,7 @@ namespace Manatee7 {
     public void WithdrawInvite() {
       if (MyInviteMessage == null) return;
       try {
-        px.Unpublish(MyInviteMessage);
+        _px.Unpublish(MyInviteMessage);
         MyInviteMessage = null;
         Status = SCANNING;
       } catch (Exception e) {
@@ -187,15 +187,15 @@ namespace Manatee7 {
     // SCANNING -> WAIT_AS_GUEST
     // ReSharper disable once InconsistentNaming
     public void RSVP(Invitation i) {
-      px.ClearPublications();
+      _px.ClearPublications();
       NewGame(i);
       Debug.Assert(MyRSVPMessage == null);
       if (MyRSVPMessage != null)
-        px.Unpublish(MyRSVPMessage);
+        _px.Unpublish(MyRSVPMessage);
       MyRSVPMessage = new JoinGameMessage(i.Host);
       Status = WAIT_AS_GUEST;
-      px.OnStartGameMessageSeen += StartGameAsGuest;
-      px.Publish(MyRSVPMessage);
+      _px.OnStartGameMessageSeen += StartGameAsGuest;
+      _px.Publish(MyRSVPMessage);
     }
 
     // WAIT_AS_GUEST -> SCANNING
@@ -203,7 +203,7 @@ namespace Manatee7 {
       CheckStatus(WAIT_AS_GUEST);
       if (MyRSVPMessage == null) return;
       try {
-        px.Unpublish(MyRSVPMessage);
+        _px.Unpublish(MyRSVPMessage);
         MyRSVPMessage = null;
         Status = SCANNING;
       } catch (Exception e) {
@@ -297,7 +297,7 @@ namespace Manatee7 {
 
     // WAIT_AS_JUDGE -> SUBMISSIONS_FLIPPED, WAIT_AS_JUDGE
     private void SawCard(PlayedCardMessage message) {
-      px.ProcessMessage(message);
+      _px.ProcessMessage(message);
 
       if (!_game.Players.Contains(message.Sender)) {
         Log.Error("Got a card submission from a player who isn't in the game???");
@@ -315,7 +315,7 @@ namespace Manatee7 {
 
     public void FlipCards() {
       //if all cards have been submitted
-      px.OnPlayedCardMessageSeen -= SawCard;
+      _px.OnPlayedCardMessageSeen -= SawCard;
       for (var i = 0;i < _game.GameRules.RobotPlayers;i++) {
         try {
           var sublist = new List<Card>();
@@ -328,9 +328,9 @@ namespace Manatee7 {
       }
       //fixme switch the order on these
 
-      px.ClearPublications(); // at this point, nobody needs anything from us
+      _px.ClearPublications(); // at this point, nobody needs anything from us
       var submissionsMessage = new SubmissionsFlippedMessage(_game.Submissions, _game.Round);
-      px.Publish(submissionsMessage);
+      _px.Publish(submissionsMessage);
       SubmissionsArrived(submissionsMessage);
       MyInviteMessage = null;
       MyRSVPMessage = null;
@@ -341,7 +341,7 @@ namespace Manatee7 {
     // ReSharper disable once MemberCanBePrivate.Global
     public void SubmissionsArrived(SubmissionsFlippedMessage message) {
       CheckStatus(new[] { WAIT_AS_JUDGE, SUBMISSION_CHOSEN });
-      px.ProcessMessage(message);
+      _px.ProcessMessage(message);
       _game.SubmissionsArrived(message);
       Status = SUBMISSION_FLIPPED;
       App.NextPage(new FlippedCardsPage());
@@ -354,7 +354,7 @@ namespace Manatee7 {
       var winner = _game.Submissions.FirstOrDefault(x => x.Value.SequenceEqual(response)).Key;
       var message = new WinningCardSelectedMessage(
           response, winner, nextCard, _game.Score, _game.Round);
-      px.Publish(message);
+      _px.Publish(message);
       App.PlayWhoosh();
       WinningCardPicked(message);
     }
@@ -362,7 +362,7 @@ namespace Manatee7 {
     // CHOOSING_SUBMISSION, SUBMISSION_CHOSEN, SUBMISSION_FLIPPED -> WINNER_CHOSEN
     private async void WinningCardPicked(WinningCardSelectedMessage message) {
       CheckStatus(new[] { CHOOSING_SUBMISSION, SUBMISSION_CHOSEN, SUBMISSION_FLIPPED });
-      px.ProcessMessage(message);
+      _px.ProcessMessage(message);
 
       _game.RegisterWinningCard(message.Sender, message.Winner, message.Score, message.Round);
       _nextCallCard = message.NextCallCard;

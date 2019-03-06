@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xamarin.Forms;
 using Manatee7.Model;
 using Log = Serilog.Log;
@@ -14,7 +15,7 @@ namespace Manatee7 {
       _library.PropertyChanged += (sender, e) => Log.Information("Saw change");
       CodeEntry.Completed += AddDeckFromEntry;
       LinkTapped.Tapped += (sender, e) => Device.OpenUri(
-        new Uri("http://www.cardcastgame.com/browse"));
+          new Uri("http://www.cardcastgame.com/browse"));
     }
 
     private readonly DeckLibrary _library = DeckLibrary.Instance;
@@ -34,20 +35,23 @@ namespace Manatee7 {
     }
 
     private async void AddDeckFromEntry(object sender, EventArgs e) {
-      if (CodeEntry.Text.Length != 5) return;
       AddButton.IsEnabled = false;
       AddButton.Text = "Adding deck...";
-      var code = CodeEntry.Text.ToUpper();
       try {
+        if (CodeEntry.Text.Length != 5) 
+          throw new ArgumentException("Input is wrong length!");
+        //https://stackoverflow.com/questions/3061662/how-to-find-out-if-string-contains-non-alpha-numeric-characters-in-c-net-2-0
+        if (!CodeEntry.Text.All(char.IsLetterOrDigit)) 
+          throw new ArgumentException("Contains non-alphanumeric chars");
+        
+        var code = CodeEntry.Text.ToUpper();
         await _library.AddDeckFromCode(code);
-        CodeEntry.Text = "";
-        CodeEntry.Placeholder = "Enter code";
+        CodeEntry.Placeholder = "Enter 5-letter code";
       } catch (Exception ex) {
         Log.Error("Exception! {@ex}" + ex.Message);
-        CodeEntry.Text = "";
         CodeEntry.Placeholder = "Not found!";
       }
-      AddButton.IsEnabled = true;
+      CodeEntry.Text = "";
       AddButton.Text = "Add Deck";
     }
   }
