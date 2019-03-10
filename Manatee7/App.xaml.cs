@@ -10,13 +10,16 @@ using Manatee7.Model;
 using Plugin.SimpleAudioPlayer;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Crashes;
+using Device = Xamarin.Forms.Device;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 
 namespace Manatee7 {
 
   public partial class App : Application {
-    public static ObservableCollection<string> AppAlerts { private set; get; } = new ObservableCollection<string>();
+    public static ObservableCollection<string> AppAlerts { private set; get; } =
+      new ObservableCollection<string>();
+
     public static bool DidAskAboutNearby = false;
 
     /*
@@ -44,18 +47,22 @@ namespace Manatee7 {
     public App() {
       Log.Information("Entering App Constructor");
       
-      Task.Run(() => {
+      //https://forums.xamarin.com/discussion/141808/system-dialogs-triggering-onsleep-ios
+      MessagingCenter.Subscribe<string>(this, "iOSSleep", (str) => { OnSleepSubroutine(); });
+
+      MessagingCenter.Subscribe<string>(this, "iOSWake", (str) => { OnWakeSubroutine(); });
+
+
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
             "NTk3MTNAMzEzNjJlMzQyZTMwTFhmYWZpR3g1NU83bTNjZldpektRamVhUVRwc2pRYUQ2QXhqODJ0UE9wMD0=");
         Log.Information("Registered license");
-      });
       
       InitializeComponent();
       Log.Information("Initialized component");
       Log.Information("Starting with properties: {p}", Properties.Keys);
 
-      Task.Run(() => {
         //https://askxammy.com/playing-sounds-in-xamarin-forms/
+          try {
         var assembly = typeof(App).GetTypeInfo().Assembly;
         Log.Information("Changing volume");
         Whoosh.Volume = 75;
@@ -64,15 +71,17 @@ namespace Manatee7 {
         Whoosh.Load(assembly.GetManifestResourceStream("Manatee7.Resources.whoosh.wav"));
         Jingle.Load(assembly.GetManifestResourceStream("Manatee7.Resources.jingle.wav"));
         Log.Information("Loaded audio player");
-      });
-
+        }
+        catch (Exception e) {
+          //Sound effects aren't vital, so we can continue without them
+          Log.Error("Failed to load audio player; caught exception: {NewLine}{e}", e);
+        }
       
       if (Preferences.Instance.PlayerName == "") {
         MainPage = new WelcomePage();
       }
       else {
           MainPage = new NavigationPage(new MainPage());
-          PostOffice.Instance.SafeSubscribe();
       }
 
       /* PostOffice.Instance.OnPermissionChanged += b => {
@@ -143,26 +152,38 @@ namespace Manatee7 {
 
     public static void PlayJingle() {
       if (Preferences.Instance.SoundEffects)
-        Jingle.Play();
+        Jingle?.Play();
     }
     
     public static void PlayWhoosh() {
       if (Preferences.Instance.SoundEffects)
-        Whoosh.Play();
+        Whoosh?.Play();
     }
     
     protected override void OnSleep() {
+      if (Device.RuntimePlatform == Device.Android)
+        OnSleepSubroutine();
+    }
+
+    private void OnSleepSubroutine() {
       try {
         PostOffice.Instance.Hibernate();
-      } catch (NullReferenceException) {
+      }
+      catch (NullReferenceException) {
         Log.Error("No post office.  You're running in debug mode, right?");
       }
     }
 
     protected override void OnResume() {
+      if (Device.RuntimePlatform == Device.Android)
+        OnWakeSubroutine();
+    }
+
+    private void OnWakeSubroutine() {
       try {
         PostOffice.Instance.Thaw();
-      } catch (NullReferenceException) {
+      }
+      catch (NullReferenceException) {
         Log.Error("No post office.  You're running in debug mode, right?");
       }
     }

@@ -19,8 +19,8 @@ namespace Manatee7 {
       //a modal window gets temporarily loaded and unloaded
       Task.Run(async () => {
         if (CrossConnectivity.IsSupported && !await CrossConnectivity.Current.IsRemoteReachable("googleapis.com")) 
-          await DisplayAlert("Could not reach googleapis.com!",
-              "Google Nearby won't work without an internet connection", "OK");
+          await DisplayAlert("Couldn't reach the messaging server!",
+              "Manatee can't talk to other players without an internet connection", "OK");
         else 
           ((App) Application.Current).DeckCheck();
 
@@ -38,7 +38,7 @@ namespace Manatee7 {
 
     private readonly IBluetoothManager _bluetoothManager = DependencyService.Get<IBluetoothManager>();
     
-    protected override async void OnAppearing() {
+    protected override void OnAppearing() {
       base.OnAppearing();
       GameController.Instance.VisibleInvitations.CollectionChanged += _updateInvitations;
       OnPropertyChanged(nameof(Invitations));

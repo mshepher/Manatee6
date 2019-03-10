@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.5.0.169047" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.220655" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.2" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.3.0" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
@@ -23,6 +23,10 @@
     <PackageReference Include="MedallionRandom" Version="1.1.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
     <PackageReference Include="LiveXAML" Version="2.1.70" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\jingle.wav" />
+    <None Remove="Resources\whoosh.wav" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BaseGamePage.xaml" />
@@ -38,5 +42,9 @@
     <None Include="SubmissionList.xaml" />
     <None Include="WelcomePage.xaml" />
     <None Include="WinningCardPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\jingle.wav" />
+    <EmbeddedResource Include="Resources\whoosh.wav" />
   </ItemGroup>
 </Project>

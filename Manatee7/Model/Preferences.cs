@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Serilog;
 using Xamarin.Forms;
 
 namespace Manatee7.Model {
@@ -27,14 +28,16 @@ namespace Manatee7.Model {
     }
 
     private object GetAppProperty(string key, object value) {
+            Log.Debug("Fetching property {key}", key);
       if (!properties.ContainsKey(key) || properties[key].GetType() != value.GetType()) 
         properties[key] = value;
       return properties[key];
     }
     
     private void SetAppProperty(string key, object value) {
+            Log.Debug("Setting property {key} to {value}", key, value);
       properties[key] = value;
-      OnPropertyChanged("PlayerName");
+      OnPropertyChanged(key);
     }
 
     public Guid PlayerID => new Guid(

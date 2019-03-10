@@ -55,6 +55,19 @@ namespace Manatee7.iOS
             LoadApplication(new App());
             return base.FinishedLaunching(app, options);
         }
+
+        //https://forums.xamarin.com/discussion/141808/system-dialogs-triggering-onsleep-ios
+        public override void DidEnterBackground(UIApplication uiApplication)
+        {
+            MessagingCenter.Send("iOSSleep", "iOSSleep");
+            base.DidEnterBackground(uiApplication);
+        }
+
+        public override void WillEnterForeground(UIApplication uiApplication)
+        {
+            base.WillEnterForeground(uiApplication);
+            MessagingCenter.Send("iOSWake", "iOSWake");
+        }
     }
 
     internal class CallerEnricher : ILogEventEnricher
