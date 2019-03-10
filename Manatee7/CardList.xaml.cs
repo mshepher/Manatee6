@@ -7,7 +7,6 @@ using Xamarin.Forms;
 
 namespace Manatee7 {
   public partial class CardList : SfListView {
-    private string[] SelectedCards;
     
     public CardList() {
       InitializeComponent();

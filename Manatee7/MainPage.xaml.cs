@@ -14,10 +14,11 @@ namespace Manatee7 {
     public MainPage() {
       InitializeComponent();
       _updateInvitations = (sender, args) => OnPropertyChanged(nameof(Invitations));
-      
-      //stuff that doesn't need to happen before the user sees a screen, or every time 
-      //a modal window gets temporarily loaded and unloaded
-      Task.Run(async () => {
+            GameController.Instance.VisibleInvitations.CollectionChanged += _updateInvitations;
+
+            //stuff that doesn't need to happen before the user sees a screen, or every time 
+            //a modal window gets temporarily loaded and unloaded
+            Task.Run(async () => {
         if (CrossConnectivity.IsSupported && !await CrossConnectivity.Current.IsRemoteReachable("googleapis.com")) 
           await DisplayAlert("Couldn't reach the messaging server!",
               "Manatee can't talk to other players without an internet connection", "OK");
@@ -38,16 +39,6 @@ namespace Manatee7 {
 
     private readonly IBluetoothManager _bluetoothManager = DependencyService.Get<IBluetoothManager>();
     
-    protected override void OnAppearing() {
-      base.OnAppearing();
-      GameController.Instance.VisibleInvitations.CollectionChanged += _updateInvitations;
-      OnPropertyChanged(nameof(Invitations));
-      }
-      
-    protected override void OnDisappearing() {
-      base.OnDisappearing();
-      GameController.Instance.VisibleInvitations.CollectionChanged -= _updateInvitations;
-    }
     private async Task DisplayBluetoothPowerAlert() {
       if (await DisplayAlert("Bluetooth is powered off!",
           "Google Nearby needs either microphone access or Bluetooth (and works much better with both).",

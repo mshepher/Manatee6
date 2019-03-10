@@ -2,7 +2,6 @@
 using Serilog;
 using Android.Gms.Nearby;
 using Android.Gms.Nearby.Messages;
-using MessagesClient = Android.Gms.Nearby.Messages.MessagesClient;
 using System.Collections.Generic;
 using Message = Android.Gms.Nearby.Messages.Message;
 using Xamarin.Forms;
@@ -12,6 +11,7 @@ namespace Manatee7.Droid {
   public class PostOffice_Droid : IPostOffice {
 
     public bool HasPermission { get; set;  }
+
     private static ManateeListener _listener;
     private static MessagesClient _client;
     public bool Listening { get; private set; }

@@ -74,9 +74,10 @@ namespace Manatee7 {
           playerList.Add((Player)item);
         await _controller.StartGameAsHost(playerList);
         if (Navigation.ModalStack.Any())
-          Navigation.PopModalAsync();
+          await Navigation.PopModalAsync();
       } catch (GameException ex) {
-        DisplayAlert(ex.Alert, ex.Detail, "Ugh, fine.");
+                //DEBUG ONLY
+        await DisplayAlert(ex.Alert, ex.Detail, "Ugh, fine.");
       }
     }
   }
