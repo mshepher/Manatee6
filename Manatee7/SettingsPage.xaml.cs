@@ -55,4 +55,17 @@ namespace Manatee7 {
       AddButton.Text = "Add Deck";
     }
   }
+  
+  public class MicValueToStrategy : IValueConverter {
+    public object Convert(object value, Type targetType, object parameter,
+                          System.Globalization.CultureInfo culture) {
+      return (value is NearbyStrategy strategy && 
+              strategy == NearbyStrategy.Default); //don't leave the toggle on if user has switched off nearby all together
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter,
+                              System.Globalization.CultureInfo culture) {
+      return (bool)value ? NearbyStrategy.Default : NearbyStrategy.Ble;
+    }
+  }
 }

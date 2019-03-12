@@ -20,6 +20,7 @@
             <Setter Property="FontSize" Value="Medium"/>
       <Setter Property="VerticalOptions" Value="Center" />
     </Style>
+    <local:MicValueToStrategy x:Key="MicConverter" />
   </ContentPage.Resources>
   <ContentPage.Content>
     <StackLayout Margin="10,10,10,10"
@@ -50,6 +51,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
           <RowDefinition x:Name="TopRow" Height="Auto" />
+          <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
           <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
           <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
           <RowDefinition Height="{Binding Height, Source={x:Reference TopRow}}" />
@@ -89,13 +91,24 @@
         <Switch Grid.Column="1"
                 Grid.Row="3"
                 IsToggled="{Binding SoundEffects, Mode=TwoWay}" />
-        <Label Text="Use Nearby:"
+        <Label Text="Use Bluetooth:"
                Grid.Column="0"
                Grid.Row="4" />
         <Switch Grid.Column="1"
                 Grid.Row="4"
+                x:Name="NearbyPermissionSwitch"
                 IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
+        <Label Text="Use near-ultrasonic audio:"
+               Grid.Column="0"
+               Grid.Row="5" />
+        <Switch Grid.Column="1"
+                Grid.Row="5"
+                IsEnabled="{Binding Source={x:Reference NearbyPermissionSwitch}, 
+                Path=IsToggled}" 
+                IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=CurrentStrategy, 
+                Mode=TwoWay, Converter={StaticResource MicConverter}}" />
       </Grid>
+      
       <ListView x:Name="listView" Header="Saved Decks"
                 SelectionMode="None"
                 VerticalOptions="Start"

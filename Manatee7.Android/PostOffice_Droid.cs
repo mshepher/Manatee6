@@ -23,12 +23,25 @@ namespace Manatee7.Droid {
     public event BinaryEventHandler OnPermissionChanged;
     public event EventHandler OnSubscriptionExpired;
 
-    private readonly Strategy _strategy = Strategy.Default;
+    public NearbyStrategy CurrentStrategy {
+      set {
+        _strategy = value == NearbyStrategy.Ble ? Strategy.BleOnly : Strategy.Default;
+        _publishOptions = new PublishOptions.Builder().SetStrategy(_strategy).Build();
+      }
+      get => _strategy == Strategy.BleOnly ? NearbyStrategy.Ble : NearbyStrategy.Default;
+    }
+
+    private static Strategy _strategy;
+
+    private PublishOptions _publishOptions; 
+    
     private readonly Dictionary<NMessage, Message> _publications 
       = new Dictionary<NMessage, Message>();
 
     public PostOffice_Droid() {
-
+      
+      _publishOptions = new PublishOptions.Builder().SetStrategy(_strategy).Build();
+       
       _listener = new ManateeListener();
 
       _listener.OnMessageLost += (type, content) => {
@@ -98,7 +111,7 @@ namespace Manatee7.Droid {
       var bytes = MessageFormatter.ToBytes(message);
       _publications[message] = new Message(bytes, type);
       Log.Information("Publishing message of size {size}", bytes.Length);
-      _client.Publish(_publications[message]);
+      _client.Publish(_publications[message],_publishOptions);
     }
 
     public void Unpublish(NMessage message) {

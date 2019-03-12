@@ -11,25 +11,28 @@ using System.Threading.Tasks;
 
 namespace Manatee7 {
   public partial class MainPage {
+    private static readonly PostOffice _px = PostOffice.Instance;
+    
+    public bool Scanning => _px.HasPermission && _px.Listening;
+    
     public MainPage() {
       InitializeComponent();
       _updateInvitations = (sender, args) => OnPropertyChanged(nameof(Invitations));
-            GameController.Instance.VisibleInvitations.CollectionChanged += _updateInvitations;
+      GameController.Instance.VisibleInvitations.CollectionChanged += _updateInvitations;
 
-            //stuff that doesn't need to happen before the user sees a screen, or every time 
-            //a modal window gets temporarily loaded and unloaded
-            Task.Run(async () => {
+      //stuff that doesn't need to happen before the user sees a screen, or every time 
+      //a modal window gets temporarily loaded and unloaded
+      Task.Run(async () => {
         if (CrossConnectivity.IsSupported && !await CrossConnectivity.Current.IsRemoteReachable("googleapis.com")) 
           await DisplayAlert("Couldn't reach the messaging server!",
               "Manatee can't talk to other players without an internet connection", "OK");
         else 
           ((App) Application.Current).DeckCheck();
-
-        if (_bluetoothManager.HasBluetooth && !_bluetoothManager.PoweredOn)
-          await DisplayBluetoothPowerAlert();
-
-        PostOffice.Instance.SafeSubscribe();
       });
+
+      _px.OnPermissionChanged += b => OnPropertyChanged("Scanning");
+      _px.DidSubscribe += () => OnPropertyChanged("Scanning");
+      _px.DidUnsubscribe += () => OnPropertyChanged("Scanning");
     }
 
     // ReSharper disable once MemberCanBeMadeStatic.Global
@@ -39,13 +42,6 @@ namespace Manatee7 {
 
     private readonly IBluetoothManager _bluetoothManager = DependencyService.Get<IBluetoothManager>();
     
-    private async Task DisplayBluetoothPowerAlert() {
-      if (await DisplayAlert("Bluetooth is powered off!",
-          "Google Nearby needs either microphone access or Bluetooth (and works much better with both).",
-          "Enable Bluetooth", "Leave Disabled"))
-        _bluetoothManager.EnableBluetooth();
-    }
-
     private void CreateGameButtonClicked(object sender, EventArgs e) {
       if (DeckLibrary.Instance.IsEmpty)
         DisplayAlert("You cannot start a game without at least one deck.",

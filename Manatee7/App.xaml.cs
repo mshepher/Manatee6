@@ -84,6 +84,10 @@ namespace Manatee7 {
           MainPage = new NavigationPage(new MainPage());
       }
 
+      if (Preferences.Instance.AutoConnect && PostOffice.Instance.HasPermission) {
+        PostOffice.Instance.SafeSubscribe();
+      }
+      
       /* PostOffice.Instance.OnPermissionChanged += b => {
          if (!b)
            AppAlerts.Add(Constants.BluetoothPermissionErrorString);

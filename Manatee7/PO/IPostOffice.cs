@@ -15,6 +15,7 @@ namespace Manatee7 {
 
     bool Listening { get; }
     bool HasPermission { set; get; }
+    NearbyStrategy CurrentStrategy { set; get; }
     
     //#event MessageHandler MessageReceived;
     event MessageReceivedHandler OnMessageReceived;
@@ -25,6 +26,13 @@ namespace Manatee7 {
     event BinaryEventHandler OnPermissionChanged;
 
     void Dispose();
+  }
+
+  public enum NearbyStrategy
+  {
+    Audio = 1 << 0,
+    Ble = 1 << 1,
+    Default = Audio | Ble
   }
 
   public delegate void MessageReceivedHandler(string type, byte[] message);

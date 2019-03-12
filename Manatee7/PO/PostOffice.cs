@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using Manatee7.Model;
@@ -9,19 +10,25 @@ using Xamarin.Forms;
 
 namespace Manatee7 {
   public class PostOffice {
-    private readonly HashSet<Guid> processed = new HashSet<Guid>();
+    private readonly Preferences _preferences = Preferences.Instance;
+    private readonly HashSet<Guid> _processed = new HashSet<Guid>();
 
-    private readonly IPostOffice _postOffice;
+    public NearbyStrategy CurrentStrategy {
+      get => _postOffice.CurrentStrategy;
+      set {
+        if (_postOffice == null || _postOffice.CurrentStrategy == value) return;
+        _postOffice.CurrentStrategy = value;
+        if (!Listening) return;
+        Hibernate();
+        Thaw();
+      }
+    }
+
+    private readonly IPostOffice _postOffice = DependencyService.Get<IPostOffice>();
     private HashSet<NMessage> _publications;
 
     private int _counter;
     private readonly Game _game = Game.Instance;
-
-    public async void Ping() {
-      _postOffice.Ping();
-      await System.Threading.Tasks.Task.Delay(50);
-      _postOffice.DePing();
-    }
 
     public bool Listening => (_postOffice != null && _postOffice.Listening);
 
@@ -50,12 +57,20 @@ namespace Manatee7 {
     public event EventHandler OnPublicationExpired;
 */
     public event BinaryEventHandler OnPermissionChanged;
+    public event EventHandler DidSubscribe;
+    public event EventHandler DidUnsubscribe;
 
     private PostOffice() {
       _publications = new HashSet<NMessage>();
 
-      _postOffice = DependencyService.Get<IPostOffice>();
-      if (Device.RuntimePlatform == Device.iOS && _postOffice == null) return;
+      _preferences.PropertyChanged += (sender, args) => {
+        if (args.PropertyName != "Strategy" || _postOffice == null ||
+            _postOffice.CurrentStrategy == _preferences.Strategy) return;
+        CurrentStrategy = _preferences.Strategy; // this setter includes a refresh
+      }; // unlike permissions,
+         // strategy values won't be preserved between reboots, hence incorporating preferences
+
+      _postOffice.CurrentStrategy = _preferences.Strategy;
 
       _postOffice.OnMessageLost += (type, message) => {
         Log.Logger.Information("Lost {message}", type);
@@ -65,9 +80,15 @@ namespace Manatee7 {
         Log.Logger.Information("Saw message of type {type} and length {length}", type, message.Length);
         SortMessage(type, message);
       };
+      
       _postOffice.OnPermissionChanged += (hasPermission) => {
         Log.Information("in non-arch-specific post office; Permission changed: {p}", hasPermission);
-      };
+        if (hasPermission) {
+          if (_preferences.AutoConnect && !Listening) Thaw();
+          else _preferences.AutoConnect = true; // only worry about permissions the first time
+          }
+        };
+
       _postOffice.OnBluetoothPowerError += error => {
         Log.Logger.Error("Bluetooth power error!");
       };
@@ -83,13 +104,12 @@ namespace Manatee7 {
 
     public void ProcessMessage(NMessage message) {
       Log.Information("Processed and archived message: {@message}", message);
-      processed.Add(message.MessageID);
+      _processed.Add(message.MessageID);
     }
     
     public bool MessageProcessed(NMessage message) {
-      return processed.Contains(message.MessageID);
+      return _processed.Contains(message.MessageID);
     }
-        
 
     public void ClearMessageHistory() {
         if (!_postOffice.Listening) return;
@@ -106,6 +126,8 @@ namespace Manatee7 {
       //Some Android devices won't scan for others unless publish()
       //has been called
       _postOffice.Ping();
+      DidSubscribe?.Invoke();
+      Debug.Assert(Listening);
     }
 
     public void Unsubscribe() {
@@ -113,6 +135,8 @@ namespace Manatee7 {
         _postOffice.Unsubscribe();
         Log.Information("Unsubscribed");
         _postOffice.DePing();
+        DidUnsubscribe?.Invoke();
+        Debug.Assert(!Listening);
       }
       else {
         Log.Information("Arch-specific PostOffice is null");
@@ -186,10 +210,10 @@ namespace Manatee7 {
               payload.MessageVersion,payload.Sender);
         }
 
-        lock(processed) { 
+        lock(_processed) { 
           var iteration = _counter++;
           Log.Information("Entering SortMessage {i}", iteration);
-          if (processed.Contains(payload.MessageID)) {
+          if (_processed.Contains(payload.MessageID)) {
             Log.Information("Saw previously seen message: {id}", payload.MessageID);
             return;
           }  else {

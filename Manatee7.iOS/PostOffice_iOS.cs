@@ -21,7 +21,7 @@ namespace Manatee7.iOS {
     private GNSMessage _ping;
     // ReSharper disable once NotAccessedField.Local
     private readonly GNSPermission _permission;
-
+    
     public bool HasPermission {
       get => GNSPermission.IsGranted;
       set => GNSPermission.SetGranted(value);
@@ -29,8 +29,25 @@ namespace Manatee7.iOS {
 
     public bool Listening => _listener != null;
 
+    public NearbyStrategy CurrentStrategy {
+      set {
+        _mediumStrategy = value == NearbyStrategy.Ble
+            ? GNSDiscoveryMediums.Ble
+            : GNSDiscoveryMediums.Default;
+        _strategy = GNSStrategy.StrategyWithParamsBlock(
+            strategyParams => strategyParams.DiscoveryMediums =
+                _mediumStrategy);
+      }
+      get => _mediumStrategy == GNSDiscoveryMediums.Ble
+          ? NearbyStrategy.Ble
+          : NearbyStrategy.Default;
+    }
+
+    private static GNSDiscoveryMediums _mediumStrategy = GNSDiscoveryMediums.Default;
+
     private GNSStrategy _strategy = GNSStrategy.StrategyWithParamsBlock(
-        (strategy) => { strategy.DiscoveryMediums = GNSDiscoveryMediums.Default; });
+        strategyParams => strategyParams.DiscoveryMediums = 
+            _mediumStrategy);
 
     public event MessageReceivedHandler OnMessageReceived;
     public event MessageLostHandler OnMessageLost;
@@ -78,7 +95,8 @@ namespace Manatee7.iOS {
       var bytes = NSData.FromArray(MessageFormatter.ToBytes(message));
       var encodedMessage = GNSMessage.MessageWithContent(bytes, type);
       Log.Information("Publishing message of size {size}", bytes.Length);
-      _publications[message] = _manager.PublicationWithMessage(encodedMessage);
+      _publications[message] = _manager.PublicationWithMessage(encodedMessage, 
+      publicationParams => publicationParams.Strategy = _strategy);
     }
 
     public void Unpublish(NMessage message) {

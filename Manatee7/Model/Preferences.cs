@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Serilog;
 using Xamarin.Forms;
 
@@ -23,60 +24,64 @@ namespace Manatee7.Model {
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public static Preferences GetPreferences() {
-      return Instance;
-    }
-
-    private object GetAppProperty(string key, object value) {
-            Log.Debug("Fetching property {key}", key);
+    private object GetAppProperty( object value,[CallerMemberName] string key = "") {
+      Log.Debug("Fetching property {key}", key);
       if (!properties.ContainsKey(key) || properties[key].GetType() != value.GetType()) 
         properties[key] = value;
       return properties[key];
     }
     
-    private void SetAppProperty(string key, object value) {
-            Log.Debug("Setting property {key} to {value}", key, value);
+    private void SetAppProperty(object value,[CallerMemberName] string key = "") {
+      Log.Debug("Setting property {key} to {value}", key, value);
       properties[key] = value;
       OnPropertyChanged(key);
     }
 
-    public Guid PlayerID => new Guid(
-        (string)GetAppProperty("PlayerID", Guid.NewGuid().ToString()));
+    private Guid PlayerID => new Guid(
+        (string)GetAppProperty(Guid.NewGuid().ToString()));
+
+    public NearbyStrategy Strategy {
+      get => (NearbyStrategy) GetAppProperty((int) NearbyStrategy.Ble);
+      set => SetAppProperty((int) value);
+    }
 
     public string PlayerName {
-      get => (string) GetAppProperty("PlayerName", "");
-      set {
-        SetAppProperty("PlayerName",value);
-      }
+      get => (string) GetAppProperty("");
+      set => SetAppProperty(value);
+    }
+    
+    public bool AutoConnect {
+      get => (bool) GetAppProperty(false);
+      set => SetAppProperty(value);
     }
 
     public int CardsPerHand {
-      get => (int) GetAppProperty("CardsPerHand", 7);
-      set => SetAppProperty("CardsPerHand",value);
+      get => (int) GetAppProperty(7);
+      set => SetAppProperty(value);
     }
 
     public int Robots {
-      get => (int) GetAppProperty("Robots", 1);
-      set => SetAppProperty("Robots",value);
+      get => (int) GetAppProperty(1);
+      set => SetAppProperty(value);
     }
 
     public bool SoundEffects {
-      get => (bool) GetAppProperty("SoundEffects", true);
-      set => SetAppProperty("SoundEffects",value);
+      get => (bool) GetAppProperty(true);
+      set => SetAppProperty(value);
     }
 
     public bool UseNearby {
-      get => (bool)GetAppProperty("UseNearby", false);
-      set => SetAppProperty("UseNearby",value);
+      get => (bool)GetAppProperty(false);
+      set => SetAppProperty(value);
     }
 
     public bool NSFWAllowed {
-      get => (bool)GetAppProperty("NSFWAllowed", true);
-      set => SetAppProperty("NSFWAllowed",value);
+      get => (bool)GetAppProperty(true);
+      set => SetAppProperty(value);
     }
     public bool DiscardsAllowed {
-      get =>(bool)GetAppProperty("AllowDiscards", true);
-      set => SetAppProperty("AllowDiscards",value);
+      get =>(bool)GetAppProperty(true);
+      set => SetAppProperty(value);
     }
 
     public Player Me =>
