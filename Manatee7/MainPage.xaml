@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              ControlTemplate="{StaticResource DebugTemplate}"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -12,13 +13,22 @@
   <!-- ControlTemplate="{StaticResource AlertTemplate}" -->
   <ContentPage.Resources>
     <ResourceDictionary>
+      <local:InvertBool x:Key="InvertBool" />
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-      <StackLayout Padding="25" VerticalOptions="StartAndExpand">
-          <Label Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Welcome, {0}', Mode=OneWay}"
+      <StackLayout Padding="25" VerticalOptions="FillAndExpand">
+        <Label 
+          Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Welcome, {0}', Mode=OneWay}"
                  HorizontalOptions="Center"
                  FontSize="Large" />
+      <Grid VerticalOptions="FillAndExpand">
+        <Button Text="Visit Settings to turn on connections"
+                BackgroundColor="Cyan"
+                IsVisible="{Binding Scanning, Source={x:Reference This}, Converter={StaticResource InvertBool}}" 
+                VerticalOptions="FillAndExpand"/>
+
+        <Grid VerticalOptions="FillAndExpand" IsVisible="{Binding Scanning, Source={x:Reference This}}">
           <syncfusion:SfListView x:Name="VisibleGamesListView"
                                  ItemsSource="{Binding Path=Invitations, Source={x:Reference 
                                  This}}"
@@ -44,7 +54,7 @@
             <syncfusion:SfListView.FooterTemplate>
             <DataTemplate>
           <Grid>
-            <ActivityIndicator Color="Teal" IsRunning="True"/>
+            <ActivityIndicator Color="Teal" IsRunning="True" />
           </Grid>
           </DataTemplate>
         </syncfusion:SfListView.FooterTemplate>
@@ -55,8 +65,10 @@
               </DataTemplate>
             </syncfusion:SfListView.ItemTemplate>
           </syncfusion:SfListView>
+        </Grid>
+      </Grid>
           <Button x:Name="StartGameButton"
-                  Text="Host A New Game"
+                  Text="Announce A New Game"
                   Clicked="CreateGameButtonClicked" />
           <Button x:Name="SettingsButton"
                   Text="Settings &amp; Decks"

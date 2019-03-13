@@ -99,6 +99,8 @@
                 x:Name="NearbyPermissionSwitch"
                 IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
         <Label Text="Use near-ultrasonic audio:"
+               IsEnabled="false"
+               Opacity="0.25"
                Grid.Column="0"
                Grid.Row="5" />
         <Switch Grid.Column="1"
@@ -106,7 +108,17 @@
                 IsEnabled="{Binding Source={x:Reference NearbyPermissionSwitch}, 
                 Path=IsToggled}" 
                 IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=CurrentStrategy, 
-                Mode=TwoWay, Converter={StaticResource MicConverter}}" />
+                Mode=TwoWay, Converter={StaticResource MicConverter}}" >
+                    <Switch.Triggers>
+                    <DataTrigger TargetType="Switch"
+                         Binding="{Binding Source={x:Reference NearbyPermissionSwitch},
+            Path=IsToggled}"
+                         Value="false">
+              <Setter Property="IsToggled"
+                      Value="False" />
+            </DataTrigger>
+                        </Switch.Triggers>
+                </Switch>
       </Grid>
       
       <ListView x:Name="listView" Header="Saved Decks"
