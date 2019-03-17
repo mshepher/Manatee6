@@ -62,11 +62,8 @@ namespace Manatee7 {
       Log.Information("Starting with properties: {p}", Properties.Keys);
 
         //https://askxammy.com/playing-sounds-in-xamarin-forms/
-          try {
+      try {
         var assembly = typeof(App).GetTypeInfo().Assembly;
-        Log.Information("Changing volume");
-        Whoosh.Volume = 75;
-        Jingle.Volume = 75;
         Log.Information("Loading audio files");
         Whoosh.Load(assembly.GetManifestResourceStream("Manatee7.Resources.whoosh.wav"));
         Jingle.Load(assembly.GetManifestResourceStream("Manatee7.Resources.jingle.wav"));

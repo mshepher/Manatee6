@@ -24,8 +24,6 @@ namespace Manatee7.Droid
       Log.Logger = new LoggerConfiguration().
           WriteTo.AndroidLog(outputTemplate:
               "[{Level:u3} {ThreadId}]{Caller}: {Message:j}").
-          Enrich.WithProperty(Constants.SourceContextPropertyName, "Manatee").
-          Enrich.WithProperty(Constants.SourceContextPropertyName, "Pterodactyl").
           Enrich.WithThreadId().Enrich.WithCaller().
           CreateLogger();
       MostRecentActivity = this;
@@ -34,17 +32,9 @@ namespace Manatee7.Droid
             base.OnCreate(savedInstanceState);
       Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
-
-    protected override void OnResume() {
-      base.OnResume();
-      try {
-        //fixme App.PostOffice.Subscribe();
-      } catch (NullReferenceException) {
-        Log.Error("No post office.  You're running in debug mode, right?");
-      }
-    }
 
     protected override void OnDestroy() {
       Log.CloseAndFlush();

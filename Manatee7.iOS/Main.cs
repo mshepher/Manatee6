@@ -13,7 +13,8 @@ namespace Manatee7.iOS
         static void Main(string[] args)
         {
           //fixme -- why this?
-            ObjCRuntime.Class.ThrowOnInitFailure = false;
+            //ObjCRuntime.Class.ThrowOnInitFailure = false;
+
             // if you want to use a different Application Delegate class from "AppDelegate"
             // you can specify it here.
             UIApplication.Main(args, null, "AppDelegate");

@@ -47,6 +47,7 @@ namespace Manatee7.iOS
             Log.Information("In AppDelegate; Logger created");
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
+            global::Xamarin.Forms.FormsMaterial.Init();
             KeyboardOverlap.Forms.Plugin.iOSUnified.KeyboardOverlapRenderer.Init();
             SfListViewRenderer.Init();
             SfNumericUpDownRenderer.Init();

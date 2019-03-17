@@ -19,7 +19,36 @@ namespace Manatee7 {
     }
   }
 
-  public class BoolToSelectionModeConverter : IValueConverter {
+    public class DivideBy2 : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter,
+                              System.Globalization.CultureInfo culture)
+        {
+            try
+            {
+                return (double)value * 2;
+            }
+            catch
+            {
+                return value;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter,
+                                  System.Globalization.CultureInfo culture)
+        {
+            try
+            {
+                return (double)value / 2;
+            }
+            catch
+            {
+                return value;
+            }
+        }
+    }
+
+    public class BoolToSelectionModeConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter,
                           System.Globalization.CultureInfo culture) {
       if (value is bool) {

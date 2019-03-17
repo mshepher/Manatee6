@@ -65,11 +65,8 @@ namespace Manatee7.iOS {
         OnPermissionChanged?.Invoke(permissionGranted);
       });
 
-      //fixme 
       Log.Information("Is Nearby permission granted? {p}", GNSPermission.IsGranted);
-
-      Log.Logger.Information("In PostOffice_iOS constructor");
-
+      
       _manager = new GNSMessageManager(ApiKey, (messageManagerParams) => {
         messageManagerParams.BluetoothPermissionErrorHandler = (error) => {
           OnBluetoothPermissionsError?.Invoke(error);
@@ -94,7 +91,7 @@ namespace Manatee7.iOS {
       Log.Information("Entering with permission: {p}", GNSPermission.IsGranted);
       var bytes = NSData.FromArray(MessageFormatter.ToBytes(message));
       var encodedMessage = GNSMessage.MessageWithContent(bytes, type);
-      Log.Information("Publishing message of size {size}", bytes.Length);
+      Log.Information("Publishing message ID {id}, type {type} of size {size}", message.MessageID, type, bytes.Length);
       _publications[message] = _manager.PublicationWithMessage(encodedMessage, 
       publicationParams => publicationParams.Strategy = _strategy);
     }

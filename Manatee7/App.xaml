@@ -11,17 +11,21 @@
     <x:StaticExtension Member="local:Model.Preferences.Instance" x:Key="Preferences" />
     <x:StaticExtension Member="local:GameController.Instance" x:Key="GameController" />
     <x:StaticExtension Member="local:Model.DeckLibrary.Instance" x:Key="DeckLibrary" />
+        <Style TargetType="Page">
+            <Setter Property="Visual" Value="Material"/>
+            </Style>
     <Style TargetType="Button">
-      <Setter Property="BackgroundColor" Value="Gold" />
-      <Setter Property="FontAttributes" Value="Bold" />
+      <Setter Property="BackgroundColor" Value="#FFBB00" />
+      <Setter Property="TextColor" Value="#000000" />
       <Setter Property="Padding" Value="20,0,20,0" />
+            <Setter Property="CornerRadius" Value="14"/>
     </Style>
     <Style x:Key="CardFrame"
            TargetType="Frame">
       <Setter Property="VerticalOptions" Value="StartAndExpand" />
       <Setter Property="CornerRadius" Value="8" />
       <Setter Property="BorderColor" Value="DimGray" />
-      <Setter Property="HasShadow" Value="false" />
+      <Setter Property="HasShadow" Value="true" />
       <Setter Property="Padding" Value="10,8,10,8" />
       <Setter Property="Margin" Value="10,0,10,0" />
       <Setter Property="HorizontalOptions" Value="FillAndExpand" />

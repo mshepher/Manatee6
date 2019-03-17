@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:Manatee7"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="Manatee7.MainPage"
+             Visual="Material"
              x:Name="This"
              BindingContext="{StaticResource GameController}"
              Title="Manatee">
@@ -23,8 +24,8 @@
                  HorizontalOptions="Center"
                  FontSize="Large" />
       <Grid VerticalOptions="FillAndExpand">
-        <Button Text="Visit Settings to turn on connections"
-                BackgroundColor="Cyan"
+        <Button Text="Scan for nearby games"
+                Clicked="StartScanning"
                 IsVisible="{Binding Scanning, Source={x:Reference This}, Converter={StaticResource InvertBool}}" 
                 VerticalOptions="FillAndExpand"/>
 
@@ -67,10 +68,13 @@
           </syncfusion:SfListView>
         </Grid>
       </Grid>
+            
           <Button x:Name="StartGameButton"
+                  BackgroundColor="Gray"
                   Text="Announce A New Game"
+                  HeightRequest="{Binding Source={x:Reference SettingsButton}, Path=Height}"
                   Clicked="CreateGameButtonClicked" />
-          <Button x:Name="SettingsButton"
+          <Button x:Name="SettingsButton" Visual="Material"
                   Text="Settings &amp; Decks"
                   Clicked="SettingsButtonClicked" />
         </StackLayout>

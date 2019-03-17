@@ -326,7 +326,6 @@ namespace Manatee7 {
           Log.Error("Ran out of cards!");
         }
       }
-      //fixme switch the order on these
 
       _px.ClearPublications(); // at this point, nobody needs anything from us
       var submissionsMessage = new SubmissionsFlippedMessage(_game.Submissions, _game.Round);

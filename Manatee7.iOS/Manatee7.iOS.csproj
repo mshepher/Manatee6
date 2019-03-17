@@ -169,6 +169,9 @@
     <PackageReference Include="Xam.Plugins.Forms.KeyboardOverlap">
       <Version>1.0.0.4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms.Visual.Material">
+      <Version>3.6.0.220655</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>

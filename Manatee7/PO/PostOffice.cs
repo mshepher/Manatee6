@@ -81,7 +81,6 @@ namespace Manatee7 {
         SortMessage(type, message);
       };
       
-            //fixme ADD AN EVENT INVOKE, DUMBASS
       _postOffice.OnPermissionChanged += (hasPermission) => {
         Log.Information("in non-arch-specific post office; Permission changed: {p}", hasPermission);
         if (hasPermission) {

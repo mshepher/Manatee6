@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:Manatee7"
              x:Class="Manatee7.SettingsPage"
              x:Name="This"
+             Visual="Material"
              xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              Title="Settings">
@@ -91,33 +92,48 @@
         <Switch Grid.Column="1"
                 Grid.Row="3"
                 IsToggled="{Binding SoundEffects, Mode=TwoWay}" />
-        <Label Text="Use Bluetooth:"
-               Grid.Column="0"
-               Grid.Row="4" />
-        <Switch Grid.Column="1"
-                Grid.Row="4"
-                x:Name="NearbyPermissionSwitch"
-                IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
-        <Label Text="Use near-ultrasonic audio:"
-               IsEnabled="false"
-               Opacity="0.25"
+        <Label Text="Talk to other players:" Grid.Column="0" Grid.Row="4"></Label>
+
+        <Label Text="Using Bluetooth"
+               Margin="20,0,0,0"
+               FontSize="Small"
                Grid.Column="0"
                Grid.Row="5" />
         <Switch Grid.Column="1"
                 Grid.Row="5"
+                x:Name="NearbyPermissionSwitch"
+                IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
+        <Label Text="Using near-ultrasonic audio"
+               FontSize="Small"
+               IsEnabled="false"
+               Margin="20,0,0,0"
+               Grid.Column="0"
+               Grid.Row="6">
+                             <Label.Triggers>
+                    <DataTrigger TargetType="Label"
+                         Binding="{Binding Source={x:Reference NearbyPermissionSwitch},
+            Path=IsToggled}"
+                         Value="false">
+              <Setter Property="Opacity"
+                      Value=".5" />
+            </DataTrigger>
+                        </Label.Triggers>
+                </Label>
+        <Switch Grid.Column="1"
+                Grid.Row="6"
                 IsEnabled="{Binding Source={x:Reference NearbyPermissionSwitch}, 
                 Path=IsToggled}" 
-                IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=CurrentStrategy, 
-                Mode=TwoWay, Converter={StaticResource MicConverter}}" >
-                    <Switch.Triggers>
+                IsToggled="{Binding Source={x:Reference This}, Path=DisplayMicAllowed, 
+                Mode=TwoWay}" >
+                    <!--Switch.Triggers>
                     <DataTrigger TargetType="Switch"
                          Binding="{Binding Source={x:Reference NearbyPermissionSwitch},
             Path=IsToggled}"
                          Value="false">
-              <Setter Property="IsToggled"
+              <Setter Property="IsVisible"
                       Value="False" />
             </DataTrigger>
-                        </Switch.Triggers>
+                        </Switch.Triggers-->
                 </Switch>
       </Grid>
       

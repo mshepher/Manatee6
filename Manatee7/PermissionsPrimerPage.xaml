@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
+                 x:Class="Manatee7.PermissionsPrimerPage" Visual="Material" 
+                 HasSystemPadding="true" 
+                 x:Name="This"
+                 BindingContext="{x:Reference This}"
+                 CloseWhenBackgroundIsClicked="false">
+    <pages:PopupPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="LineBreakMode" Value="WordWrap" />
+        </Style>
+    </pages:PopupPage.Resources>
+    <ContentView BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Margin="20">
+            <StackLayout>
+            <StackLayout Spacing="20" Padding="20" x:Name="FirstMessage" IsVisible="{Binding FirstPage, Mode=OneWay}">
+                <Label FontSize="Large" Text="Let Manatee talk to other players using Bluetooth and ultrasonic audio?">
+                </Label>
+                <Label Text="Manatee broadcasts and listens for anonymous pairing codes using Bluetooth and your microphone.">
+                </Label>
+                <Label Text="It NEVER records any other audio.">
+                </Label>
+                <Button Text="Let's Play!" x:Name="OKButton" Clicked="OKClicked" />
+                <Button FontSize="Micro" Text="The microphone thing is creepy" x:Name="Button" Clicked="NextPageClicked" />
+            </StackLayout>
+            <StackLayout Spacing="20" Padding="20" x:Name="SecondMessage">
+                <Label Text="Fair enough." FontSize="Large"/>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Bluetooth-only connections are slower and less reliable, but you "/>
+                            <Span Text="should" FontAttributes="Italic"/>
+                            <Span Text=" be able to play with just Bluetooth if you're patient."/>
+                        </FormattedString>
+                        </Label.FormattedText>
+                </Label>
+                <Button Text="Play with just Bluetooth" x:Name="OKButton2" Clicked="OKClicked" />
+                <Button Text="No, forget it" x:Name="CancelButton2" Clicked="CancelClicked" />
+            </StackLayout>
+            </StackLayout>
+    </ContentView>
+</pages:PopupPage>

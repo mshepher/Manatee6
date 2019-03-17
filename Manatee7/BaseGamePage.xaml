@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:local="clr-namespace:Manatee7"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="{Binding Source={StaticResource GameInstance}, Path=CurrentJudge.Name, 
              StringFormat='{0}\'s Deal'}"
+             Visual="Material"
              ControlTemplate="{StaticResource DebugTemplate}"
              x:Class="Manatee7.BaseGamePage">
   <ContentPage.Padding>

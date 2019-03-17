@@ -41,7 +41,7 @@ namespace Manatee7.Model {
         (string)GetAppProperty(Guid.NewGuid().ToString()));
 
     public NearbyStrategy Strategy {
-      get => (NearbyStrategy) GetAppProperty((int) NearbyStrategy.Ble);
+      get => (NearbyStrategy) GetAppProperty((int) NearbyStrategy.Default);
       set => SetAppProperty((int) value);
     }
 
