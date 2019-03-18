@@ -82,7 +82,8 @@ namespace Manatee7 {
       }
 
       if (Preferences.Instance.AutoConnect && PostOffice.Instance.HasPermission) {
-        PostOffice.Instance.SafeSubscribe();
+                Log.Information("About to try to subscribe");
+                PostOffice.Instance.SafeSubscribe();
       }
       
       /* PostOffice.Instance.OnPermissionChanged += b => {

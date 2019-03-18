@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:local="clr-namespace:Manatee7"
-                    BackgroundColor="DimGray"
+                    BackgroundColor="White"
                     x:Name="This"
                     BindingContext="{x:Reference This}"
                     x:Class="Manatee7.JudgingPage">
@@ -15,10 +15,10 @@
         <Frame Style="{StaticResource CallCardFrame}">
           <Label Font="Large"
                  HorizontalOptions="Center"
-                 VerticalOptions="Center"
                  FontSize="24"
+                 Style="{StaticResource CallCardLabel}"
                  Text="{Binding Path=CallCard.Text, Source={StaticResource GameInstance}, StringFormat='{0}'}"
-                 TextColor="White" />
+                 />
         </Frame>
         <ListView x:Name="WallOfShameDisplay"
                   Margin="10"
@@ -28,7 +28,7 @@
                   ItemsSource="{Binding WallOfShame}">
           <ListView.Header>
             <Label HorizontalOptions="Start" Text="Waiting on cards from:"
-                   TextColor="White" FontAttributes="Bold" />
+                    FontAttributes="Bold" />
 
           </ListView.Header>
           <ListView.ItemTemplate>
@@ -39,7 +39,7 @@
           <ListView.Footer>
 
             <StackLayout>
-              <ActivityIndicator IsRunning="true" Color="White" />
+              <ActivityIndicator IsRunning="true" Color="Gray" />
             </StackLayout>
           </ListView.Footer>
         </ListView>

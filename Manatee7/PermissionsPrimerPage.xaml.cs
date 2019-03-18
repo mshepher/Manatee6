@@ -29,6 +29,8 @@ namespace Manatee7
 
         private async void OKClicked(object sender, EventArgs e)
         {
+            Preferences.Instance.AutoConnect = true;
+            PostOffice.Instance.HasPermission = true;
             ChoiceMade?.Invoke(true);
             if (PopupNavigation.Instance.PopupStack.Any())
                 await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
@@ -37,6 +39,7 @@ namespace Manatee7
         private async void CancelClicked(object sender, EventArgs e)
         {
             ChoiceMade?.Invoke(false);
+            Preferences.Instance.Strategy = NearbyStrategy.Default;
             if (PopupNavigation.Instance.PopupStack.Any())
                 await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
         }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -6,7 +6,7 @@
                     x:Class="Manatee7.FlippedCardsPage"
                     x:Name="This"
                     BindingContext="{x:Reference This}"
-                    BackgroundColor="#555">
+                    BackgroundColor="{StaticResource PrimaryBackground}">
   <local:BaseGamePage.Resources>
     <ResourceDictionary>
       <local:IsNotZeroConverter x:Key="IsNotZeroConverter" />
@@ -32,6 +32,8 @@
                        Binding="{Binding Source={StaticResource GameInstance}, Path=IAmJudge}"
                        Value="false">
             <Setter Property="SelectionMode" Value="None" />
+            <Setter Property="Opacity" Value="0.7" />
+
           </DataTrigger>
         </local:SubmissionList.Triggers>
       </local:SubmissionList>

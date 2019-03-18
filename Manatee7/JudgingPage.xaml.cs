@@ -29,7 +29,7 @@ namespace Manatee7 {
             WallOfShame.Remove(p);
         };
         Task.Run(async () => {
-          await Task.Delay(40 * 1000);
+          await Task.Delay(20 * 1000);
           timeoutReached = true;
           OnPropertyChanged(nameof(CanOverride));
         });

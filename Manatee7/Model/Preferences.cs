@@ -47,7 +47,7 @@ namespace Manatee7.Model {
 
     public string PlayerName {
       get => (string) GetAppProperty("");
-      set => SetAppProperty(value);
+      set => SetAppProperty(value.Trim());
     }
     
     public bool AutoConnect {

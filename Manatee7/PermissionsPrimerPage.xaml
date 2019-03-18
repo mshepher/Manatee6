@@ -16,11 +16,9 @@
     <ContentView BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Margin="20">
             <StackLayout>
             <StackLayout Spacing="20" Padding="20" x:Name="FirstMessage" IsVisible="{Binding FirstPage, Mode=OneWay}">
-                <Label FontSize="Large" Text="Let Manatee talk to other players using Bluetooth and ultrasonic audio?">
+                <Label FontSize="Large" Text="Let Manatee talk to other players using Nearby Messages?">
                 </Label>
-                <Label Text="Manatee broadcasts and listens for anonymous pairing codes using Bluetooth and your microphone.">
-                </Label>
-                <Label Text="It NEVER records any other audio.">
+                <Label Text="Nearby Messages uses Bluetooth, WiFi, and near-ultrasonic sound (from your microphone) to connect to nearby devices.">
                 </Label>
                 <Button Text="Let's Play!" x:Name="OKButton" Clicked="OKClicked" />
                 <Button FontSize="Micro" Text="The microphone thing is creepy" x:Name="Button" Clicked="NextPageClicked" />

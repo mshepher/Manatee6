@@ -31,9 +31,9 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Google Nearby uses Bluetooth Low Energy for messaging</string>
+	<string>Manatee uses Bluetooth to exchange messages with other players</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Nearby uses the microphone to play ultrasonic pairing codes.</string>
+	<string>Manatee uses your microphone to talk to other players&apos; devices on ultrasonic frequencies</string>
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 </dict>

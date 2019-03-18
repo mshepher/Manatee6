@@ -6,6 +6,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manatee7.App">
   <Application.Resources>
+                <ResourceDictionary>
+            <Color x:Key="PrimaryBackground">Navy</Color>
+        </ResourceDictionary>
+        
     <!-- https://stackoverflow.com/questions/5834626/adding-a-static-object-to-a-resource-dictionary -->
     <x:StaticExtension Member="local:Model.Game.Instance" x:Key="GameInstance" />
     <x:StaticExtension Member="local:Model.Preferences.Instance" x:Key="Preferences" />
@@ -24,7 +28,7 @@
            TargetType="Frame">
       <Setter Property="VerticalOptions" Value="StartAndExpand" />
       <Setter Property="CornerRadius" Value="8" />
-      <Setter Property="BorderColor" Value="DimGray" />
+      <Setter Property="BorderColor" Value="{StaticResource PrimaryBackground}" />
       <Setter Property="HasShadow" Value="true" />
       <Setter Property="Padding" Value="10,8,10,8" />
       <Setter Property="Margin" Value="10,0,10,0" />
@@ -33,24 +37,28 @@
     <Style x:Key="CallCardFrame" TargetType="Frame" 
            BasedOn="{StaticResource CardFrame}">
       <Setter Property="BorderColor" Value="White" />
-      <Setter Property="BackgroundColor" Value="DimGray" />
+      <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackground}" />
+                  <Setter Property="Padding" Value="10,10,10,10" />
+
     </Style>
     <Style x:Key="SelectedCardFrame" TargetType="Frame"
            BasedOn="{StaticResource CardFrame}">
-      <Setter Property="BackgroundColor" Value="Silver" />
+                  <Setter Property="BorderColor" Value="#FFBB00" />
+
     </Style>
     <Style x:Key="CardLabel" TargetType="Label">
       <Setter Property="LineBreakMode" Value="WordWrap" />
       <Setter Property="FontSize" Value="Default" />
       <Setter Property="VerticalOptions" Value="StartAndExpand" />
       <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-      <Setter Property="TextColor" Value="DimGray" />
+      <Setter Property="TextColor" Value="{StaticResource PrimaryBackground}" />
     </Style>
     <Style x:Key="SelectedCardLabel" TargetType="Label"
            BasedOn="{StaticResource CardLabel}" />
     <Style x:Key="CallCardLabel" TargetType="Label"
            BasedOn="{StaticResource CardLabel}">
       <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="Large"/>
       <Setter Property="FontAttributes" Value="Bold" />
     </Style>
     <Style x:Key="AlertLabel" TargetType="Label">
@@ -58,7 +66,7 @@
       <Setter Property="FontAttributes" Value="Bold" />
     </Style>
     <Style x:Key="DividerStyle" TargetType="BoxView">
-      <Setter Property="Color" Value="DimGray" />
+      <Setter Property="Color" Value="{StaticResource PrimaryBackground}" />
       <Setter Property="HeightRequest" Value="1" />
       <Setter Property="Margin" Value="0,2,0,1" />
     </Style>
