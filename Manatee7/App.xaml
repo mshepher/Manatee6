@@ -15,12 +15,10 @@
     <x:StaticExtension Member="local:Model.Preferences.Instance" x:Key="Preferences" />
     <x:StaticExtension Member="local:GameController.Instance" x:Key="GameController" />
     <x:StaticExtension Member="local:Model.DeckLibrary.Instance" x:Key="DeckLibrary" />
-        <Style TargetType="Page">
-            <Setter Property="Visual" Value="Material"/>
-            </Style>
     <Style TargetType="Button">
       <Setter Property="BackgroundColor" Value="#FFBB00" />
       <Setter Property="TextColor" Value="#000000" />
+            <!--Setter Property="BorderWidth" Value="4"/-->
       <Setter Property="Padding" Value="20,0,20,0" />
             <Setter Property="CornerRadius" Value="14"/>
     </Style>
@@ -28,22 +26,28 @@
            TargetType="Frame">
       <Setter Property="VerticalOptions" Value="StartAndExpand" />
       <Setter Property="CornerRadius" Value="8" />
-      <Setter Property="BorderColor" Value="{StaticResource PrimaryBackground}" />
-      <Setter Property="HasShadow" Value="true" />
+      <Setter Property="HasShadow" Value="False" />
       <Setter Property="Padding" Value="10,8,10,8" />
       <Setter Property="Margin" Value="10,0,10,0" />
       <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                  <Setter Property="BorderColor" Value="#FFBB00"/>
+                        <Setter Property="Opacity" Value="1"/>
+
     </Style>
     <Style x:Key="CallCardFrame" TargetType="Frame" 
            BasedOn="{StaticResource CardFrame}">
-      <Setter Property="BorderColor" Value="White" />
+                                    <Setter Property="Opacity" Value="1"/>
       <Setter Property="BackgroundColor" Value="{StaticResource PrimaryBackground}" />
+                  <Setter Property="BorderColor" Value="{StaticResource PrimaryBackground}" />
                   <Setter Property="Padding" Value="10,10,10,10" />
 
     </Style>
     <Style x:Key="SelectedCardFrame" TargetType="Frame"
            BasedOn="{StaticResource CardFrame}">
-                  <Setter Property="BorderColor" Value="#FFBB00" />
+                        <Setter Property="Opacity" Value="0.8"/>
+                  <Setter Property="BorderColor" Value="{StaticResource PrimaryBackground}" />
+
+                  <!--Setter Property="BackgroundColor" Value="#FFBB00" /-->
 
     </Style>
     <Style x:Key="CardLabel" TargetType="Label">

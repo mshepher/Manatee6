@@ -35,7 +35,8 @@ namespace Manatee7.Model {
     public Player Host { get; internal set; }
     public Player CurrentJudge { get; internal set; }
     public bool IAmJudge => (CurrentJudge.Equals(_me));
-    public List<Player> Players { get; internal set; }
+    public List<Player> HumanPlayers { get; internal set; }
+    public List<Player> RobotPlayers { get; internal set; }
     public Dictionary<Player, int> Score { get; internal set; }
     private Player _me => Preferences.Instance.Me;
 
@@ -90,7 +91,7 @@ namespace Manatee7.Model {
     public event PropertyChangedEventHandler PropertyChanged;
 
     public void ResetGame() {
-      Players = null;
+      HumanPlayers = null;
       MyResponseCards = null;
       MyCallCards = null;
       Score = null;
@@ -133,14 +134,15 @@ namespace Manatee7.Model {
     
     public void SetUpGame(StartGameMessage message) {
       GameID = message.NewGameID;
-      Players = message.Players;
+      HumanPlayers = message.HumanPlayers;
+      RobotPlayers = message.RobotPlayers;
       MyResponseCards = message.MyResponseCards;
       MyCallCards = message.MyCallCards;
-      CurrentJudge = Players[0];
+      CurrentJudge = HumanPlayers[0];
       //DEBUG OPTION
       //CurrentJudge = new Player();
       Score = new Dictionary<Player, int>();
-      foreach (var p in Players) Score.Add(p, 0);
+      Score = HumanPlayers.Concat(RobotPlayers).ToDictionary((arg) => arg, (arg)=>0);
       GameRules = message.Rules;
       CallCard = message.CallCard;
       Hand = new ObservableCollection<Card>();
@@ -153,7 +155,7 @@ namespace Manatee7.Model {
     }
 
     public void NewRound(Card nextCallCard) {
-      CurrentJudge = Players[(Players.IndexOf(CurrentJudge) + 1) % Players.Count];
+      CurrentJudge = HumanPlayers[(HumanPlayers.IndexOf(CurrentJudge) + 1) % HumanPlayers.Count];
       Log.Information("Adding cards to hand...");
       while (Hand.Count < GameRules.CardsPerHand)
         Hand.Add(MyResponseCards.Dequeue());

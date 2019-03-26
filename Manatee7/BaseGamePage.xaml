@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="{Binding Source={StaticResource GameInstance}, Path=CurrentJudge.Name, 
              StringFormat='{0}\'s Deal'}"
-             Visual="Material"
              ControlTemplate="{StaticResource DebugTemplate}"
              x:Class="Manatee7.BaseGamePage">
   <ContentPage.Padding>

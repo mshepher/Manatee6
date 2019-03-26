@@ -99,19 +99,22 @@ namespace Manatee7 {
   [Serializable]
   public class StartGameMessage : NMessage {
     public Player Recipient { get; set; }
-    public List<Player> Players { get; set; }
+    public List<Player> HumanPlayers { get; set; }
+    public List<Player> RobotPlayers { get; set; }
+
     public Queue<Card> MyResponseCards { get; set; }
     public Queue<Card> MyCallCards { get; set; }
     public Card CallCard { get; set; }
     public Rules Rules { get; set; }
     public Guid NewGameID { get; set; }
 
-    public StartGameMessage(Player recipient, List<Player> players,
-                            Queue<Card> myResponseCards, Queue<Card> myCallCards, Card callCard, int cardsPerHand, int robotPlayers,
+    public StartGameMessage(Player recipient, List<Player> players, List<Player> robots,
+                            Queue<Card> myResponseCards, Queue<Card> myCallCards, Card callCard, int cardsPerHand,
                             bool nsfwAllowed, Guid newGameId) {
-      Rules = new Rules(robotPlayers, cardsPerHand, nsfwAllowed);
+      Rules = new Rules(robots.Count, cardsPerHand, nsfwAllowed);
+      RobotPlayers = robots;
       Recipient = recipient;
-      Players = players;
+      HumanPlayers = players;
       MyResponseCards = myResponseCards;
       MyCallCards = myCallCards;
       CallCard = callCard;

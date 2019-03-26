@@ -18,7 +18,7 @@ namespace Manatee7 {
 
     public JudgingPage() {
       try {
-        WallOfShame = new ObservableCollection<Player>(game.Players);
+        WallOfShame = new ObservableCollection<Player>(game.HumanPlayers);
         InitializeComponent();
         WallOfShame.Remove(Preferences.Instance.Me);
         //WallOfShameDisplay.ItemsSource = WallOfShame;
@@ -29,7 +29,7 @@ namespace Manatee7 {
             WallOfShame.Remove(p);
         };
         Task.Run(async () => {
-          await Task.Delay(20 * 1000);
+          await Task.Delay(5 * 1000);
           timeoutReached = true;
           OnPropertyChanged(nameof(CanOverride));
         });

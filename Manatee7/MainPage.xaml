@@ -8,7 +8,6 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Class="Manatee7.MainPage"
              x:Name="This"
-             Visual="Material"
              BindingContext="{StaticResource GameController}"
              Title="Manatee">
   <!-- ControlTemplate="{StaticResource AlertTemplate}" -->
@@ -74,9 +73,17 @@
                   Text="Announce A New Game"
                   HeightRequest="{Binding Source={x:Reference SettingsButton}, Path=Height}"
                   Clicked="CreateGameButtonClicked" />
-          <Button x:Name="SettingsButton" Visual="Material"
-                  Text="Settings &amp; Decks"
+          <StackLayout Orientation="Horizontal">
+                <Button x:Name="SettingsButton"
+                        HorizontalOptions="FillAndExpand"
+                  Text="Settings"
                   Clicked="SettingsButtonClicked" />
+                <Button x:Name="DeckButton" 
+                                                HorizontalOptions="FillAndExpand"
+
+                  Text="Decks"
+                  Clicked="SettingsButtonClicked" />
+                </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

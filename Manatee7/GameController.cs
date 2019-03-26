@@ -3,6 +3,7 @@ using static Manatee7.GameController.GameStatus;
 using static Manatee7.Model.Card.Type;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Medallion;
 using System.Diagnostics;
 using System.Linq;
 using Manatee7.Model;
@@ -25,6 +26,8 @@ namespace Manatee7 {
     private ProposeGameMessage MyInviteMessage { get; set; }
 
     private JoinGameMessage MyRSVPMessage { get; set; }
+
+        private List<string> RobotNames = new List<string> { "Robbie", "Marvin", "Maria", "Rosie", "Leon", "Hal", "Eliza", "Ava", "Lal", "Ash" };
 
     private Card _nextCallCard;
 
@@ -211,8 +214,16 @@ namespace Manatee7 {
       }
     }
 
-    // WAIT_AS_HOST -> WAIT_AS_JUDGE, WAIT_AS_GUEST
-    public async Task StartGameAsHost(List<Player> players) {
+
+        public List<Player> NewRobotLineup()
+        {
+            return RobotNames.Shuffled().ToList().GetRange(1, Preferences.Instance.Robots).
+                    Select(name => new Player(name + " the Robot", Guid.Empty)).ToList();
+        }
+
+
+        // WAIT_AS_HOST -> WAIT_AS_JUDGE, WAIT_AS_GUEST
+        public async Task StartGameAsHost(List<Player> players, List<Player> robotPlayers) {
       CheckStatus(WAIT_AS_HOST);
 
       var library = DeckLibrary.Instance;
@@ -227,8 +238,7 @@ namespace Manatee7 {
         Debug.Assert(loopList.Contains(_me));
         loopList.Remove(_me);
         loopList.Add(_me);
-
-      
+        
       var shuffled = await shuffleTask;
       var responseCards = shuffled[Response];
       var callCards = shuffled[Call];
@@ -273,8 +283,8 @@ namespace Manatee7 {
             callStart += callIncrement;
             responseStart += responseIncrement;
 
-            var message = new StartGameMessage(p, players, myResponseCards, myCallCards,
-                currentCard, prefs.CardsPerHand, prefs.Robots, prefs.NSFWAllowed,
+            var message = new StartGameMessage(p, players, robotPlayers, myResponseCards, myCallCards,
+                currentCard, prefs.CardsPerHand, prefs.NSFWAllowed,
                 newGuid);
 
             //Deal our hand last to maintain null gameID on outgoing 
@@ -299,7 +309,7 @@ namespace Manatee7 {
     private void SawCard(PlayedCardMessage message) {
       _px.ProcessMessage(message);
 
-      if (!_game.Players.Contains(message.Sender)) {
+      if (!_game.HumanPlayers.Contains(message.Sender)) {
         Log.Error("Got a card submission from a player who isn't in the game???");
         return;
       }
@@ -307,7 +317,7 @@ namespace Manatee7 {
       _game.AddSubmission(message.Sender, message.Cards);
 
       if (Status != WAIT_AS_JUDGE) return;
-      if (_game.Submissions.Count == (_game.Players.Count - 1)) {
+      if (_game.Submissions.Count == (_game.HumanPlayers.Count - 1)) {
         FlipCards();
         CheckStatus(SUBMISSION_FLIPPED);
       }
@@ -316,12 +326,12 @@ namespace Manatee7 {
     public void FlipCards() {
       //if all cards have been submitted
       _px.OnPlayedCardMessageSeen -= SawCard;
-      for (var i = 0;i < _game.GameRules.RobotPlayers;i++) {
+      foreach (var robot in _game.RobotPlayers) {
         try {
           var sublist = new List<Card>();
           for (var j = 0; j < _game.CallCard.Blanks; j++)
               sublist.Add(_game.MyResponseCards.Dequeue());
-          _game.AddSubmission(new Player("Robot " + Convert.ToString(i,2), Guid.Empty), sublist);
+          _game.AddSubmission(robot, sublist);
         } catch {
           Log.Error("Ran out of cards!");
         }

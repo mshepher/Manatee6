@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manatee7.SidebarPage"
@@ -13,6 +13,10 @@
             <!--TextCell Text="{Binding Key.Name}" Detail="{Binding Value}"/-->
             <ViewCell>
             <Grid VerticalOptions="CenterAndExpand">
+                                <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>   
                       <Label Grid.Column="0" Text="{Binding Key.Name}" VerticalOptions="Center" HorizontalOptions="Start"/>
                       <Label Grid.Column="1" Text="{Binding Value}" VerticalOptions="Center" HorizontalOptions="End"/>
                       </Grid>

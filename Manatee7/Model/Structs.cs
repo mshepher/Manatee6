@@ -67,12 +67,12 @@ namespace Manatee7.Model {
 
   [Serializable]
   public struct Rules {
-    public int RobotPlayers { get; }
+    public int RobotPlayersCount { get; }
     public int CardsPerHand { get; }
     public bool NSFWAllowed { get; }
 
-    public Rules(int robotPlayers, int cardsPerHand, bool nsfwAllowed) {
-      RobotPlayers = robotPlayers;
+    public Rules(int numRobots, int cardsPerHand, bool nsfwAllowed) {
+      RobotPlayersCount = numRobots;
       CardsPerHand = cardsPerHand;
       NSFWAllowed = nsfwAllowed;
     }

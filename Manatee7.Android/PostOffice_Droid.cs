@@ -29,9 +29,9 @@ namespace Manatee7.Droid {
         _publishOptions = new PublishOptions.Builder().SetStrategy(_strategy).Build();
       }
       get => _strategy == Strategy.BleOnly ? NearbyStrategy.Ble : NearbyStrategy.Default;
-    }
+    } 
 
-    private static Strategy _strategy;
+    private static Strategy _strategy = Strategy.Default;
 
     private PublishOptions _publishOptions; 
     

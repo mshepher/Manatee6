@@ -16,11 +16,11 @@
     </ResourceDictionary>
   </local:BaseGamePage.Resources>
   <local:BaseGamePage.Triggers>
-    <DataTrigger TargetType="local:BaseGamePage"
+    <!--DataTrigger TargetType="local:BaseGamePage"
                  Binding="{Binding Source={StaticResource GameInstance}, Path=IAmJudge}"
                  Value="False">
       <Setter Property="BackgroundColor" Value="#AAA" />
-    </DataTrigger>
+    </DataTrigger-->
   </local:BaseGamePage.Triggers>
   <local:BaseGamePage.Content>
     <StackLayout Spacing="0">
@@ -33,7 +33,6 @@
                        Value="false">
             <Setter Property="SelectionMode" Value="None" />
             <Setter Property="Opacity" Value="0.7" />
-
           </DataTrigger>
         </local:SubmissionList.Triggers>
       </local:SubmissionList>
@@ -44,7 +43,8 @@
               IsEnabled="true"
               Clicked="WinningCardButtonClicked"
               IsVisible="{Binding Source={StaticResource GameInstance}, Path=IAmJudge}"
-              Text="Select the Winning Combo">
+              Text="Select the Winning Combo"
+              Opacity="1">
         <Button.Triggers>
           <DataTrigger TargetType="Button"
                        Binding="{Binding Source={StaticResource 

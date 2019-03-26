@@ -5,7 +5,7 @@ using Manatee7.Model;
 using Log = Serilog.Log;
 
 namespace Manatee7 {
-  public partial class SettingsPage {
+  public partial class SettingsPage : ContentPage {
         private PostOffice _px = PostOffice.Instance;
 
         public bool DisplayMicAllowed
@@ -30,7 +30,12 @@ namespace Manatee7 {
           new Uri("http://www.cardcastgame.com/browse"));
     }
 
-    private readonly DeckLibrary _library = DeckLibrary.Instance;
+        protected override void OnDisappearing()
+        {
+            Preferences.Save();
+            base.OnDisappearing();
+        }
+        private readonly DeckLibrary _library = DeckLibrary.Instance;
 
     private void Delete(object sender, EventArgs e) {
       try {

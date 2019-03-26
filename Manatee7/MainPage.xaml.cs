@@ -86,7 +86,7 @@ namespace Manatee7
         {
             if (_px.HasPermission || Preferences.Instance.AutoConnect || await RequestPermission())
             {
-                _px.HasPermission = true; //they've seen the permission dialog (AutoConnect or RequestPermission) 
+                //_px.HasPermission = true; //they've seen the permission dialog (AutoConnect or RequestPermission) 
                     //and are requesting a scan
                 _px.SafeSubscribe();
             }

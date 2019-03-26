@@ -7,7 +7,6 @@
              x:Name="This"
              BindingContext="{x:Reference This}"
              x:Class="Manatee7.NewGamePage"
-             Visual="Material"
              Title="New Game">
   <ContentPage.Padding>
     <OnPlatform x:TypeArguments="Thickness">
