@@ -6,7 +6,7 @@
                     x:Class="Manatee7.FlippedCardsPage"
                     x:Name="This"
                     BindingContext="{x:Reference This}"
-                    BackgroundColor="{StaticResource PrimaryBackground}">
+                    BackgroundColor="{StaticResource MainDark}">
   <local:BaseGamePage.Resources>
     <ResourceDictionary>
       <local:IsNotZeroConverter x:Key="IsNotZeroConverter" />

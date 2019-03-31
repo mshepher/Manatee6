@@ -108,10 +108,10 @@ namespace Manatee7 {
     public Rules Rules { get; set; }
     public Guid NewGameID { get; set; }
 
-    public StartGameMessage(Player recipient, List<Player> players, List<Player> robots,
+    public StartGameMessage(Player recipient, List<Player> players, List<Player> robots, 
                             Queue<Card> myResponseCards, Queue<Card> myCallCards, Card callCard, int cardsPerHand,
-                            bool nsfwAllowed, Guid newGameId) {
-      Rules = new Rules(robots.Count, cardsPerHand, nsfwAllowed);
+                            int handsPerGame, bool nsfwAllowed, Guid newGameId) {
+      Rules = new Rules(robots.Count, cardsPerHand, handsPerGame, nsfwAllowed);
       RobotPlayers = robots;
       Recipient = recipient;
       HumanPlayers = players;

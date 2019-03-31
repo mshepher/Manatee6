@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <sflistview:SfListView xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -10,6 +10,7 @@
                        SelectionBackgroundColor="Transparent"
                        IsScrollBarVisible="true"
                        DragStartMode="OnHold"
+                       x:Name="This"
                        IsStickyHeader="true"
                        IsStickyFooter="true">
   <sflistview:SfListView.Resources>
@@ -34,6 +35,13 @@
   <sflistview:SfListView.ItemTemplate>
     <DataTemplate x:DataType="local:Model.Card"> 
       <Frame Style="{StaticResource CardFrame}">
+                <Frame.Triggers>
+                    <DataTrigger TargetType="Button"
+                       Binding="{Binding Source={x:Reference This}, Path=SelectionMode}"
+                       Value="None">
+            <Setter Property="BackgroundColor" Value="Red" />
+          </DataTrigger>
+                    </Frame.Triggers>
         <Grid VerticalOptions="StartAndExpand">
         <Label Style="{StaticResource CardLabel}">
             <Label.FormattedText>
@@ -42,7 +50,7 @@
               </FormattedString>
             </Label.FormattedText>
           </Label>
-          </Grid>
+        </Grid>
       </Frame>
     </DataTemplate>
   </sflistview:SfListView.ItemTemplate>

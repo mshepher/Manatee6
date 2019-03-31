@@ -6,36 +6,36 @@ using Log = Serilog.Log;
 
 namespace Manatee7 {
   public partial class SettingsPage : ContentPage {
-        private PostOffice _px = PostOffice.Instance;
+    private readonly PostOffice _px = PostOffice.Instance;
 
-        public bool DisplayMicAllowed
-        {
-            set {
-                if (_px.HasPermission) 
-                    _px.CurrentStrategy = value ? NearbyStrategy.Default : NearbyStrategy.Ble;
-            }
-            get => _px.HasPermission && _px.CurrentStrategy == NearbyStrategy.Default;
-        }
-
-        public SettingsPage() {
+    public bool DisplayMicAllowed
+    {
+      set {
+        if (_px.HasPermission) 
+          _px.CurrentStrategy = value ? NearbyStrategy.Default : NearbyStrategy.Ble;
+      }
+      get => _px.HasPermission && _px.CurrentStrategy == NearbyStrategy.Default;
+    }
+    
+    public SettingsPage() {
       InitializeComponent();
       foreach (var d in listView.ItemsSource) {
         Log.Information("{@d} is an item", d);
       }
       BindingContext = this;
       _library.PropertyChanged += (sender, e) => Log.Information("Saw change");
-            NearbyPermissionSwitch.Toggled += (sender, e) => OnPropertyChanged(nameof(DisplayMicAllowed));
+      NearbyPermissionSwitch.Toggled += (sender, e) => OnPropertyChanged(nameof(DisplayMicAllowed));
       CodeEntry.Completed += AddDeckFromEntry;
       LinkTapped.Tapped += (sender, e) => Device.OpenUri(
           new Uri("http://www.cardcastgame.com/browse"));
     }
 
-        protected override void OnDisappearing()
-        {
-            Preferences.Save();
-            base.OnDisappearing();
-        }
-        private readonly DeckLibrary _library = DeckLibrary.Instance;
+    protected override void OnDisappearing()
+    {
+      Preferences.Save();
+      base.OnDisappearing();
+    }
+    private readonly DeckLibrary _library = DeckLibrary.Instance;
 
     private void Delete(object sender, EventArgs e) {
       try {

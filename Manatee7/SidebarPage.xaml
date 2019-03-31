@@ -6,7 +6,7 @@
              Title="☰">
   <ContentPage.Content>
     <StackLayout Margin="30" Spacing="30">
-      <ListView ItemsSource="{Binding Path=Score}" x:Name="ScoreBoard">
+      <ListView ItemsSource="{Binding Path=Score}" x:Name="ScoreBoard" BackgroundColor="Transparent">
         <ListView.Header><Label Text="Scoreboard:" FontSize="Large"/></ListView.Header>
         <ListView.ItemTemplate>
           <DataTemplate>

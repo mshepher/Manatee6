@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -7,10 +7,11 @@
                  HasSystemPadding="true"
                  CloseWhenBackgroundIsClicked="false">
 
-    <ContentView BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center">
+    <ContentView BackgroundColor="{StaticResource Background}" HorizontalOptions="CenterAndExpand" 
+    VerticalOptions="Center">
     <StackLayout Padding="20">
       <Label FontSize="Large" x:Name="WindowLabel"  Text="Waiting for game to start..."/>
-      <ActivityIndicator x:Name="ActivityIndicator" Color="Teal"
+      <ActivityIndicator x:Name="ActivityIndicator"
                          IsRunning="true"/>
       <Button Text="Cancel" x:Name="Button" Clicked="CancelClicked"/>
     </StackLayout>

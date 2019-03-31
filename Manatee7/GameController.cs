@@ -284,7 +284,7 @@ namespace Manatee7 {
             responseStart += responseIncrement;
 
             var message = new StartGameMessage(p, players, robotPlayers, myResponseCards, myCallCards,
-                currentCard, prefs.CardsPerHand, prefs.NSFWAllowed,
+                currentCard, prefs.CardsPerHand, prefs.HandsPerGame, prefs.NSFWAllowed,
                 newGuid);
 
             //Deal our hand last to maintain null gameID on outgoing 

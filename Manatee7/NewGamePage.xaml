@@ -2,7 +2,7 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:sf="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              ControlTemplate="{StaticResource DebugTemplate}"
              x:Name="This"
              BindingContext="{x:Reference This}"
@@ -24,13 +24,14 @@
            FontSize="Large" />
 
     <StackLayout VerticalOptions="StartAndExpand">
-      <sflistview:SfListView x:Name="VisiblePlayersListView"
-                             AutoFitMode="Height"
-                             IsScrollBarVisible="true"
-                             ItemsSource="{Binding DistinctJoinedPlayers, Mode=OneWay}"
-                             DragStartMode="OnHold"
-                             VerticalOptions="Start">
-        <sflistview:SfListView.HeaderTemplate>
+      <sf:SfListView x:Name="VisiblePlayersListView"
+                     AutoFitMode="Height"
+                     IsScrollBarVisible="true"
+                     SelectionMode="None"
+                     ItemsSource="{Binding DistinctJoinedPlayers, Mode=OneWay}"
+                     DragStartMode="OnDragIndicator"
+                     VerticalOptions="Start">
+        <sf:SfListView.HeaderTemplate>
           <DataTemplate>
             <Grid Padding="10">
               <Label FontAttributes="Bold"
@@ -39,27 +40,37 @@
                      Text="Players" />
             </Grid>
           </DataTemplate>
-        </sflistview:SfListView.HeaderTemplate>
+        </sf:SfListView.HeaderTemplate>
 
-        <sflistview:SfListView.FooterTemplate>
+        <sf:SfListView.FooterTemplate>
           <DataTemplate>
             <Grid Padding="10">
-              <ActivityIndicator Color="Teal"
-                                 IsRunning="true" />
+              <ActivityIndicator
+                IsRunning="true" />
             </Grid>
           </DataTemplate>
 
-        </sflistview:SfListView.FooterTemplate>
-        <sflistview:SfListView.ItemTemplate>
+        </sf:SfListView.FooterTemplate>
+        <sf:SfListView.ItemTemplate>
           <DataTemplate>
             <Grid Padding="10">
-              <Label Text="{Binding Name}"
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="40" />
+              </Grid.ColumnDefinitions>
+
+              <Label Text="{Binding Name}" Grid.Column="0"
                      FontSize="Medium"
-                     HorizontalOptions="CenterAndExpand" />
+                     HorizontalOptions="StartAndExpand" />
+              <sf:DragIndicatorView Grid.Column="1"
+                                    ListView="{x:Reference VisiblePlayersListView}"
+                                    HorizontalOptions="EndAndExpand" VerticalOptions="Center">
+                <Label Text="⫶" FontAttributes="Bold" Opacity=".75" />
+              </sf:DragIndicatorView>
             </Grid>
           </DataTemplate>
-        </sflistview:SfListView.ItemTemplate>
-      </sflistview:SfListView>
+        </sf:SfListView.ItemTemplate>
+      </sf:SfListView>
     </StackLayout>
     <Button x:Name="StartGameButton"
             FontSize="Large"

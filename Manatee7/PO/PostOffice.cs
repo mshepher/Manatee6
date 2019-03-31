@@ -269,7 +269,15 @@ namespace Manatee7 {
     private void RetractMessage(string type, byte[] message) {
       if (type == "" || type == "ping") return;
       var payload = MessageFormatter.FromBytes(message);
-      Log.Information("Lost message of type {type}; sorting", type);
+            try
+            {
+                payload.GetType();
+            } catch (Exception e)
+            {
+                Log.Error("{e}", e);
+                return;
+            }
+            Log.Information("Lost message of type {type}; sorting", type);
       if (payload.GetType() == typeof(ProposeGameMessage)) {
         OnProposeGameMessageWithdrawn?.Invoke((ProposeGameMessage) payload);
       }

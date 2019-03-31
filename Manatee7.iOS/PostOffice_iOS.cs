@@ -58,7 +58,7 @@ namespace Manatee7.iOS {
 
     public PostOffice_iOS() {
 
-      GNSMessageManager.SetDebugLoggingEnabled(true);
+      GNSMessageManager.SetDebugLoggingEnabled(false);
 
       _permission = new GNSPermission((permissionGranted) => {
         Log.Information("Permission changed: {p}", permissionGranted);

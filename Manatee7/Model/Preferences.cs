@@ -55,6 +55,11 @@ namespace Manatee7.Model {
       set => SetAppProperty(value);
     }
 
+    public int HandsPerGame {
+      get => (int) GetAppProperty(20);
+      set => SetAppProperty(value);
+    }
+    
     public int CardsPerHand {
       get => (int) GetAppProperty(7);
       set => SetAppProperty(value);

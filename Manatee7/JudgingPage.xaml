@@ -3,7 +3,6 @@
 <local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:local="clr-namespace:Manatee7"
-                    BackgroundColor="White"
                     x:Name="This"
                     BindingContext="{x:Reference This}"
                     x:Class="Manatee7.JudgingPage">
@@ -12,39 +11,46 @@
       <StackLayout Margin="20"
                    Spacing="20"
                    VerticalOptions="CenterAndExpand">
+        
         <Frame Style="{StaticResource CallCardFrame}">
-          <Label Font="Large"
-                 HorizontalOptions="Center"
-                 FontSize="24"
+          <Label Font="Large" HorizontalOptions="Center" FontSize="24" 
                  Style="{StaticResource CallCardLabel}"
-                 Text="{Binding Path=CallCard.Text, Source={StaticResource GameInstance}, StringFormat='{0}'}"
-                 />
+                 Text="{Binding Path=CallCard.Text, Source={StaticResource GameInstance}, StringFormat='{0}'}" />
         </Frame>
+        
+        
         <ListView x:Name="WallOfShameDisplay"
                   Margin="10"
                   SelectionMode="None"
                   BackgroundColor="Transparent"
                   SeparatorVisibility="None"
                   ItemsSource="{Binding WallOfShame}">
+          
           <ListView.Header>
             <Label HorizontalOptions="Start" Text="Waiting on cards from:"
-                    FontAttributes="Bold" />
-
+                   FontAttributes="Bold" />
           </ListView.Header>
+          
           <ListView.ItemTemplate>
             <DataTemplate>
-              <TextCell Text="{Binding Path=Name}" TextColor="White" />
+              <ViewCell>
+                <Label Text="{Binding Path=Name}" />
+              </ViewCell>
             </DataTemplate>
           </ListView.ItemTemplate>
+          
           <ListView.Footer>
-
             <StackLayout>
-              <ActivityIndicator IsRunning="true" Color="Gray" />
+              <ActivityIndicator IsRunning="true" />
             </StackLayout>
           </ListView.Footer>
+          
         </ListView>
+        
+        
         <Button Text="Continue without remaining players" IsVisible="{Binding CanOverride}"
                 Clicked="JustGo" />
+        
       </StackLayout>
     </StackLayout>
   </local:BaseGamePage.Content>

@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                 x:Class="Manatee7.WinningCardPage"
+                 x:Class="Manatee7.FinalScorePage"
                  HasSystemPadding="true"
                  x:Name="This"
                  BindingContext="{x:Reference This}"
@@ -13,15 +13,11 @@
                VerticalOptions="Center"
                Margin="20">
     <StackLayout Padding="20">
-      <Label FontSize="Medium" x:Name="WinningTextLabel" >
-        <Label.FormattedText>
-          <FormattedString x:Name="FormattedWinningString"/>
-            </Label.FormattedText>
-        </Label>
-      <Label FontSize="Medium" x:Name="WinningPlayerLabel" 
-             HorizontalOptions="End"  FontAttributes="Italic"
-             Text="{Binding WinningPlayer.Name, StringFormat='- {0}'}" />
-      <Button Text="Next hand" x:Name="Button" Clicked="NextRound"/>
+      <Label FontSize="Medium" x:Name="FinalScoreLabel" 
+             Text="This is a placeholder for a final scoreboard and a picture of a manatee in a party hat."
+             LineBreakMode="WordWrap">
+      </Label>
+      <Button Text="Exit" x:Name="Button" Clicked="ExitClicked"/>
     </StackLayout>
   </ContentView>
 </pages:PopupPage>

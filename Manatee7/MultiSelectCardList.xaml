@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <local:CardList xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -57,14 +57,14 @@
                    VerticalOptions="Start"
                    HorizontalOptions="Start"
                    HeightRequest="30"
-                   BackgroundColor="Accent"
+                   BackgroundColor="{StaticResource MainDark}"
                    WidthRequest="{Binding Source={x:Reference BoxView}, Path=HeightRequest}"
                    CornerRadius="15"/>
             <Label Text="{Binding ., Converter={StaticResource Converter}}"
             HorizontalOptions="Center"
             VerticalOptions="Center"
             FontAttributes="Bold"
-                 TextColor="Gold" />
+                 TextColor="{StaticResource Background}" />
         </Grid>
         </Grid>
     </DataTemplate>

@@ -30,6 +30,11 @@ namespace Manatee7 {
             {Text = response[i].Text, TextColor = Color.Red});
       }
       FormattedWinningString.Spans.Add(new Span {Text = callCardStrings[i]});
+      if (game.Round == game.GameRules.HandsPerGame) {
+        Button.Text = "Final Score";
+        Button.Clicked -= NextRound;
+        Button.Clicked += FinalScore;
+      }
     }
 
     Game game = Game.Instance;
@@ -40,6 +45,13 @@ namespace Manatee7 {
       if (PopupNavigation.Instance.PopupStack.Any())
         await PopupNavigation.Instance.PopAsync();
     }
+    
+    private async void FinalScore(object sender, EventArgs e) {
+      if (PopupNavigation.Instance.PopupStack.Any())
+        await PopupNavigation.Instance.PopAsync();
+      PopupNavigation.Instance.PushAsync(new FinalScorePage());
+    }
+    
     
     protected override bool OnBackButtonPressed() {
       return true;

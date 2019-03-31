@@ -95,6 +95,7 @@ namespace Manatee7
 
         public async Task<bool> RequestPermission()
         {
+            return true; /*
             //https://stackoverflow.com/questions/39652909/await-for-a-pushmodalasync-form-to-closed-in-xamarin-forms
             var waitHandle = new EventWaitHandle(false, EventResetMode.AutoReset);
             var primerPage = new PermissionsPrimerPage();
@@ -106,7 +107,7 @@ namespace Manatee7
             };
             await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(primerPage);
             await Task.Run(() => waitHandle.WaitOne());
-            return waitOutput;
+            return waitOutput;*/
         }
     }
 

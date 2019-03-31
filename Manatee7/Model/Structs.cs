@@ -69,11 +69,13 @@ namespace Manatee7.Model {
   public struct Rules {
     public int RobotPlayersCount { get; }
     public int CardsPerHand { get; }
+    public int HandsPerGame { get; }
     public bool NSFWAllowed { get; }
 
-    public Rules(int numRobots, int cardsPerHand, bool nsfwAllowed) {
+    public Rules(int numRobots, int cardsPerHand, int handsPerGame, bool nsfwAllowed) {
       RobotPlayersCount = numRobots;
       CardsPerHand = cardsPerHand;
+      HandsPerGame = handsPerGame;
       NSFWAllowed = nsfwAllowed;
     }
   }
