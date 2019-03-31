@@ -55,7 +55,6 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchExtraArgs>-gcc_flags "-ObjC"</MtouchExtraArgs>
     <MtouchLink>None</MtouchLink>
-    <MtouchSdkVersion>12.2</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
