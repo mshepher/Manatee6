@@ -1,38 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Manatee7.SidebarPage"
+             xmlns:local="clr-namespace:Manatee7"
              BindingContext="{StaticResource GameInstance}"
              Title="☰">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <local:ArithmeticConverter x:Key="Plus1">
+        <x:Arguments>
+          <x:String>x+1</x:String>
+        </x:Arguments>
+      </local:ArithmeticConverter>
+    </ResourceDictionary>
+  </ContentPage.Resources>
   <ContentPage.Content>
-    <StackLayout Margin="30" Spacing="30">
-      <ListView ItemsSource="{Binding Path=Score}" x:Name="ScoreBoard" BackgroundColor="Transparent">
-        <ListView.Header><Label Text="Scoreboard:" FontSize="Large"/></ListView.Header>
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <!--TextCell Text="{Binding Key.Name}" Detail="{Binding Value}"/-->
-            <ViewCell>
-            <Grid VerticalOptions="CenterAndExpand">
-                                <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto" />
-          <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>   
-                      <Label Grid.Column="0" Text="{Binding Key.Name}" VerticalOptions="Center" HorizontalOptions="Start"/>
-                      <Label Grid.Column="1" Text="{Binding Value}" VerticalOptions="Center" HorizontalOptions="End"/>
-                      </Grid>
-                      </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
-      </ListView>
-      <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-        <Label Text="Sound Effects:" HorizontalOptions="Start"/>
-        <Switch IsToggled="{Binding SoundEffects, Source={StaticResource Preferences}, 
-        Mode=TwoWay}" HorizontalOptions="EndAndExpand" />
-      </StackLayout>
-    <Button
-              Text="Exit Game"
-              Clicked="ExitButtonClicked" />
+    <StackLayout Orientation="Horizontal" Padding="0" Spacing="0">
+      <StackLayout Spacing="10" Margin="30,0,30,30">
+        <Grid HeightRequest="134" x:Name="SpacerGrid">
+          <Label FontSize="Large" HorizontalOptions="Center" VerticalOptions="End">
+            <Label.FormattedText>
+              <FormattedString>
+                <Span Text="Round " />
+                <Span Text="{Binding Round, Source={StaticResource GameInstance}, 
+                  Converter={StaticResource Plus1}}" />
+                <Span Text=" of " />
+                <Span Text="{Binding GameRules.HandsPerGame, Source={StaticResource GameInstance}}" />
+              </FormattedString>
+            </Label.FormattedText>
+          </Label>
+        </Grid>
+        <ListView ItemsSource="{Binding Path=Score}" x:Name="ScoreBoard"
+                  BackgroundColor="Transparent">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <Grid VerticalOptions="CenterAndExpand">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Label Grid.Column="0" Text="{Binding Key.Name}" VerticalOptions="Center"
+                         HorizontalOptions="Start" />
+                  <Label Grid.Column="1" Text="{Binding Value}" VerticalOptions="Center"
+                         HorizontalOptions="End" />
+                </Grid>
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+          <Label Text="Sound Effects:" HorizontalOptions="Start" />
+          <Switch
+            IsToggled="{Binding SoundEffects, Source={StaticResource Preferences}, 
+        Mode=TwoWay}"
+            HorizontalOptions="EndAndExpand" />
+        </StackLayout>
+        <Button
+          Text="Exit Game"
+          Clicked="ExitButtonClicked" />
 
+      </StackLayout>
+      <BoxView WidthRequest="1" VerticalOptions="FillAndExpand"
+               BackgroundColor="{StaticResource BackgroundAccent}" />
     </StackLayout>
   </ContentPage.Content>
 </ContentPage>

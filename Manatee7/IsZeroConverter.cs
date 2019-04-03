@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
+using Serilog;
 using Xamarin.Forms;
 
 namespace Manatee7 {
@@ -19,16 +21,16 @@ namespace Manatee7 {
     }
   }
 
-    public class DivideBy2 : IValueConverter
+    public class Min10 : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture)
         {
-            try
+            if (value is int i && i < 10)
             {
-                return (double)value * 2;
+                return 10;
             }
-            catch
+            else
             {
                 return value;
             }
@@ -37,18 +39,78 @@ namespace Manatee7 {
         public object ConvertBack(object value, Type targetType, object parameter,
                                   System.Globalization.CultureInfo culture)
         {
-            try
-            {
-                return (double)value / 2;
-            }
-            catch
-            {
-                return value;
-            }
+            throw new NotImplementedException();
         }
     }
 
-    public class BoolToSelectionModeConverter : IValueConverter {
+    public class ArithmeticConverter : IValueConverter {
+    
+    private string Expression;
+    private DataTable dt = new DataTable();
+    
+    public ArithmeticConverter(string expression) {
+        var temp = expression.Replace("x", "1");
+        //if this fails, we want an immediate exception
+        var dispose = dt.Compute(temp, "");
+        Expression = expression;
+    }
+    
+    // https://stackoverflow.com/questions/333737/evaluating-string-342-yield-int-18
+    public object Convert(object value, Type targetType, object parameter,
+                          System.Globalization.CultureInfo culture)
+    {
+ 
+
+        
+        try {
+                var temp = Expression.Replace("x", value.ToString());
+                var result = dt.Compute(temp, "");
+                return result;
+        }
+        catch (Exception e) {
+          Log.Error("Failed to parse string {s} into a mathematical expression {Newline}{@e}",value,e);
+        }
+      return value;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter,
+                              System.Globalization.CultureInfo culture)
+    {
+      throw new NotImplementedException(); 
+    }
+  }
+
+
+  public class DivideBy2 : IValueConverter
+  {
+    public object Convert(object value, Type targetType, object parameter,
+                          System.Globalization.CultureInfo culture)
+    {
+      try
+      {
+        return (double)value * 2;
+      }
+      catch
+      {
+        return value;
+      }
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter,
+                              System.Globalization.CultureInfo culture)
+    {
+      try
+      {
+        return (double)value / 2;
+      }
+      catch
+      {
+        return value;
+      }
+    }
+  }
+
+  public class BoolToSelectionModeConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter,
                           System.Globalization.CultureInfo culture) {
       if (value is bool) {

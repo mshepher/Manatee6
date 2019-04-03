@@ -49,6 +49,7 @@ namespace Manatee7 {
     private async void FinalScore(object sender, EventArgs e) {
       if (PopupNavigation.Instance.PopupStack.Any())
         await PopupNavigation.Instance.PopAsync();
+            GameController.Instance.GameOver(); // don't get any more messages
       PopupNavigation.Instance.PushAsync(new FinalScorePage());
     }
     

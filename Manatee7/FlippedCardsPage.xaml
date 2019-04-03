@@ -58,6 +58,11 @@
                        Value="0">
             <Setter Property="IsEnabled" Value="False" />
           </DataTrigger>
+                    <DataTrigger TargetType="Button"
+                       Binding="{Binding Path=StatusString, Source={StaticResource GameController}}"
+                       Value="WINNER_CHOSEN">
+            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
         </Button.Triggers>
       </Button>
       <Label Margin="10"
@@ -75,6 +80,11 @@
                        Binding="{Binding Path=IAmJudge, Source={StaticResource GameInstance}}"
                        Value="True">
             <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+            <DataTrigger TargetType="Label"
+                       Binding="{Binding Path=StatusString, Source={StaticResource GameController}}"
+                       Value="WINNER_CHOSEN">
+            <Setter Property="TextColor" Value="Transparent" />
           </DataTrigger>
         </Label.Triggers>
       </Label>

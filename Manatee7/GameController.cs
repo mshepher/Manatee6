@@ -357,7 +357,14 @@ namespace Manatee7 {
       CheckStatus(SUBMISSION_FLIPPED);
     }
 
-    public void PickWinningResponse(List<Card> response) {
+        public void GameOver()
+        {
+            _game.GameID = Guid.Empty;
+            _px.OnWinningCardSelectedMessageSeen -= WinningCardPicked;
+            _px.OnSubmissionsFlippedMessageSeen -= SubmissionsArrived;
+
+        }
+        public void PickWinningResponse(List<Card> response) {
       if (response == null) return;
       var nextCard = _game.MyCallCards.Dequeue();
       var winner = _game.Submissions.FirstOrDefault(x => x.Value.SequenceEqual(response)).Key;

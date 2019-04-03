@@ -16,9 +16,9 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-    <StackLayout Padding="25" VerticalOptions="FillAndExpand">
-      <Label
-        Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Welcome, {0}', Mode=OneWay}"
+    <StackLayout Padding="25" VerticalOptions="FillAndExpand" Spacing="20">
+       <Label
+        Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Hello, {0}.', Mode=OneWay}"
         HorizontalOptions="Center"
         FontSize="Large" />
       
@@ -31,10 +31,15 @@
 
         <Grid VerticalOptions="Center"
               IsVisible="{Binding Scanning, Source={x:Reference This}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="0.8*"/>
+                    </Grid.RowDefinitions>
           <syncfusion:SfListView x:Name="VisibleGamesListView"
                                  ItemsSource="{Binding Path=Invitations, Source={x:Reference This}}"
-                                 RowSpacing="10"
+                                 RowSpacing="20"
                                  AutoFitMode="Height"
+                                 Grid.Row="1"
                                  IsStickyHeader="True">
             <syncfusion:SfListView.HeaderTemplate>
               <DataTemplate>
@@ -53,15 +58,23 @@
             </syncfusion:SfListView.HeaderTemplate>
             <syncfusion:SfListView.FooterTemplate>
               <DataTemplate>
-                <Grid>
-                  <ActivityIndicator IsRunning="True" Color="{StaticResource Main}"/>
+                <Grid Margin="10">
+                  <ActivityIndicator IsRunning="False" Color="{StaticResource Main}">
+                    <ActivityIndicator.Triggers>
+                      <DataTrigger TargetType="ActivityIndicator" Binding="{Binding StatusString, 
+                      Source={StaticResource GameController}}" Value="SCANNING">
+                        <Setter Property="IsRunning" Value="True"/>
+                      
+                      </DataTrigger>
+                    </ActivityIndicator.Triggers>
+                  </ActivityIndicator>
                 </Grid>
               </DataTemplate>
             </syncfusion:SfListView.FooterTemplate>
             <syncfusion:SfListView.ItemTemplate>
               <DataTemplate>
-                <Button Text="{Binding GameName, StringFormat='Join {0}'}"
-                        Clicked="GameSelected" />
+                <Button FontSize="Large" Text="{Binding GameName, StringFormat='Join {0}'}"
+                        Clicked="GameSelected" Margin="20" />
               </DataTemplate>
             </syncfusion:SfListView.ItemTemplate>
           </syncfusion:SfListView>

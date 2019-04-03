@@ -8,15 +8,63 @@
                  x:Name="This"
                  BindingContext="{x:Reference This}"
                  CloseWhenBackgroundIsClicked="false">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="NameStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                                <Setter Property="VerticalOptions" Value="Center" />
+
+                
+            </Style>
+            <Style x:Key="ScoreStyle" TargetType="Label" BasedOn="{StaticResource NameStyle}">  
+                                <Setter Property="HorizontalOptions" Value="Start" />
+
+                </Style>
+            </ResourceDictionary>
+        
+        </pages:PopupPage.Resources>
   <ContentView BackgroundColor="{StaticResource Background}" 
                HorizontalOptions="CenterAndExpand" 
                VerticalOptions="Center"
                Margin="20">
     <StackLayout Padding="20">
+            <Label Text="Final Score" FontAttributes="Bold" FontSize="Large"/>
+         
+           <Grid x:Name="ScoreGrid">
+             <Grid.ColumnDefinitions>
+               <ColumnDefinition Width="*"></ColumnDefinition>
+               <ColumnDefinition Width="Auto"></ColumnDefinition>
+             </Grid.ColumnDefinitions>
+                <Label Text="★" TextColor="{StaticResource MainLight}" Grid.Column="0" Grid.Row="0"
+                       HorizontalOptions="End" VerticalOptions="Fill" Opacity="1" FontSize="20"/>
+           </Grid>
+            <!--ListView ItemsSource="{Binding Source={StaticResource GameInstance}, Path=Score}" 
+                   BackgroundColor="Transparent"
+                   >
+           <ListView.ItemTemplate>
+            <DataTemplate>
+              <ViewCell>
+                <Grid VerticalOptions="CenterAndExpand">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Label Grid.Column="0" Text="{Binding Key.Name}" VerticalOptions="Center"
+                         HorizontalOptions="Start" />
+                  <Label Grid.Column="1" Text="{Binding Value}" VerticalOptions="Center"
+                         HorizontalOptions="End" />
+                </Grid>
+              </ViewCell>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+        </ListView-->
+            <ContentView BackgroundColor="{StaticResource Main}" Padding="10">
       <Label FontSize="Medium" x:Name="FinalScoreLabel" 
-             Text="This is a placeholder for a final scoreboard and a picture of a manatee in a party hat."
+             Text="This is a placeholder for a picture of a manatee in a party hat." 
              LineBreakMode="WordWrap">
-      </Label>
+              
+                </Label>
+           </ContentView>
       <Button Text="Exit" x:Name="Button" Clicked="ExitClicked"/>
     </StackLayout>
   </ContentView>

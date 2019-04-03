@@ -36,14 +36,14 @@ namespace Manatee7 {
     protected override void OnAppearing() {
       base.OnAppearing();
       _px.OnJoinGameMessageSeen += AddPlayer;
-      _px.OnLeaveGameMessageSeen += RemovePlayer;
+      _px.OnJoinGameMessageWithdrawn += RemovePlayer;
     }
 
     protected override void OnDisappearing() {
       base.OnDisappearing();
       //don't stay subscribed to external events
       _px.OnJoinGameMessageSeen -= AddPlayer;
-      _px.OnLeaveGameMessageSeen -= RemovePlayer;
+      _px.OnJoinGameMessageWithdrawn -= RemovePlayer;
     }
 
     private void AddPlayer(JoinGameMessage message) {
@@ -51,7 +51,7 @@ namespace Manatee7 {
         OnPropertyChanged(nameof(DistinctJoinedPlayers));
     }
 
-    private void RemovePlayer(LeaveGameMessage message) {
+    private void RemovePlayer(JoinGameMessage message) {
         JoinedPlayers.Remove(message.Sender);
         OnPropertyChanged(nameof(DistinctJoinedPlayers));
     }
@@ -65,7 +65,7 @@ namespace Manatee7 {
 
     private async void StartButtonClicked(object sender, EventArgs e) {
       _px.OnJoinGameMessageSeen -= AddPlayer;
-      _px.OnLeaveGameMessageSeen -= RemovePlayer;
+      _px.OnJoinGameMessageWithdrawn -= RemovePlayer; //just to be safe
       try {
         StartGameButton.IsEnabled = false;
         CancelButton.IsEnabled = false;

@@ -29,6 +29,8 @@
           </OnPlatform>
         </Setter.Value>
       </Setter>
+      <Setter Property="HorizontalOptions" Value="Center"/>
+      <Setter Property="VerticalOptions" Value="Center"/>
     </Style>
    
   
@@ -66,7 +68,8 @@
       <Setter Property="BackgroundColor" Value="{StaticResource Background}" />
     </Style>
         <Style x:Key="UnselectableCardFrame" BasedOn="{StaticResource CardFrame}" TargetType="Frame">
-                  <Setter Property="BorderColor" Value="Transparent" />
+                  <Setter Property="BorderColor" Value="{StaticResource Main}" />
+                  <Setter Property="BackgroundColor" Value="{StaticResource BackgroundAccent}" />
         </Style>
     <Style x:Key="CallCardFrame" TargetType="Frame"
            BasedOn="{StaticResource CardFrame}">

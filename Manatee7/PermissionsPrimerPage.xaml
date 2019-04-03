@@ -13,7 +13,8 @@
             <Setter Property="LineBreakMode" Value="WordWrap" />
         </Style>
     </pages:PopupPage.Resources>
-    <ContentView BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Margin="20">
+    <ContentView BackgroundColor="{StaticResource Background}" HorizontalOptions="CenterAndExpand" 
+    VerticalOptions="Center" Margin="20">
             <StackLayout>
             <StackLayout Spacing="20" Padding="20" x:Name="FirstMessage" IsVisible="{Binding FirstPage, Mode=OneWay}">
                 <Label FontSize="Large" Text="Let Manatee talk to other players using Nearby Messages?">

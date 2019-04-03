@@ -51,14 +51,14 @@ namespace Manatee7
         {
             if (!_px.Listening)
             {
-                if (_px.HasPermission || Preferences.Instance.AutoConnect || await RequestPermission())
+                if (_px.HasPermission || Preferences.Instance.AutoConnect)
                 {
                     _px.HasPermission = true; //they have already seen the permissions dialog (AutoConnect) and are 
                         //requesting a broadcast
-                    _px.SafeSubscribe();
+                    
                 }
-                else
-                    return;
+                _px.SafeSubscribe();
+                if (!_px.Listening) return;
             }
 
             if (DeckLibrary.Instance.IsEmpty)
@@ -84,12 +84,12 @@ namespace Manatee7
 
         private async void StartScanning(object sender, EventArgs e)
         {
-            if (_px.HasPermission || Preferences.Instance.AutoConnect || await RequestPermission())
+            if (_px.HasPermission || Preferences.Instance.AutoConnect)
             {
-                //_px.HasPermission = true; //they've seen the permission dialog (AutoConnect or RequestPermission) 
+                _px.HasPermission = true; //they've seen the permission dialog (AutoConnect or RequestPermission) 
                     //and are requesting a scan
-                _px.SafeSubscribe();
             }
+            _px.SafeSubscribe();
         }
 
 

@@ -34,12 +34,12 @@
   </sflistview:SfListView.HeaderTemplate>
   <sflistview:SfListView.ItemTemplate>
     <DataTemplate x:DataType="local:Model.Card"> 
-      <Frame Style="{StaticResource CardFrame}">
+      <Frame x:Name="ItemFrame" Style="{StaticResource CardFrame}">
                 <Frame.Triggers>
                     <DataTrigger TargetType="Button"
                        Binding="{Binding Source={x:Reference This}, Path=SelectionMode}"
                        Value="None">
-            <Setter Property="BackgroundColor" Value="Red" />
+            <Setter Property="Style" Value="{StaticResource UnselectableCardFrame}" />
           </DataTrigger>
                     </Frame.Triggers>
         <Grid VerticalOptions="StartAndExpand">

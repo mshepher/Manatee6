@@ -128,7 +128,8 @@ namespace Manatee7.Model {
       else // in case it's a robot
         Score[winner] = 1;
       OnPropertyChanged(nameof(Score));
-
+      Submissions = new Dictionary<Player, List<Card>>();
+      
       Round = ++round;
     }
     
@@ -144,7 +145,8 @@ namespace Manatee7.Model {
       Score = new Dictionary<Player, int>();
       Score = HumanPlayers.Concat(RobotPlayers).ToDictionary((arg) => arg, (arg)=>0);
       GameRules = message.Rules;
-      CallCard = message.CallCard;
+            CallCard = message.CallCard;
+            Submissions = new Dictionary<Player, List<Card>>();
       Hand = new ObservableCollection<Card>();
       for (var i = 0; i < GameRules.CardsPerHand; i++) Hand.Add(MyResponseCards.Dequeue());
     }

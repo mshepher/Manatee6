@@ -155,7 +155,7 @@ namespace Manatee7 {
       Winner = player;
       Cards = cards;
       NextCallCard = nextCard;
-      Score = score;
+      Score = new Dictionary<Player, int>(score);
       Round = round;
     }
   }
