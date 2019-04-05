@@ -81,7 +81,10 @@ namespace Manatee7 {
       } catch (GameException ex) {
                 //DEBUG ONLY
         await DisplayAlert(ex.Alert, ex.Detail, "Ugh, fine.");
-      }
+        StartGameButton.IsEnabled = true;
+        CancelButton.IsEnabled = true;
+
+        }
     }
   }
 }
