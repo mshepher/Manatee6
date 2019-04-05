@@ -8,6 +8,7 @@ using Xamarin.Forms;
 namespace Manatee7.Model {
   public class Preferences : INotifyPropertyChanged {
     private Preferences() {
+            CardsPerHand = 7;
     }
 
     public static async void Save() {
@@ -75,7 +76,7 @@ namespace Manatee7.Model {
       set => SetAppProperty(value);
     }
 
-    public bool UseNearby {
+    public bool NearbyPermissions {
       get => (bool)GetAppProperty(false);
       set => SetAppProperty(value);
     }

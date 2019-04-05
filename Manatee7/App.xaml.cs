@@ -54,7 +54,7 @@ namespace Manatee7 {
 
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
-            "NTk3MTNAMzEzNjJlMzQyZTMwTFhmYWZpR3g1NU83bTNjZldpektRamVhUVRwc2pRYUQ2QXhqODJ0UE9wMD0=");
+            "ODUwMzRAMzEzNzJlMzEyZTMwZzFaeVhNYVVGSUI2UG1Ca3hHZU5XcVZwdzh6djloN3VqR2xqMXhMbnRlRT0=");
         Log.Information("Registered license");
       
       InitializeComponent();
@@ -108,7 +108,7 @@ namespace Manatee7 {
     public async void DeckCheck() {
       if (!(Resources["DeckLibrary"] is DeckLibrary library) || !library.IsEmpty) return;
         try {
-          var codes = new[] {"6VVUN", "LADY1"};
+          var codes = new[] { "WKRXY", "LADY1"};
           foreach (var deck in codes) {
             await library.AddDeckFromCode(deck);
           }

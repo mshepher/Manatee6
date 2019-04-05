@@ -2,7 +2,9 @@
 using System.Linq;
 using Xamarin.Forms;
 using Manatee7.Model;
+using System.Collections.Generic;
 using Log = Serilog.Log;
+using System.Threading.Tasks;
 
 namespace Manatee7
 {
@@ -22,11 +24,6 @@ namespace Manatee7
             get => _px.HasPermission && _px.CurrentStrategy == NearbyStrategy.Default;
         }
 
-        public double PageScale { set; get; } = 1;
-        public double BaseFontSize { set; get; } = 16;
-        public double StepFontSize { set; get; } = Device.GetNamedSize(NamedSize.Small, typeof(Label));
-
-
 
         private bool _smallScreen = false;
         public SettingsPage()
@@ -42,12 +39,17 @@ namespace Manatee7
             NearbyPermissionSwitch.Toggled +=
                 (sender, e) => OnPropertyChanged(nameof(DisplayMicAllowed));
             CodeEntry.Completed += AddDeckFromEntry;
-            LinkTapped.Tapped += (sender, e) => Device.OpenUri(
-                new Uri("http://www.cardcastgame.com/browse"));
-            SmallNameLayout.IsVisible = false;
-            if (listView.Height > 0 && listView.Height < 100)
-                SwitchToSmallScreen();
+            LinkTapped.Tapped += async (sender, e) =>
+            {
+                Link.TextColor = Color.Accent;
+                await Task.Delay(50);
+                Device.OpenUri(
+                    new Uri("http://www.cardcastgame.com/browse"));
+                Link.TextColor = Color.Blue;
 
+            };
+            SmallNameLayout.IsVisible = false;
+            //listView.CachingStrategy = ListViewCachingStrategy.RecycleElement;
             listView.SizeChanged += (sender, e) =>
             {
                 if (listView.Height > 0 && listView.Height < ReferenceGrid.Height * 3 && !_smallScreen)
@@ -71,7 +73,7 @@ namespace Manatee7
             MicSmallGrid.IsVisible = true;*/
 
             //ParentGrid.Margin = new Thickness { Bottom = 5, Left = 5, Right = 5, Top = 2 };
-            Resources.TryGetValue("Scale", out object o);
+           /* Resources.TryGetValue("Scale", out object o);
             PageScale = o is double d ? d : PageScale;
             //DeckInstructionLabel.FontSize *= Scale;
 
@@ -80,7 +82,7 @@ namespace Manatee7
             ReferenceStepper.HeightRequest = stepHeight * PageScale;
             ReferenceGrid.MinimumHeightRequest = (stepHeight * PageScale) + margin;
 
-            _smallScreen = true;
+            _smallScreen = true;*/
         }
 
         protected override void OnDisappearing()
@@ -95,6 +97,13 @@ namespace Manatee7
             try
             {
                 _library.RemoveDeck(((MenuItem)sender).CommandParameter as string);
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    listView.ItemsSource = new Dictionary<string, Deck>();
+
+                    listView.ItemsSource = _library.Decks;
+                }
+
             }
             catch (Exception ex)
             {
@@ -106,6 +115,10 @@ namespace Manatee7
         private void Handle_Unfocused(object sender, FocusEventArgs e)
         {
             Preferences.Save();
+            if (listView.ItemsSource == _library.Decks)
+                listView.ItemsSource = new Dictionary<string, Deck>();
+            else
+                listView.ItemsSource = _library.Decks;
         }
 
         private async void AddDeckFromEntry(object sender, EventArgs e)
@@ -122,6 +135,7 @@ namespace Manatee7
 
                 var code = CodeEntry.Text.ToUpper();
                 await _library.AddDeckFromCode(code);
+                //listView.BeginRefresh();
                 CodeEntry.Placeholder = "Enter 5-letter code";
             }
             catch (Exception ex)

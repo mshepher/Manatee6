@@ -223,7 +223,7 @@ namespace Manatee7 {
 
 
         // WAIT_AS_HOST -> WAIT_AS_JUDGE, WAIT_AS_GUEST
-        public async Task StartGameAsHost(List<Player> players, List<Player> robotPlayers) {
+    public async Task StartGameAsHost(List<Player> players, List<Player> robotPlayers) {
       CheckStatus(WAIT_AS_HOST);
 
       var library = DeckLibrary.Instance;
@@ -251,10 +251,12 @@ namespace Manatee7 {
       //DEBUG ONLY
       //callCards.RemoveAll(x => x.Blanks == 1);
 
-      if (responseCards.Count < _game.GameRules.CardsPerHand * players.Count) {
-        throw new GameException("Not enough response cards for a full round!",
+      if (responseCards.Count <=
+        (_game.GameRules.HandsPerGame * 2) * (players.Count + robotPlayers.Count)
+                + ( _game.GameRules.CardsPerHand) * players.Count)  {
+        throw new GameException("Not enough response cards for a full game!",
             "Add more decks, or kick someone out of the game");
-      } else if (callCards.Count == 0) {
+      } else if (callCards.Count < _game.GameRules.HandsPerGame) {
         throw new GameException("You have zero call cards!",
             "Add more (or different) decks.");
       } else {
@@ -266,8 +268,14 @@ namespace Manatee7 {
         //at least 1 call card exists
         var currentCard = callCards[0];
         callCards.RemoveAt(0);
+                while (currentCard.Blanks == 1)
+                {
+                    callCards.Add(currentCard);
+                    currentCard = callCards[0];
+                    callCards.RemoveAt(0);
+                }
 
-        var responseIncrement = responseCards.Count / numPlayers;
+                var responseIncrement = responseCards.Count / numPlayers;
         var callIncrement = callCards.Count / numPlayers;
         responseIncrement = (responseIncrement < 350) ? responseIncrement : 350;
         callIncrement = (callIncrement < 60) ? callIncrement : 60;

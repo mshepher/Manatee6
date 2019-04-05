@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Manatee7"
-             x:Class="Manatee7.SettingsPage"
-             x:Name="This"
-             xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
-             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-             Title="Settings">
-  <ContentPage.Resources>        
-    <x:Double x:Key="Scale">0.75</x:Double>
-    <local:InvertBool x:Key="InvertBool"/>
-    <local:ArithmeticConverter x:Key="Times5">
-      <x:Arguments>
-        <x:String>x*5</x:String>
-      </x:Arguments>
-    </local:ArithmeticConverter>
-    
-    <local:ArithmeticConverter x:Key="Plus6">
-      <x:Arguments>
-        <x:String>x*2</x:String>
-      </x:Arguments>
-    </local:ArithmeticConverter>
-    <!--NamedSize x:Key="FontSize">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Manatee7" x:Class="Manatee7.SettingsPage" x:Name="This" xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms" xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" Title="Settings">
+    <ContentPage.Resources>
+        <local:InvertBool x:Key="InvertBool" />
+        <local:ArithmeticConverter x:Key="Times5">
+            <x:Arguments>
+                <x:String>x*5</x:String>
+            </x:Arguments>
+        </local:ArithmeticConverter>
+        <local:ArithmeticConverter x:Key="Plus6">
+            <x:Arguments>
+                <x:String>x*2</x:String>
+            </x:Arguments>
+        </local:ArithmeticConverter>
+        <!--NamedSize x:Key="FontSize">
       <Value>
       <OnPlatform x:TypeArguments="NamedSize">
         <OnPlatform.Platforms>
@@ -34,111 +24,80 @@
       </OnPlatform>
                 </Value>
     </NamedSize-->
-
-
-    <!--Setter Property="HeightRequest" Value="{Binding Source={x:Reference SampleSwitch}, 
+        <!--Setter Property="HeightRequest" Value="{Binding Source={x:Reference SampleSwitch}, 
       Path=Height, Mode=OneWay}" /-->
-
-    <Style TargetType="Grid" x:Key="SettingGrid">
-      <Setter Property="VerticalOptions" Value="Start" />
-      <Setter Property="HeightRequest" Value="{Binding Height, Source={x:Reference ReferenceGrid}, Mode=OneWay}" />
-      <Setter Property="ColumnDefinitions">
-        <Setter.Value>
-          <ColumnDefinitionCollection>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="110" />
-          </ColumnDefinitionCollection>
-        </Setter.Value>
-      </Setter>
-    </Style>
-
-    <Style TargetType="numeric:SfNumericUpDown">
-      <Setter Property="FontSize" Value="{Binding Source={x:Reference This}, Path=StepFontSize, Mode=OneWay}" />
-      <Setter Property="HeightRequest" Value="{Binding Height}"/>
-      <Setter Property="BackgroundColor" Value="White" />
-      <Setter Property="SpinButtonAlignment" Value="Both" />
-      <Setter Property="ParsingMode" Value="Double"/>
-      <Setter Property="MaximumDecimalDigits" Value="0" />
-      <Setter Property="HorizontalOptions" Value="Center"/>
-    </Style>
-    
-    <Style TargetType="Entry">
-      <Setter Property="FontSize" Value="{Binding Source={x:Reference This}, Path=BaseFontSize, Mode=OneWay}" />   
-    </Style>
-
-    <Style TargetType="Label">
-      <Setter Property="FontSize" Value="{Binding Source={x:Reference This}, Path=BaseFontSize, Mode=OneWay}" />
-      <Setter Property="VerticalOptions" Value="Center" />
-    </Style>
-
-    <local:MicValueToStrategy x:Key="MicConverter" />
-  </ContentPage.Resources>
-  <ContentPage.Content>
-    <Grid Margin="10" VerticalOptions="FillAndExpand" x:Name="ParentGrid">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
-      <StackLayout Grid.Row="0" Grid.Column="0" x:Name="PrefsStack"
-                   VerticalOptions="Center" BindingContext="{StaticResource Preferences}">
-        <Label x:Name="ScreenNameLabelLarge" Text="Screen name:"/>
-        <Entry x:Name="EntryLarge"
-               Margin="0"
-               Text="{Binding PlayerName}"
-               MaxLength="48"
-               HorizontalOptions="FillAndExpand"
-               Unfocused="Handle_Unfocused">
-          <Entry.Keyboard>
-            <Keyboard x:FactoryMethod="Create">
-              <x:Arguments>
-                <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
-              </x:Arguments>
-            </Keyboard>
-          </Entry.Keyboard>
-        </Entry>
-        <StackLayout Orientation="Horizontal" x:Name="SmallNameLayout">
-           <Label x:Name="ScreenNameLabelSmall" Text="Screen name:" />
-
-           <Entry x:Name="EntrySmall"
-               Margin="0"
-               Text="{Binding PlayerName}"
-               MaxLength="48"
-               HorizontalOptions="FillAndExpand"
-               Unfocused="Handle_Unfocused">
-          <Entry.Keyboard>
-            <Keyboard x:FactoryMethod="Create">
-              <x:Arguments>
-                <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
-              </x:Arguments>
-            </Keyboard>
-          </Entry.Keyboard>
-        </Entry>
-                    
+        <Style TargetType="Grid" x:Key="SettingGrid">
+            <Setter Property="VerticalOptions" Value="Start" />
+            <Setter Property="HeightRequest" Value="{Binding Height, Source={x:Reference ReferenceGrid}, Mode=OneWay}" />
+            <Setter Property="MinimumHeightRequest" Value="{Binding Height, Source={x:Reference ReferenceGrid}, Mode=OneWay}" />
+            <Setter Property="ColumnDefinitions">
+                <Setter.Value>
+                    <ColumnDefinitionCollection>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="110" />
+                    </ColumnDefinitionCollection>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="numeric:SfNumericUpDown">
+            <Setter Property="FontSize" Value="Micro" />
+            <Setter Property="HeightRequest" Value="{Binding Height}" />
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="SpinButtonAlignment" Value="Both" />
+            <Setter Property="ParsingMode" Value="Double" />
+            <Setter Property="MaximumDecimalDigits" Value="0" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <local:MicValueToStrategy x:Key="MicConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="10" VerticalOptions="FillAndExpand" x:Name="ParentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" Grid.Column="0" x:Name="PrefsStack" VerticalOptions="Center" BindingContext="{StaticResource Preferences}">
+                <Label x:Name="ScreenNameLabelLarge" Text="Screen name:" />
+                <Entry x:Name="EntryLarge" Margin="0" Text="{Binding PlayerName}" MaxLength="48" HorizontalOptions="FillAndExpand" Unfocused="Handle_Unfocused">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </Entry>
+                <StackLayout Orientation="Horizontal" x:Name="SmallNameLayout">
+                    <Label x:Name="ScreenNameLabelSmall" Text="Screen name:" />
+                    <Entry x:Name="EntrySmall" Margin="0" Text="{Binding PlayerName}" MaxLength="48" HorizontalOptions="FillAndExpand" Unfocused="Handle_Unfocused">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>Suggestions,CapitalizeWord</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </Entry>
                 </StackLayout>
-                             
-
-        <Grid Style="{StaticResource SettingGrid}">
+                <!--Grid Style="{StaticResource SettingGrid}">
           <Label Text="Allow NSFW Cards:" Grid.Column="0" Grid.Row="0" />
           <Switch x:Name="SampleSwitch" Grid.Column="1" Grid.Row="0"
                   IsToggled="{Binding NSFWAllowed, Mode=TwoWay}" />
-        </Grid>
-
-        <Grid Style="{StaticResource SettingGrid}">
-          <Label Text="Sound Effects:" Grid.Column="0" />
-          <Switch Grid.Column="1" IsToggled="{Binding SoundEffects, Mode=TwoWay}" />
-        </Grid>
-
-        <Grid Style="{StaticResource SettingGrid}" x:Name="ReferenceGrid" HeightRequest="-1">
-          <Label Text="Hands Per Game:"
-                 HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"
-                 Grid.Row="0" />
-          <numeric:SfNumericUpDown x:Name="ReferenceStepper" Minimum="1" Maximum="100"
-                                   Value="{Binding HandsPerGame, Mode=TwoWay}"
-                                   Grid.Column="1" Grid.Row="0">
-          </numeric:SfNumericUpDown>
-        </Grid>
-
-        <!--Grid Style="{StaticResource SettingGrid}" x:Name="CardsPerHandGrid">
+        </Grid-->
+                <Grid Style="{StaticResource SettingGrid}">
+                    <Label Text="Sound Effects:" Grid.Column="0" />
+                    <Switch x:Name="SampleSwitch" Grid.Column="1" IsToggled="{Binding SoundEffects, Mode=TwoWay}" />
+                </Grid>
+                <Grid Style="{StaticResource SettingGrid}" x:Name="ReferenceGrid" HeightRequest="-1">
+                    <Label Text="Hands Per Game:" HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0" Grid.Row="0" />
+                    <numeric:SfNumericUpDown x:Name="ReferenceStepper" Minimum="1" Maximum="100" Value="{Binding HandsPerGame, Mode=TwoWay}" Grid.Column="1" Grid.Row="0">
+                    </numeric:SfNumericUpDown>
+                </Grid>
+                <!--Grid Style="{StaticResource SettingGrid}" x:Name="CardsPerHandGrid">
           <Label Text="Cards Per Hand:"
                  HorizontalOptions="Start" VerticalOptions="Center" Grid.Column="0"
                  Grid.Row="0" />
@@ -146,43 +105,25 @@
                                    Value="{Binding CardsPerHand, Mode=TwoWay}"
                                    Grid.Column="1" Grid.Row="0" />
         </Grid-->
-                           
-
-        <Grid Style="{StaticResource SettingGrid}">
-          <Label Text="Robot Players:" Grid.Column="0" Grid.Row="0" />
-          <numeric:SfNumericUpDown Minimum="0" Maximum="5" Value="{Binding Robots,Mode=TwoWay}"
-                                   Grid.Column="1" Grid.Row="0" />
-        </Grid>
-        
-        <Grid Style="{StaticResource SettingGrid}" x:Name="NearbySmallGrid"
-              IsVisible="true">
-        <Label Text="Connect to nearby devices using Bluetooth:" Grid.Column="0" x:Name="NearbyLabel" />
-          <Switch Grid.Column="1" x:Name="NearbyPermissionSwitch"
-                  IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
-        </Grid>
-        
-       
-        <Grid Style="{StaticResource SettingGrid}" x:Name="MicSmallGrid"
-              IsVisible="true">
-          <Label Text="...and using audio pairing codes:" 
-                 Grid.Column="0" x:Name="MicLabel">
-            <Label.Triggers>
-              <DataTrigger TargetType="Label"
-                           Binding="{Binding Source={x:Reference NearbyPermissionSwitch},
-                                             Path=IsToggled}"
-                           Value="false">
-                <Setter Property="Opacity" Value=".5" />
-              </DataTrigger>
-            </Label.Triggers>
-          </Label>
-                    
-          <Switch Grid.Column="1"
-                  IsEnabled="{Binding Source={x:Reference NearbyPermissionSwitch}, Path=IsToggled}"
-                  IsToggled="{Binding Source={x:Reference This}, Path=DisplayMicAllowed, Mode=TwoWay}" />
-          </Grid>
-
-
-        <!--Grid Style="{StaticResource SettingGrid}" 
+                <Grid Style="{StaticResource SettingGrid}">
+                    <Label Text="Robot Players:" Grid.Column="0" Grid.Row="0" />
+                    <numeric:SfNumericUpDown Minimum="0" Maximum="5" Value="{Binding Robots,Mode=TwoWay}" Grid.Column="1" Grid.Row="0" />
+                </Grid>
+                <Grid Style="{StaticResource SettingGrid}" x:Name="NearbySmallGrid" IsVisible="true">
+                    <Label Text="Connect to nearby devices using Bluetooth:" Grid.Column="0" x:Name="NearbyLabel" />
+                    <Switch Grid.Column="1" x:Name="NearbyPermissionSwitch" IsToggled="{Binding Source={x:Static local:PostOffice.Instance}, Path=HasPermission, Mode=TwoWay}" />
+                </Grid>
+                <Grid Style="{StaticResource SettingGrid}" x:Name="MicSmallGrid" IsVisible="true">
+                    <Label Text="...and using audio pairing codes:" Grid.Column="0" x:Name="MicLabel">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference NearbyPermissionSwitch},&#xA;                                             Path=IsToggled}" Value="false">
+                                <Setter Property="Opacity" Value=".5" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Switch Grid.Column="1" IsEnabled="{Binding Source={x:Reference NearbyPermissionSwitch}, Path=IsToggled}" IsToggled="{Binding Source={x:Reference This}, Path=DisplayMicAllowed, Mode=TwoWay}" />
+                </Grid>
+                <!--Grid Style="{StaticResource SettingGrid}" 
               VerticalOptions="Start" x:Name="NearbyLargeGrid">
           <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -212,91 +153,67 @@
                   IsEnabled="{Binding Source={x:Reference NearbyPermissionSwitch2}, Path=IsToggled}"
                   IsToggled="{Binding Source={x:Reference This}, Path=DisplayMicAllowed, Mode=TwoWay}" />
         </Grid-->
-      </StackLayout>
-
-      <StackLayout Grid.Row="1" Grid.Column="0">
-        <ListView x:Name="listView" Header="Saved Decks"
-                  RowHeight="{Binding Height, Source={x:Reference ReferenceGrid}, Mode=OneWay}"
-                  SelectionMode="None"
-                  VerticalOptions="End"
-                  Margin="0,10,0,0"
-                  BackgroundColor="Transparent"
-                  BindingContext="{StaticResource DeckLibrary}"
-                  ItemsSource="{Binding Decks}">
-          <ListView.HeaderTemplate>
-            <DataTemplate>
-              <ContentView>
-                <Grid Padding="0">
-                  <Label FontAttributes="Bold"
-                         Text="{Binding .}" />
-                </Grid>
-              </ContentView>
-            </DataTemplate>
-          </ListView.HeaderTemplate>
-          <ListView.ItemTemplate>
-            <DataTemplate>
-              <ViewCell>
-                <ViewCell.ContextActions>
-                  <MenuItem Clicked="Delete"
-                            CommandParameter="{Binding Key}"
-                            Text="Delete"
-                            IsDestructive="True" />
-                </ViewCell.ContextActions>
-                <StackLayout Orientation="Horizontal">
-                  <buttons:SfCheckBox x:Name="checkBox"
-                                      CheckedColor="{StaticResource Interactive}"
-                                      Text="{Binding Value.Name}"
-                                      IsChecked="{Binding Value.Enabled}" />
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.Column="0">
+                <ListView x:Name="listView" Header="Saved Decks" CachingStrategy="RecycleElementAndDataTemplate" IsVisible="{Binding SoundEffects, Source={StaticResource Preferences}}" RowHeight="{Binding Height, Source={x:Reference ReferenceGrid}, Mode=OneWay}" SelectionMode="None" VerticalOptions="End" Margin="0,10,0,0" BackgroundColor="Transparent" BindingContext="{StaticResource DeckLibrary}"
+                    ItemsSource="{Binding Decks}">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <Grid Padding="0">
+                                    <Label FontAttributes="Bold" Text="{Binding .}" />
+                                </Grid>
+                            </ContentView>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="Delete" CommandParameter="{Binding Key}" Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Orientation="Horizontal">
+                                    <buttons:SfCheckBox x:Name="checkBox" HorizontalOptions="Fill" CheckedColor="{StaticResource Interactive}" Text="{Binding Value.Name}" IsChecked="{Binding Value.Enabled}" />
+                                    <!--Switch IsToggled="{Binding Value.Enabled}"/>
+                                    <Label                                       Text="{Binding Value.Name}"
+/-->
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label x:Name="DeckInstructionLabel">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Enter a deck code from " />
+                            <Span Text="cardcastgame.com" TextColor="Blue" x:Name="Link" TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="LinkTapped" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text=" to add a deck to your collection." />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
+                    <Entry x:Name="CodeEntry" MaxLength="5" HorizontalOptions="FillAndExpand" Placeholder="Enter 5-letter code">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeCharacter</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </Entry>
+                    <Button x:Name="AddButton" IsEnabled="False" Text="Add Deck" Clicked="AddDeckFromEntry">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding Source={x:Reference CodeEntry},&#xA;            Path=Text.Length}" Value="5">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
                 </StackLayout>
-              </ViewCell>
-            </DataTemplate>
-          </ListView.ItemTemplate>
-        </ListView>
-        <Label x:Name="DeckInstructionLabel">
-          <Label.FormattedText>
-            <FormattedString>
-              <Span Text="Enter a deck code from " />
-              <Span Text="cardcastgame.com"
-                    TextColor="Blue"
-                    TextDecorations="Underline">
-                <Span.GestureRecognizers>
-                  <TapGestureRecognizer x:Name="LinkTapped" />
-                </Span.GestureRecognizers>
-              </Span>
-              <Span Text=" to add a deck to your collection." />
-            </FormattedString>
-          </Label.FormattedText>
-        </Label>
-                
-        <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
-          <Entry x:Name="CodeEntry"
-                 MaxLength="5"
-                 HorizontalOptions="FillAndExpand"
-                 Placeholder="Enter 5-letter code">
-            <Entry.Keyboard>
-              <Keyboard x:FactoryMethod="Create">
-                <x:Arguments>
-                  <KeyboardFlags>CapitalizeCharacter</KeyboardFlags>
-                </x:Arguments>
-              </Keyboard>
-            </Entry.Keyboard>
-          </Entry>
-          <Button x:Name="AddButton"
-                  IsEnabled="False"
-                  Text="Add Deck"
-                  Clicked="AddDeckFromEntry">
-            <Button.Triggers>
-              <DataTrigger TargetType="Button"
-                           Binding="{Binding Source={x:Reference CodeEntry},
-            Path=Text.Length}"
-                           Value="5">
-                <Setter Property="IsEnabled"
-                        Value="True" />
-              </DataTrigger>
-            </Button.Triggers>
-          </Button>
-        </StackLayout>
-      </StackLayout>
-    </Grid>
-  </ContentPage.Content>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

@@ -10,7 +10,34 @@ using Xamarin.Forms;
 namespace Manatee7.Droid {
   public class PostOffice_Droid : IPostOffice {
 
-    public bool HasPermission { get; set;  }
+
+        private bool _hasSystemPermission = false;
+        private bool _hasUserPermission
+        {
+            get => (bool)Application.Current.Properties["UserNearbyPermission"];
+            set => Application.Current.Properties["UserNearbyPermission"] = value;
+        }
+        public bool HasPermission
+        {
+            get => _hasSystemPermission && _hasUserPermission;
+            set
+            {
+                if (HasPermission == true && value == false)
+                {
+                    Unsubscribe();
+                    DePing();
+                }
+
+
+                if (_hasSystemPermission == true && value == true)
+                {
+                    Subscribe();
+                    Ping();
+                }
+
+                _hasUserPermission = value;
+            }
+        }
 
     private static ManateeListener _listener;
     private static MessagesClient _client;
@@ -39,7 +66,11 @@ namespace Manatee7.Droid {
       = new Dictionary<NMessage, Message>();
 
     public PostOffice_Droid() {
-      
+            OnPermissionChanged += (b) => _hasSystemPermission = b;
+
+            if (!Application.Current.Properties.ContainsKey("UserNearbyPermission"))
+                Application.Current.Properties["UserNearbyPermission"] = false;
+
       _publishOptions = new PublishOptions.Builder().SetStrategy(_strategy).Build();
        
       _listener = new ManateeListener();
@@ -61,7 +92,6 @@ namespace Manatee7.Droid {
           OnPermissionChanged?.Invoke(permissionChanged);
         }
       ));
-      OnPermissionChanged += (b) => HasPermission = b;
       Log.Information("Created client");
 
       /*

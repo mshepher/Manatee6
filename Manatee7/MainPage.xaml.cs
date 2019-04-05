@@ -16,7 +16,8 @@ namespace Manatee7
     {
         private static readonly PostOffice _px = PostOffice.Instance;
 
-        public bool Scanning => _px.HasPermission && _px.Listening;
+        public bool Scanning { get => _px.HasPermission && _px.Listening;
+        }
 
         public MainPage()
         {
@@ -34,6 +35,7 @@ namespace Manatee7
                 else
                     ((App)Application.Current).DeckCheck();
             });
+
 
             _px.OnPermissionChanged += b => OnPropertyChanged("Scanning");
             _px.DidSubscribe += () => OnPropertyChanged("Scanning");
@@ -58,15 +60,15 @@ namespace Manatee7
                     
                 }
                 _px.SafeSubscribe();
-                if (!_px.Listening) return;
             }
 
             if (DeckLibrary.Instance.IsEmpty)
                 await DisplayAlert("You cannot start a game without at least one deck.",
                     "Make sure you're connected to the internet and go to settings to download more decks.",
                     "Ugh, fine.");
+            else if (!_px.Listening) return;
             else
-                await Navigation.PushModalAsync(new NewGamePage());
+              await Navigation.PushModalAsync(new NewGamePage());
         }
 
         private void SettingsButtonClicked(object sender, EventArgs e)
@@ -92,6 +94,11 @@ namespace Manatee7
             _px.SafeSubscribe();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            OnPropertyChanged("Scanning"); // value may have changed in Settings
+        }
 
         public async Task<bool> RequestPermission()
         {

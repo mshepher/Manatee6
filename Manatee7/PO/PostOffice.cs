@@ -13,6 +13,7 @@ namespace Manatee7 {
     private readonly Preferences _preferences = Preferences.Instance;
     private readonly HashSet<Guid> _processed = new HashSet<Guid>();
 
+
     public NearbyStrategy CurrentStrategy {
       get => _postOffice.CurrentStrategy;
       set {
@@ -121,8 +122,7 @@ namespace Manatee7 {
     
     public void SafeSubscribe() {
       if (_postOffice == null) return;
-      //Subscription must be done on main thread in case it invokes a permissions prompt
-      Device.BeginInvokeOnMainThread(() => _postOffice.Subscribe());
+      _postOffice.Subscribe();
       Log.Information("Subscribed");
       //Some Android devices won't scan for others unless publish()
       //has been called

@@ -13,8 +13,11 @@ namespace Manatee7 {
     }
 
     private void NextClicked(object sender, EventArgs e) {
-      Preferences.Save();
-      App.NextPage(new NavigationPage(new MainPage()));
+            if (NameEntry.Text.Length > 0)
+            {
+                Preferences.Save();
+                App.NextPage(new NavigationPage(new MainPage()));
+            }
     }
   }
 }

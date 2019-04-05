@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{StaticResource Preferences}"
@@ -12,8 +12,8 @@
              FontSize="40" />
       <Label Text="What name do you want to use?" />
       <Entry Text="{Binding PlayerName}"
-             x:Name="NameEntry"/>
-      <Button Text="Start scanning for nearby games -&gt;"
+             x:Name="NameEntry" Completed="NextClicked"/>
+      <Button Text="Next -&gt;"
               HorizontalOptions="End"
               Clicked="NextClicked">
         <Button.Triggers>

@@ -16,7 +16,7 @@
     </ResourceDictionary>
   </ContentPage.Resources>
   <ContentPage.Content>
-    <StackLayout Padding="25" VerticalOptions="FillAndExpand" Spacing="20">
+    <StackLayout Padding="25" VerticalOptions="FillAndExpand" Spacing="5">
        <Label
         Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Hello, {0}.', Mode=OneWay}"
         HorizontalOptions="Center"

@@ -10,16 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.220655" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.2" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.14.0" />
     <PackageReference Include="Xam.Plugin.SimpleAudioPlayer" Version="1.3.0" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.5.188" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="16.4.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="16.4.0.54" />
-    <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="16.4.0.54" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.1.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.1.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="17.1.0.38" />
     <PackageReference Include="MedallionRandom" Version="1.1.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
     <PackageReference Include="LiveXAML" Version="2.1.70" />
