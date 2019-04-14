@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:local="clr-namespace:Manatee7"
              x:Name="This"
@@ -16,11 +15,14 @@
       <Color x:Key="BackgroundSelectable">#ffecb3</Color>
     </ResourceDictionary>
     <!-- https://stackoverflow.com/questions/5834626/adding-a-static-object-to-a-resource-dictionary -->
-    <x:StaticExtension Member="local:Model.Game.Instance" x:Key="GameInstance" />
-    <x:StaticExtension Member="local:Model.Preferences.Instance" x:Key="Preferences" />
-    <x:StaticExtension Member="local:GameController.Instance" x:Key="GameController" />
-    <x:StaticExtension Member="local:Model.DeckLibrary.Instance" x:Key="DeckLibrary" />
-
+    <x:StaticExtension Member="local:Model.Game.Instance"
+                       x:Key="GameInstance" />
+    <x:StaticExtension Member="local:Model.Preferences.Instance"
+                       x:Key="Preferences" />
+    <x:StaticExtension Member="local:GameController.Instance"
+                       x:Key="GameController" />
+    <x:StaticExtension Member="local:Model.DeckLibrary.Instance"
+                       x:Key="DeckLibrary" />
     <Style TargetType="Switch">
       <Setter Property="OnColor">
         <Setter.Value>
@@ -29,89 +31,130 @@
           </OnPlatform>
         </Setter.Value>
       </Setter>
-      <Setter Property="HorizontalOptions" Value="Center"/>
-      <Setter Property="VerticalOptions" Value="Center"/>
+      <Setter Property="HorizontalOptions"
+              Value="Center" />
+      <Setter Property="VerticalOptions"
+              Value="Center" />
     </Style>
-   
-  
     <Style TargetType="ActivityIndicator">
-      <Setter Property="Color" Value="{StaticResource Main}" />
+      <Setter Property="Color"
+              Value="{StaticResource Main}" />
     </Style>
-
-    <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
-      <Setter Property="BackgroundColor" Value="{StaticResource Background}" />
+    <Style TargetType="ContentPage"
+           ApplyToDerivedTypes="True">
+      <Setter Property="BackgroundColor"
+              Value="{StaticResource Background}" />
     </Style>
-
     <Style TargetType="NavigationPage">
-      <Setter Property="BarBackgroundColor" Value="{StaticResource Main}" />
-      <Setter Property="BarTextColor" Value="{StaticResource Background}" />
+      <Setter Property="BarBackgroundColor"
+              Value="{StaticResource Main}" />
+      <Setter Property="BarTextColor"
+              Value="{StaticResource Background}" />
     </Style>
-
-
     <Style TargetType="Button">
-      <Setter Property="BackgroundColor" Value="{StaticResource Interactive}" />
-      <Setter Property="TextColor" Value="#000000" />
+      <Setter Property="BackgroundColor"
+              Value="{StaticResource Interactive}" />
+      <Setter Property="TextColor"
+              Value="#000000" />
       <!--Setter Property="BorderWidth" Value="4"/-->
-      <Setter Property="Padding" Value="20,0,20,0" />
-      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="Padding"
+              Value="20,0,20,0" />
+      <Setter Property="CornerRadius"
+              Value="14" />
     </Style>
     <Style x:Key="CardFrame"
            TargetType="Frame">
-      <Setter Property="VerticalOptions" Value="StartAndExpand" />
-      <Setter Property="CornerRadius" Value="8" />
-      <Setter Property="HasShadow" Value="False" />
-      <Setter Property="Padding" Value="10,8,10,8" />
-      <Setter Property="Margin" Value="10,0,10,0" />
-      <Setter Property="HorizontalOptions" Value="FillAndExpand" />
-      <Setter Property="BorderColor" Value="{StaticResource Interactive}" />
-      <Setter Property="Opacity" Value="1" />
-      <Setter Property="BackgroundColor" Value="{StaticResource Background}" />
+      <Setter Property="VerticalOptions"
+              Value="StartAndExpand" />
+      <Setter Property="CornerRadius"
+              Value="8" />
+      <Setter Property="HasShadow"
+              Value="False" />
+      <Setter Property="Padding"
+              Value="10,8,10,8" />
+      <Setter Property="Margin"
+              Value="10,0,10,0" />
+      <Setter Property="HorizontalOptions"
+              Value="FillAndExpand" />
+      <Setter Property="BorderColor"
+              Value="{StaticResource Interactive}" />
+      <Setter Property="Opacity"
+              Value="1" />
+      <Setter Property="BackgroundColor"
+              Value="{StaticResource Background}" />
     </Style>
-        <Style x:Key="UnselectableCardFrame" BasedOn="{StaticResource CardFrame}" TargetType="Frame">
-                  <Setter Property="BorderColor" Value="{StaticResource Main}" />
-                  <Setter Property="BackgroundColor" Value="{StaticResource BackgroundAccent}" />
-        </Style>
-    <Style x:Key="CallCardFrame" TargetType="Frame"
+    <Style x:Key="UnselectableCardFrame"
+           BasedOn="{StaticResource CardFrame}"
+           TargetType="Frame">
+      <Setter Property="BorderColor"
+              Value="{StaticResource Main}" />
+      <Setter Property="BackgroundColor"
+              Value="{StaticResource BackgroundAccent}" />
+    </Style>
+    <Style x:Key="CallCardFrame"
+           TargetType="Frame"
            BasedOn="{StaticResource CardFrame}">
-      <Setter Property="Opacity" Value="1" />
-      <Setter Property="BackgroundColor" Value="{StaticResource MainDark}" />
-      <Setter Property="BorderColor" Value="{StaticResource MainDark}" />
-      <Setter Property="Padding" Value="10,10,10,10" />
-
+      <Setter Property="Opacity"
+              Value="1" />
+      <Setter Property="BackgroundColor"
+              Value="{StaticResource MainDark}" />
+      <Setter Property="BorderColor"
+              Value="{StaticResource MainDark}" />
+      <Setter Property="Padding"
+              Value="10,10,10,10" />
     </Style>
-    <Style x:Key="SelectedCardFrame" TargetType="Frame"
+    <Style x:Key="SelectedCardFrame"
+           TargetType="Frame"
            BasedOn="{StaticResource CardFrame}">
-      <Setter Property="BorderColor" Value="{StaticResource MainDark}" />
-
-      <Setter Property="BackgroundColor" Value="{StaticResource MainLight}" />
-
+      <Setter Property="BorderColor"
+              Value="{StaticResource MainDark}" />
+      <Setter Property="BackgroundColor"
+              Value="{StaticResource MainLight}" />
     </Style>
-    <Style x:Key="CardLabel" TargetType="Label">
-      <Setter Property="LineBreakMode" Value="WordWrap" />
-      <Setter Property="FontSize" Value="Default" />
-      <Setter Property="VerticalOptions" Value="StartAndExpand" />
-      <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+    <Style x:Key="CardLabel"
+           TargetType="Label">
+      <Setter Property="LineBreakMode"
+              Value="WordWrap" />
+      <Setter Property="FontSize"
+              Value="Default" />
+      <Setter Property="VerticalOptions"
+              Value="StartAndExpand" />
+      <Setter Property="HorizontalOptions"
+              Value="FillAndExpand" />
     </Style>
-    <Style x:Key="SelectedCardLabel" TargetType="Label"
+    <Style x:Key="SelectedCardLabel"
+           TargetType="Label"
            BasedOn="{StaticResource CardLabel}" />
-    <Style x:Key="CallCardLabel" TargetType="Label"
+    <Style x:Key="CallCardLabel"
+           TargetType="Label"
            BasedOn="{StaticResource CardLabel}">
-      <Setter Property="TextColor" Value="{StaticResource Background}" />
-      <Setter Property="FontSize" Value="Large" />
-      <Setter Property="FontAttributes" Value="Bold" />
+      <Setter Property="TextColor"
+              Value="{StaticResource Background}" />
+      <Setter Property="FontSize"
+              Value="Large" />
+      <Setter Property="FontAttributes"
+              Value="Bold" />
     </Style>
-    <Style x:Key="AlertLabel" TargetType="Label">
-      <Setter Property="TextColor" Value="White" />
-      <Setter Property="FontAttributes" Value="Bold" />
+    <Style x:Key="AlertLabel"
+           TargetType="Label">
+      <Setter Property="TextColor"
+              Value="White" />
+      <Setter Property="FontAttributes"
+              Value="Bold" />
     </Style>
-    <Style x:Key="DividerStyle" TargetType="BoxView">
-      <Setter Property="Color" Value="{StaticResource MainDark}" />
-      <Setter Property="HeightRequest" Value="1" />
-      <Setter Property="Margin" Value="0,2,0,1" />
+    <Style x:Key="DividerStyle"
+           TargetType="BoxView">
+      <Setter Property="Color"
+              Value="{StaticResource MainDark}" />
+      <Setter Property="HeightRequest"
+              Value="1" />
+      <Setter Property="Margin"
+              Value="0,2,0,1" />
     </Style>
     <ControlTemplate x:Key="DebugTemplate">
       <StackLayout>
-        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <Grid VerticalOptions="FillAndExpand"
+              HorizontalOptions="FillAndExpand">
           <ContentPresenter />
         </Grid>
       </StackLayout>

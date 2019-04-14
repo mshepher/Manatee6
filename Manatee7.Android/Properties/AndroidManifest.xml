@@ -3,7 +3,6 @@
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 	<uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 	<application android:label="Manatee7.Android">
 		<meta-data android:name="com.google.android.nearby.messages.API_KEY" android:value="AIzaSyBvf7Ut-3jvxbXAB1zS6AeCDAwZD_19K3E" />

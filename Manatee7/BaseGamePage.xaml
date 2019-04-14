@@ -1,23 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"
+      encoding="UTF-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:local="clr-namespace:Manatee7"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="{Binding Source={StaticResource GameInstance}, Path=CurrentJudge.Name, 
-             StringFormat='{0}\'s Deal'}"
              ControlTemplate="{StaticResource DebugTemplate}"
              x:Class="Manatee7.BaseGamePage">
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness">
-      <OnPlatform.Platforms>
-        <On Platform="iOS"
-            Value="0, 0, 0, 20" />
-        <On Platform="Android"
-            Value="0, 0, 0, 0" />
-        <On Platform="UWP"
-            Value="0, 0, 0, 0" />
-      </OnPlatform.Platforms>
-    </OnPlatform>
-  </ContentPage.Padding>
-  <ContentPage.Content>
-  </ContentPage.Content>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <OnPlatform.Platforms>
+                <!-- account for weird bezel-less iPhones -->
+                <On Platform="iOS"
+                    Value="0, 0, 0, 20" />
+                <On Platform="Android"
+                    Value="0, 0, 0, 5" />
+            </OnPlatform.Platforms>
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.ToolbarItems>
+        <!--ToolbarItem Name="Connection Health" 
+                     Order="Primary" 
+                     Priority="0"
+                     Text="?" 
+                     Clicked="GetHelp" /-->
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

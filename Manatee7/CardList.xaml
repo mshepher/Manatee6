@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"
+      encoding="UTF-8"?>
+
 <sflistview:SfListView xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:sflistview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -13,60 +15,66 @@
                        x:Name="This"
                        IsStickyHeader="true"
                        IsStickyFooter="true">
-  <sflistview:SfListView.Resources>
-  </sflistview:SfListView.Resources>
-  <sflistview:SfListView.HeaderTemplate>
-    <DataTemplate x:DataType="local:Model.Card"
-                  x:Name="headerTemplate">
-      <Frame Style="{StaticResource CallCardFrame}">
-        <Grid VerticalOptions="StartAndExpand">
-          <Label Style="{StaticResource CallCardLabel}">
-            <Label.FormattedText>
-              <FormattedString>
-                <Span Text="{Binding Source={StaticResource GameInstance}, Path=CallCard.Text}" />
-                <Span Text=" ." TextColor="Transparent"/>
-              </FormattedString>
-            </Label.FormattedText>
-          </Label>
-        </Grid>
-      </Frame>
-    </DataTemplate>
-  </sflistview:SfListView.HeaderTemplate>
-  <sflistview:SfListView.ItemTemplate>
-    <DataTemplate x:DataType="local:Model.Card"> 
-      <Frame x:Name="ItemFrame" Style="{StaticResource CardFrame}">
+    <sflistview:SfListView.Resources>
+    </sflistview:SfListView.Resources>
+    <sflistview:SfListView.HeaderTemplate>
+        <DataTemplate x:DataType="local:Model.Card"
+                      x:Name="headerTemplate">
+            <Frame Style="{StaticResource CallCardFrame}">
+                <Grid VerticalOptions="StartAndExpand">
+                    <Label Style="{StaticResource CallCardLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Source={StaticResource GameInstance}, 
+                                                     Path=CallCard.Text}" />
+                                <!--deal with a sfListView rendering issue that causes label 
+                                height to be calculated before applying padding/margin
+                                values (and associated text wrapping adjustments), thereby 
+                                creating an invisible below-the-fold final line of text-->
+                                <Span Text=" ." TextColor="Transparent" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </Frame>
+        </DataTemplate>
+    </sflistview:SfListView.HeaderTemplate>
+    <sflistview:SfListView.ItemTemplate>
+        <DataTemplate x:DataType="local:Model.Card">
+            <Frame x:Name="ItemFrame" Style="{StaticResource CardFrame}">
                 <Frame.Triggers>
+                    <!-- still don't know why this doesn't work. -->
                     <DataTrigger TargetType="Button"
-                       Binding="{Binding Source={x:Reference This}, Path=SelectionMode}"
-                       Value="None">
-            <Setter Property="Style" Value="{StaticResource UnselectableCardFrame}" />
-          </DataTrigger>
-                    </Frame.Triggers>
-        <Grid VerticalOptions="StartAndExpand">
-        <Label Style="{StaticResource CardLabel}">
-            <Label.FormattedText>
-              <FormattedString>
-                <Span Text="{Binding DisplayText}" />
-              </FormattedString>
-            </Label.FormattedText>
-          </Label>
-        </Grid>
-      </Frame>
-    </DataTemplate>
-  </sflistview:SfListView.ItemTemplate>
-  <sflistview:SfListView.SelectedItemTemplate>
-    <DataTemplate>
-      <Frame Style="{StaticResource SelectedCardFrame}">
-        <Grid VerticalOptions="StartAndExpand">
-          <Label Style="{StaticResource SelectedCardLabel}">
-            <Label.FormattedText>
-              <FormattedString>
-                <Span Text="{Binding DisplayText}" />
-              </FormattedString>
-            </Label.FormattedText>
-          </Label>
-        </Grid>
-      </Frame>
-    </DataTemplate>
-  </sflistview:SfListView.SelectedItemTemplate>
+                                 Binding="{Binding Source={x:Reference This}, Path=SelectionMode}"
+                                 Value="None">
+                        <Setter Property="Style" Value="{StaticResource UnselectableCardFrame}" />
+                    </DataTrigger>
+                </Frame.Triggers>
+                <Grid VerticalOptions="StartAndExpand">
+                    <Label Style="{StaticResource CardLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding DisplayText}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </Frame>
+        </DataTemplate>
+    </sflistview:SfListView.ItemTemplate>
+    <sflistview:SfListView.SelectedItemTemplate>
+        <DataTemplate>
+            <Frame Style="{StaticResource SelectedCardFrame}">
+                <Grid VerticalOptions="StartAndExpand">
+                    <Label Style="{StaticResource SelectedCardLabel}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding DisplayText}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </Frame>
+        </DataTemplate>
+    </sflistview:SfListView.SelectedItemTemplate>
 </sflistview:SfListView>

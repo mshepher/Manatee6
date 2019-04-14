@@ -40,11 +40,9 @@ namespace Manatee7 {
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture) {
             if (value is bool b) {
-                return (b
-                        ? Syncfusion.ListView.XForms.SelectionMode.Single
-                        : Syncfusion.ListView.XForms.SelectionMode.None);
+                return b ? Syncfusion.ListView.XForms.SelectionMode.Single
+                         : Syncfusion.ListView.XForms.SelectionMode.None;
             }
-
             return Syncfusion.ListView.XForms.SelectionMode.None;
         }
 
@@ -53,7 +51,7 @@ namespace Manatee7 {
             throw new NotImplementedException();
         }
     }
-
+/*
     public class ToColor : IValueConverter {
         public object Convert(object value, Type targetType, object parameter,
                               System.Globalization.CultureInfo culture) {
@@ -69,7 +67,7 @@ namespace Manatee7 {
             throw new NotImplementedException();
         }
     }
-
+*/
 
     public class IsNotZeroConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter,
@@ -86,23 +84,6 @@ namespace Manatee7 {
             throw new NotImplementedException();
         }
     }
-
-    public class FourColors : IValueConverter {
-        public object Convert(object value, Type targetType, object parameter,
-                              System.Globalization.CultureInfo culture) {
-            if (value is int i) {
-                return (i != 0);
-            }
-
-            return value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter,
-                                  System.Globalization.CultureInfo culture) {
-            throw new NotImplementedException();
-        }
-    }
-
 
     public class InvertBool : IValueConverter {
         public object Convert(object value, Type targetType, object parameter,

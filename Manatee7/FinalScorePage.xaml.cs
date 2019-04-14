@@ -16,7 +16,7 @@ namespace Manatee7
 {
     public partial class FinalScorePage : Rg.Plugins.Popup.Pages.PopupPage {
         public int HighScore { get; }
-        public List<KeyValuePair<Player,int>> OrderedPlayers { set; get; }
+        public List<KeyValuePair<Player,int>> OrderedPlayers { get; }
         public FinalScorePage() {
             OrderedPlayers = Game.Instance.Score.ToList();
             OrderedPlayers.Sort((kv1,kv2) => {
@@ -36,7 +36,6 @@ namespace Manatee7
                 ScoreGrid.Children.Add(new Label() {Text = wins.ToString(), Style = (Style)Resources["ScoreStyle"]}, 1, rank - 1);
                 rank++;
             }
-            
         }
 
         private async void ExitClicked(object sender, EventArgs e)
@@ -45,7 +44,6 @@ namespace Manatee7
                 await PopupNavigation.Instance.PopAsync();
             GameController.Instance.ExitGame();
         }
-
 
         protected override bool OnBackButtonPressed()
         {
