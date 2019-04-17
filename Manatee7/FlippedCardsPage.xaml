@@ -29,7 +29,7 @@
                     </DataTrigger>
                 </local:SubmissionList.Triggers>
             </local:SubmissionList>
-            
+
             <Button HorizontalOptions="Center"
                     Margin="10,5,10,15"
                     BindingContext="{x:Reference Name=SubmissionListView}"
@@ -60,7 +60,7 @@
                     </DataTrigger>
                 </Button.Triggers>
             </Button>
-            
+
             <Label Margin="10"
                    TextColor="White"
                    x:Name="AwaitingLabel"

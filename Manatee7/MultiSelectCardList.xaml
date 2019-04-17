@@ -1,72 +1,73 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"
+      encoding="UTF-8"?>
 
 <local:CardList xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:local="clr-namespace:Manatee7"
                 x:Name="This"
                 x:Class="Manatee7.MultiSelectCardList">
-  <local:CardList.Resources>
-    <ResourceDictionary>
-      <local:CardOrderConverter x:Key="Converter" />
-      <local:DiameterToRadiusConverter x:Key="RadiusConverter" />
-    </ResourceDictionary>
-  </local:CardList.Resources>
-  <local:CardList.ItemTemplate>
-    <DataTemplate x:DataType="local:Model.Card">
-      <Frame Style="{StaticResource CardFrame}">
-        <StackLayout Orientation="Horizontal">
-          <Grid VerticalOptions="StartAndExpand">
-            <Label Style="{StaticResource CardLabel}">
-              <Label.FormattedText>
-                <FormattedString>
-                  <Span Text="{Binding DisplayText}" />
-                </FormattedString>
-              </Label.FormattedText>
-            </Label>
-          </Grid>
-        </StackLayout>
-      </Frame>
-    </DataTemplate>
-  </local:CardList.ItemTemplate>
-  <local:CardList.SelectedItemTemplate>
-    <DataTemplate x:DataType="local:Model.Card">
-    <Grid>
-      <Frame Style="{StaticResource SelectedCardFrame}">
-        <Grid VerticalOptions="StartAndExpand">
-            <Label Style="{StaticResource SelectedCardLabel}">
-              <Label.FormattedText>
-                <FormattedString>
-                  <Span Text="{Binding DisplayText}" />
-                </FormattedString>
-              </Label.FormattedText>
-            </Label>
-          </Grid>
-      </Frame>
-        <Grid Padding="1"
-              x:Name="NumberGrid"
-              VerticalOptions="End" HorizontalOptions="End">
-                <Grid.Triggers>
-                  <DataTrigger TargetType="Grid"
-                             Value="1"
-                             Binding="{Binding CallCard.Blanks, Source={StaticResource GameInstance}}">
-                  <Setter Property="IsVisible"
-                          Value="false" />
-                </DataTrigger>
-          </Grid.Triggers>
-          <BoxView x:Name="BoxView"
-                   VerticalOptions="Start"
-                   HorizontalOptions="Start"
-                   HeightRequest="30"
-                   BackgroundColor="{StaticResource MainDark}"
-                   WidthRequest="{Binding Source={x:Reference BoxView}, Path=HeightRequest}"
-                   CornerRadius="15"/>
-            <Label Text="{Binding ., Converter={StaticResource Converter}}"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            FontAttributes="Bold"
-                 TextColor="{StaticResource Background}" />
-        </Grid>
-        </Grid>
-    </DataTemplate>
-  </local:CardList.SelectedItemTemplate>
+    <local:CardList.Resources>
+        <ResourceDictionary>
+            <local:CardOrderConverter x:Key="Converter" />
+            <local:DiameterToRadiusConverter x:Key="RadiusConverter" />
+        </ResourceDictionary>
+    </local:CardList.Resources>
+    <local:CardList.ItemTemplate>
+        <DataTemplate x:DataType="local:Model.Card">
+            <Frame Style="{StaticResource CardFrame}">
+                <StackLayout Orientation="Horizontal">
+                    <Grid VerticalOptions="StartAndExpand">
+                        <Label Style="{StaticResource CardLabel}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding DisplayText}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </DataTemplate>
+    </local:CardList.ItemTemplate>
+    <local:CardList.SelectedItemTemplate>
+        <DataTemplate x:DataType="local:Model.Card">
+            <Grid>
+                <Frame Style="{StaticResource SelectedCardFrame}">
+                    <Grid VerticalOptions="StartAndExpand">
+                        <Label Style="{StaticResource SelectedCardLabel}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding DisplayText}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+                </Frame>
+                <Grid Padding="1"
+                      x:Name="NumberGrid"
+                      VerticalOptions="End" HorizontalOptions="End">
+                    <Grid.Triggers>
+                        <DataTrigger TargetType="Grid"
+                                     Value="1"
+                                     Binding="{Binding CallCard.Blanks, Source={StaticResource GameInstance}}">
+                            <Setter Property="IsVisible"
+                                    Value="false" />
+                        </DataTrigger>
+                    </Grid.Triggers>
+                    <BoxView x:Name="BoxView"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Start"
+                             HeightRequest="30"
+                             BackgroundColor="{StaticResource MainDark}"
+                             WidthRequest="{Binding Source={x:Reference BoxView}, Path=HeightRequest}"
+                             CornerRadius="15" />
+                    <Label Text="{Binding ., Converter={StaticResource Converter}}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Background}" />
+                </Grid>
+            </Grid>
+        </DataTemplate>
+    </local:CardList.SelectedItemTemplate>
 </local:CardList>

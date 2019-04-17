@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"
+      encoding="utf-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              ControlTemplate="{StaticResource DebugTemplate}"
@@ -10,86 +11,101 @@
              x:Name="This"
              BindingContext="{StaticResource GameController}"
              Title="Manatee">
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <local:InvertBool x:Key="InvertBool" />
-    </ResourceDictionary>
-  </ContentPage.Resources>
-  <ContentPage.Content>
-    <StackLayout Padding="25" VerticalOptions="FillAndExpand" Spacing="5">
-       <Label
-        Text="{Binding PlayerName, Source={StaticResource Preferences}, StringFormat='Hello, {0}.', Mode=OneWay}"
-        HorizontalOptions="Center"
-        FontSize="Large" />
-      
-      <Grid VerticalOptions="FillAndExpand">
-        <Button Text="Scan for nearby games"
-                FontSize="Large"
-                Clicked="StartScanning"
-                IsVisible="{Binding Scanning, Source={x:Reference This}, Converter={StaticResource InvertBool}}"
-                VerticalOptions="FillAndExpand" />
+    <ContentPage.ToolbarItems>
+        <!--ToolbarItem Name="Connection Health" Order="Primary" Text="?" Priority="0"
+                     Clicked="GetHelp" /-->
+    </ContentPage.ToolbarItems>
 
-        <Grid VerticalOptions="Center"
-              IsVisible="{Binding Scanning, Source={x:Reference This}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InvertBool x:Key="InvertBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout Padding="25" VerticalOptions="FillAndExpand" Spacing="5">
+            <Label HorizontalOptions="Center" FontSize="Large"
+                   Text="{Binding PlayerName, Source={StaticResource Preferences}, 
+                               StringFormat='Hello, {0}.', Mode=OneWay}" />
+
+            <Grid VerticalOptions="FillAndExpand">
+                <Button Text="Scan for nearby games"
+                        FontSize="Large"
+                        Clicked="StartScanning"
+                        IsVisible="{Binding Scanning, Source={x:Reference This}, Converter={StaticResource InvertBool}}"
+                        VerticalOptions="FillAndExpand" />
+
+                <Grid VerticalOptions="Center"
+                      IsVisible="{Binding Scanning, Source={x:Reference This}}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.2*"/>
-                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="0.8*" />
                     </Grid.RowDefinitions>
-          <syncfusion:SfListView x:Name="VisibleGamesListView"
-                                 ItemsSource="{Binding Path=Invitations, Source={x:Reference This}}"
-                                 RowSpacing="20"
-                                 AutoFitMode="Height"
-                                 Grid.Row="1"
-                                 IsStickyHeader="True">
-            <syncfusion:SfListView.HeaderTemplate>
-              <DataTemplate>
-                <Label FontSize="Large"
-                       Text="Found nearby games:" HorizontalOptions="Center">
-                  <Label.Triggers>
-                    <DataTrigger TargetType="Label"
-                                 Binding="{Binding VisibleInvitations.Count}"
-                                 Value="0">
-                      <Setter Property="Text"
-                              Value="Looking for nearby games..." />
-                    </DataTrigger>
-                  </Label.Triggers>
-                </Label>
-              </DataTemplate>
-            </syncfusion:SfListView.HeaderTemplate>
-            <syncfusion:SfListView.FooterTemplate>
-              <DataTemplate>
-                <Grid Margin="10">
-                  <ActivityIndicator IsRunning="False" Color="{StaticResource Main}">
-                    <ActivityIndicator.Triggers>
-                      <DataTrigger TargetType="ActivityIndicator" Binding="{Binding StatusString, 
-                      Source={StaticResource GameController}}" Value="SCANNING">
-                        <Setter Property="IsRunning" Value="True"/>
-                      
-                      </DataTrigger>
-                    </ActivityIndicator.Triggers>
-                  </ActivityIndicator>
-                </Grid>
-              </DataTemplate>
-            </syncfusion:SfListView.FooterTemplate>
-            <syncfusion:SfListView.ItemTemplate>
-              <DataTemplate>
-                <Button FontSize="Large" Text="{Binding GameName, StringFormat='Join {0}'}"
-                        Clicked="GameSelected" Margin="20" />
-              </DataTemplate>
-            </syncfusion:SfListView.ItemTemplate>
-          </syncfusion:SfListView>
-        </Grid>
-      </Grid>
 
-      <Button x:Name="StartGameButton"
-              FontSize="Large"
-              Text="Announce A New Game"
-              HeightRequest="{Binding Source={x:Reference SettingsButton}, Path=Height}"
-              Clicked="CreateGameButtonClicked" />
-      <Button x:Name="SettingsButton"
-              HorizontalOptions="FillAndExpand"
-              Text="Settings"
-              Clicked="SettingsButtonClicked" />
-    </StackLayout>
-  </ContentPage.Content>
+                    <syncfusion:SfListView x:Name="VisibleGamesListView"
+                                           ItemsSource="{Binding Path=Invitations, Source={x:Reference This}}"
+                                           RowSpacing="20"
+                                           AutoFitMode="Height"
+                                           Grid.Row="1"
+                                           IsStickyHeader="True">
+
+                        <syncfusion:SfListView.HeaderTemplate>
+                            <DataTemplate>
+                                <Label FontSize="Large"
+                                       Text="Found nearby games:" HorizontalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding VisibleInvitations.Count}"
+                                                     Value="0">
+                                            <Setter Property="Text"
+                                                    Value="Looking for nearby games..." />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                            </DataTemplate>
+                        </syncfusion:SfListView.HeaderTemplate>
+
+                        <syncfusion:SfListView.FooterTemplate>
+                            <DataTemplate>
+                                <Grid Margin="10">
+                                    <ActivityIndicator IsRunning="False"
+                                                       Color="{StaticResource Main}">
+                                        <ActivityIndicator.Triggers>
+                                            <DataTrigger TargetType="ActivityIndicator"
+                                                         Binding="{Binding StatusString, 
+                      Source={StaticResource GameController}}"
+                                                         Value="SCANNING">
+                                                <Setter Property="IsRunning" Value="True" />
+
+                                            </DataTrigger>
+                                        </ActivityIndicator.Triggers>
+                                    </ActivityIndicator>
+                                </Grid>
+                            </DataTemplate>
+                        </syncfusion:SfListView.FooterTemplate>
+
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <Button FontSize="Large"
+                                        Text="{Binding GameName, StringFormat='Join {0}'}"
+                                        Clicked="GameSelected" Margin="20" />
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+
+                    </syncfusion:SfListView>
+                </Grid>
+            </Grid>
+
+            <Button x:Name="StartGameButton"
+                    FontSize="Large"
+                    Text="Announce A New Game"
+                    HeightRequest="{Binding Source={x:Reference SettingsButton}, Path=Height}"
+                    Clicked="CreateGameButtonClicked" />
+            <Button x:Name="SettingsButton"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Settings"
+                    Clicked="SettingsButtonClicked" />
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

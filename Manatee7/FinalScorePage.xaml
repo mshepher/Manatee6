@@ -19,7 +19,7 @@
                 <Setter Property="VerticalOptions"
                         Value="Center" />
             </Style>
-            
+
             <Style x:Key="ScoreStyle"
                    TargetType="Label"
                    BasedOn="{StaticResource NameStyle}">

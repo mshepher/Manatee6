@@ -5,6 +5,7 @@ using Foundation;
 using NearbyMessages;
 using Xamarin.Forms;
 using Manatee7.iOS;
+using Manatee7.PO;
 
 [assembly: Dependency(typeof(PostOffice_iOS))]
 

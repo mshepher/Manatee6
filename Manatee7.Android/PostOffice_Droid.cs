@@ -5,6 +5,7 @@ using Android.Gms.Nearby.Messages;
 using System.Collections.Generic;
 using Message = Android.Gms.Nearby.Messages.Message;
 using Xamarin.Forms;
+using Manatee7.PO;
 
 [assembly: Dependency(typeof(Manatee7.Droid.PostOffice_Droid))]
 namespace Manatee7.Droid {
@@ -112,12 +113,12 @@ namespace Manatee7.Droid {
 
         public void Unsubscribe() {
             Listening = false;
-            Log.Information("Unsubscribing");
             _client.Unsubscribe(_listener);
             DePing();
+            Log.Information("Unsubscribing");
         }
 
-        public void Dispose() {
+    public void Dispose() {
             Listening = false;
             _listener.Dispose();
             _client.Dispose();

@@ -5,6 +5,7 @@ using Manatee7.Model;
 using System.Collections.Generic;
 using Log = Serilog.Log;
 using System.Threading.Tasks;
+using Manatee7.PO;
 
 namespace Manatee7
 {
@@ -37,52 +38,34 @@ namespace Manatee7
             BindingContext = this;
             _library.PropertyChanged += (sender, e) => Log.Information("Saw change");
             NearbyPermissionSwitch.Toggled +=
-                (sender, e) => OnPropertyChanged(nameof(DisplayMicAllowed));
+                    (sender, e) => OnPropertyChanged(nameof(DisplayMicAllowed));
             CodeEntry.Completed += AddDeckFromEntry;
             LinkTapped.Tapped += async (sender, e) =>
             {
                 Link.TextColor = Color.Accent;
                 await Task.Delay(50);
                 Device.OpenUri(
-                    new Uri("http://www.cardcastgame.com/browse"));
+                        new Uri("http://www.cardcastgame.com/browse"));
                 Link.TextColor = Color.Blue;
 
             };
             SmallNameLayout.IsVisible = false;
-            //listView.CachingStrategy = ListViewCachingStrategy.RecycleElement;
             listView.SizeChanged += (sender, e) =>
             {
                 if (listView.Height > 0 && listView.Height < ReferenceGrid.Height * 3 && !_smallScreen)
                     SwitchToSmallScreen();
             };
         }
+        
+        //Move screen name prompt to a single line on smaller screens
         private void SwitchToSmallScreen()
         {
             if (_smallScreen) return;
-            //CardsPerHandGrid.IsVisible = false;
-            //BaseFontSize = StepFontSize; 
-
 
             SmallNameLayout.IsVisible = true;
 
             ScreenNameLabelLarge.IsVisible = false;
             EntryLarge.IsVisible = false;
-
-            /*NearbyLargeGrid.IsVisible = false;
-            NearbySmallGrid.IsVisible = true;
-            MicSmallGrid.IsVisible = true;*/
-
-            //ParentGrid.Margin = new Thickness { Bottom = 5, Left = 5, Right = 5, Top = 2 };
-           /* Resources.TryGetValue("Scale", out object o);
-            PageScale = o is double d ? d : PageScale;
-            //DeckInstructionLabel.FontSize *= Scale;
-
-            var stepHeight = ReferenceStepper.Height;
-            var margin = ReferenceGrid.Height - stepHeight;
-            ReferenceStepper.HeightRequest = stepHeight * PageScale;
-            ReferenceGrid.MinimumHeightRequest = (stepHeight * PageScale) + margin;
-
-            _smallScreen = true;*/
         }
 
         protected override void OnDisappearing()
@@ -108,17 +91,13 @@ namespace Manatee7
             catch (Exception ex)
             {
                 Log.Error("could not delete deck {deck}; exception {Newline}{e}",
-                    ((MenuItem)sender).CommandParameter, ex);
+                          ((MenuItem)sender).CommandParameter, ex);
             }
         }
 
-        private void Handle_Unfocused(object sender, FocusEventArgs e)
-        {
+        //Save when user exits 'name' text entry field
+        private void Handle_Unfocused(object sender, FocusEventArgs e) {
             Preferences.Save();
-            if (listView.ItemsSource == _library.Decks)
-                listView.ItemsSource = new Dictionary<string, Deck>();
-            else
-                listView.ItemsSource = _library.Decks;
         }
 
         private async void AddDeckFromEntry(object sender, EventArgs e)
@@ -128,7 +107,7 @@ namespace Manatee7
             try
             {
                 if (CodeEntry.Text.Length != 5)
-                    throw new ArgumentException("Input is wrong length!");
+                    throw new ArgumentException("Input is the wrong length!");
                 //https://stackoverflow.com/questions/3061662/how-to-find-out-if-string-contains-non-alpha-numeric-characters-in-c-net-2-0
                 if (!CodeEntry.Text.All(char.IsLetterOrDigit))
                     throw new ArgumentException("Contains non-alphanumeric chars");

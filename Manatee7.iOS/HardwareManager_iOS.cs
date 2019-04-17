@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 [assembly: Dependency(typeof(HardwareManager_iOS))]
 namespace Manatee7.iOS {
-    public class HardwareManager_iOS : IHardwareManager {
+    public class HardwareManager_iOS : PO.IHardwareManager {
         // https://stackoverflow.com/questions/43752085/prompt-user-to-enable-bluetooth-in-xamarin-forms
         private readonly CBCentralManager _manager = new CBCentralManager();
 

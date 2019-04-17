@@ -13,53 +13,50 @@ using Log = Serilog.Log;
 using Xamarin.Forms.Internals;
 
 namespace Manatee7 {
-  public partial class WinningCardPage : Rg.Plugins.Popup.Pages.PopupPage {
-    public Player WinningPlayer { get; }
-    public String WinningString { get; }
+    public partial class WinningCardPage : Rg.Plugins.Popup.Pages.PopupPage {
+        public Player WinningPlayer { get; }
 
+        public WinningCardPage(Player p, Card callCard, List<Card> response) {
+            WinningPlayer = p;
+            InitializeComponent();
+            var callCardStrings = callCard.TextArray;
+            Debug.Assert(callCardStrings.Count == response.Count + 1);
+            int i;
+            for (i = 0; i < response.Count; i++) {
+                FormattedWinningString.Spans.Add(new Span {Text = callCardStrings[i]});
+                FormattedWinningString.Spans.Add(new Span
+                                                         {Text = response[i].Text, TextColor = Color.Red});
+            }
+            FormattedWinningString.Spans.Add(new Span {Text = callCardStrings[i]});
+            if (_game.Round != _game.GameRules.HandsPerGame) return;
+            Button.Text = "Final Score";
+            Button.Clicked -= NextRound;
+            Button.Clicked += FinalScore;
+        }
 
-    public WinningCardPage(Player p, Card callCard, List<Card> response) {
-      WinningPlayer = p;
-      InitializeComponent();
-      var callCardStrings = callCard.TextArray;
-      Debug.Assert(callCardStrings.Count == response.Count + 1);
-      int i;
-      for (i = 0; i < response.Count(); i++) {
-        FormattedWinningString.Spans.Add(new Span {Text = callCardStrings[i]});
-        FormattedWinningString.Spans.Add(new Span
-            {Text = response[i].Text, TextColor = Color.Red});
-      }
-      FormattedWinningString.Spans.Add(new Span {Text = callCardStrings[i]});
-      if (game.Round == game.GameRules.HandsPerGame) {
-        Button.Text = "Final Score";
-        Button.Clicked -= NextRound;
-        Button.Clicked += FinalScore;
-      }
-    }
-
-    Game game = Game.Instance;
+        private readonly Game _game = Game.Instance;
         
-    private async void NextRound(object sender, EventArgs e) {
-      Button.IsEnabled = false;
-      GameController.Instance.NewRound();
-      if (PopupNavigation.Instance.PopupStack.Any())
-        await PopupNavigation.Instance.PopAsync();
-    }
+        private async void NextRound(object sender, EventArgs e) {
+            Button.IsEnabled = false;
+            GameController.Instance.NewRound();
+            if (PopupNavigation.Instance.PopupStack.Any())
+                await PopupNavigation.Instance.PopAsync();
+        }
     
-    private async void FinalScore(object sender, EventArgs e) {
-      if (PopupNavigation.Instance.PopupStack.Any())
-        await PopupNavigation.Instance.PopAsync();
+        private async void FinalScore(object sender, EventArgs e) {
+            if (PopupNavigation.Instance.PopupStack.Any())
+                await PopupNavigation.Instance.PopAsync();
             GameController.Instance.GameOver(); // don't get any more messages
-      PopupNavigation.Instance.PushAsync(new FinalScorePage());
-    }
+            await PopupNavigation.Instance.PushAsync(new FinalScorePage());
+        }
     
     
-    protected override bool OnBackButtonPressed() {
-      return true;
-    } 
+        protected override bool OnBackButtonPressed() {
+            return true;
+        } 
 
-    protected override bool OnBackgroundClicked() {
-      return false;
+        protected override bool OnBackgroundClicked() {
+            return false;
+        }
     }
-  }
 }

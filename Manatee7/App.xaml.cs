@@ -93,6 +93,12 @@ namespace Manatee7 {
             }
         }
 
+
+        public static async Task<bool> InternetIsUp() {
+          if (!CrossConnectivity.IsSupported) return true; //we have to assume it's all good
+          return (await CrossConnectivity.Current.IsRemoteReachable("googleapis.com")); 
+        }
+
         // handle the messy operation of adding a ContentPage to a NavigationPage to a
         // MasterDetailPage (if necessary)
         public static void NextPage(Page page) {
@@ -102,7 +108,9 @@ namespace Manatee7 {
                     ((MasterDetailPage)Current.MainPage).Detail = new NavigationPage(page);
                 } else {
                     var newRoot = new MasterDetailPage {
-                            Master = new SidebarPage(),
+                            Master = new NavigationPage(new SidebarPage()) {
+                                    BarBackgroundColor = (Color)Current.Resources["MainLight"],
+                                    Title = "☰"},
                             Detail = new NavigationPage(page)
                     };
                     Current.MainPage = newRoot;

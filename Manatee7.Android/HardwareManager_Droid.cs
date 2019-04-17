@@ -8,20 +8,20 @@ using Perm = Android.Manifest.Permission;
 
 [assembly: Dependency(typeof(HardwareManager_Droid))]
 namespace Manatee7.Droid {
-    public class HardwareManager_Droid : IHardwareManager {
+    public class HardwareManager_Droid : PO.IHardwareManager {
         private readonly BluetoothAdapter _adapter = BluetoothAdapter.DefaultAdapter;
 
         public bool HasBluetoothPermission =>
-            (ContextCompat.CheckSelfPermission(
-                MainActivity.MostRecentActivity, Perm.Bluetooth) == (int) Permission.Granted);
+                (ContextCompat.CheckSelfPermission(
+                         MainActivity.MostRecentActivity, Perm.Bluetooth) == (int) Permission.Granted);
         
         public bool HasMicrophonePermission =>
-           (ContextCompat.CheckSelfPermission(
-               MainActivity.MostRecentActivity, Perm.RecordAudio) == (int)Permission.Granted);
+                (ContextCompat.CheckSelfPermission(
+                         MainActivity.MostRecentActivity, Perm.RecordAudio) == (int)Permission.Granted);
 
         public bool HasBluetoothAdapter =>
-          MainActivity.MostRecentActivity.PackageManager.HasSystemFeature(
-              PackageManager.FeatureBluetoothLe);
+                MainActivity.MostRecentActivity.PackageManager.HasSystemFeature(
+                        PackageManager.FeatureBluetoothLe);
 
         public bool BluetoothPoweredOn => _adapter.IsEnabled;
 

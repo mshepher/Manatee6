@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"
+      encoding="UTF-8"?>
 
 <local:BaseGamePage xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -9,85 +10,92 @@
                     BindingContext="{x:Reference This}"
                     x:Class="Manatee7.JudgingPage">
     <local:BaseGamePage.Resources>
-        <ResourceDictionary>
-            
-        </ResourceDictionary>
+        <ResourceDictionary />
     </local:BaseGamePage.Resources>
-  <local:BaseGamePage.Content>
-    <StackLayout>
-      <StackLayout Margin="20"
-                   VerticalOptions="CenterAndExpand">
-        
-        <Frame Style="{StaticResource CallCardFrame}">
-          <Label 
-                 Style="{StaticResource CallCardLabel}"
-                 Text="{Binding Path=CallCard.Text, Source={StaticResource GameInstance}, StringFormat='{0}'}" />
-        </Frame>
-        
-        <Grid>
+    <local:BaseGamePage.Content>
+        <StackLayout>
+            <StackLayout Margin="20" VerticalOptions="CenterAndExpand">
+
+                <Frame Style="{StaticResource CallCardFrame}">
+                    <Label Style="{StaticResource CallCardLabel}"
+                           Text="{Binding Path=CallCard.Text, Source={StaticResource GameInstance}, StringFormat='{0}'}" />
+                </Frame>
+
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.1*"/>
-                        <RowDefinition Height="0.9*"/>
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="0.9*" />
                     </Grid.RowDefinitions>
-        <ListView x:Name="WallOfShameDisplay"
-                  Grid.Row="1"
-                  SelectionMode="None"
-                  BackgroundColor="Transparent"
-                  SeparatorVisibility="None"
-                  ItemsSource="{Binding WallOfShame}">
-          
-          <ListView.Header>
-            <Grid Padding="10">
-              <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                            <Label Text="Received cards from:" x:Name="Header" VerticalOptions="Center" FontAttributes="Bold" Grid.Column="1"/>
-                        </Grid>
-          </ListView.Header>
-        
-          <ListView.ItemTemplate>
-            <DataTemplate>
-              <ViewCell><Grid Padding="0">
-                                                      <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*" />
-                <ColumnDefinition Width="0.8*" />
-                <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="0.2*" />
-              </Grid.ColumnDefinitions>
-              <Label TextColor="{StaticResource Main}" Text="✓" FontAttributes="Bold" HorizontalOptions="End" Grid.Column="2">
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label" Binding="{Binding Value, Mode=OneWay}" Value="false">
-                                                         <Setter Property="Opacity" Value="0.2"/>
-                                                         </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
-                                    <Label Text="{Binding Key.Name}" Grid.Column="1">
+                    <ListView x:Name="WallOfShameDisplay"
+                              Grid.Row="1"
+                              SelectionMode="None"
+                              BackgroundColor="Transparent"
+                              SeparatorVisibility="None"
+                              ItemsSource="{Binding WallOfShame}">
+
+                        <ListView.Header>
+                            <Grid Padding="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Received cards from:" x:Name="Header"
+                                       VerticalOptions="Center" FontAttributes="Bold"
+                                       Grid.Column="1" />
+                            </Grid>
+                        </ListView.Header>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.2*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="0.2*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label TextColor="{StaticResource Main}" Text="✓"
+                                               FontAttributes="Bold" HorizontalOptions="End"
+                                               Grid.Column="2">
                                             <Label.Triggers>
-                                            <DataTrigger TargetType="Label" Binding="{Binding Value, Mode=OneWay}" Value="false">
-                                                         <Setter Property="Opacity" Value="0.5"/>
-                                                         </DataTrigger>
-                                        </Label.Triggers>
-                                            </Label>
-                                </Grid>
-              </ViewCell>
-            </DataTemplate>
-          </ListView.ItemTemplate>
-          
-          <ListView.Footer>
-            <StackLayout>
-              <ActivityIndicator IsRunning="true" />
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Value, Mode=OneWay}"
+                                                             Value="false">
+                                                    <Setter Property="TextColor"
+                                                            Value="Transparent" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label Text="{Binding Key.Name}" Grid.Column="1">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label"
+                                                             Binding="{Binding Value, Mode=OneWay}"
+                                                             Value="false">
+                                                    <Setter Property="Opacity" Value="0.5" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                        <ListView.Footer>
+                            <StackLayout>
+                                <ActivityIndicator IsRunning="true" />
+                            </StackLayout>
+                        </ListView.Footer>
+
+                    </ListView>
+                </Grid>
+
+                <Button Text="Continue without remaining players"
+                        IsVisible="{Binding CanOverride}"
+                        Clicked="JustGo" />
+
             </StackLayout>
-          </ListView.Footer>
-          
-        </ListView>
-        </Grid>
-        
-        <Button Text="Continue without remaining players" IsVisible="{Binding CanOverride}"
-                Clicked="JustGo" />
-        
-      </StackLayout>
-    </StackLayout>
-  </local:BaseGamePage.Content>
+        </StackLayout>
+    </local:BaseGamePage.Content>
 </local:BaseGamePage>

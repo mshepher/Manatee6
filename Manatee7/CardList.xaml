@@ -25,7 +25,8 @@
                     <Label Style="{StaticResource CallCardLabel}">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding Source={StaticResource GameInstance}, 
+                                <Span
+                                    Text="{Binding Source={StaticResource GameInstance}, 
                                                      Path=CallCard.Text}" />
                                 <!--deal with a sfListView rendering issue that causes label 
                                 height to be calculated before applying padding/margin

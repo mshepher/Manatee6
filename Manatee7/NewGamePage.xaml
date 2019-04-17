@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"
+      encoding="UTF-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -8,105 +9,113 @@
              BindingContext="{x:Reference This}"
              x:Class="Manatee7.NewGamePage"
              Title="New Game">
-  <ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness">
-      <OnPlatform.Platforms>
-        <On Platform="iOS"
-            Value="0, 20, 0, 10" />
-        <On Platform="Android"
-            Value="0, 0, 0, 0" />
-      </OnPlatform.Platforms>
-    </OnPlatform>
-  </ContentPage.Padding>
-    
-   
-
-  <StackLayout Padding="30,30,30,10">
-     <StackLayout VerticalOptions="StartAndExpand">
-     <Grid>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <OnPlatform.Platforms>
+                <On Platform="iOS"
+                    Value="0, 20, 0, 10" />
+                <On Platform="Android"
+                    Value="0, 0, 0, 0" />
+            </OnPlatform.Platforms>
+        </OnPlatform>
+    </ContentPage.Padding>
+    <StackLayout Padding="30,30,30,10">
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.2*"/>
-                    <RowDefinition Height="0.6*"/>
-                    <RowDefinition Height="0.2*"/>
-
+                    <RowDefinition Height="0.2*" />
+                    <RowDefinition Height="0.6*" />
+                    <RowDefinition Height="0.2*" />
                 </Grid.RowDefinitions>
-    <Label Text="Waiting for players to join..."
-           FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
-
-      <sf:SfListView x:Name="VisiblePlayersListView"
-                     AutoFitMode="Height"
-                     IsScrollBarVisible="true"
-                     Grid.Row="1"
-                     SelectionMode="None"
-                     ItemsSource="{Binding DistinctJoinedPlayers, Mode=OneWay}"
-                     DragStartMode="OnDragIndicator"
-                     VerticalOptions="Center">
-        <sf:SfListView.HeaderTemplate>
-          <DataTemplate>
-            <Grid Padding="10">
-              <Label FontAttributes="Bold"
-                     HorizontalOptions="Center"
-                     FontSize="Medium"
-                     Text="Players" />
-            </Grid>
-          </DataTemplate>
-        </sf:SfListView.HeaderTemplate>
-
-        <sf:SfListView.FooterTemplate>
-          <DataTemplate>
-            <Grid Padding="10">
-              <ActivityIndicator
-                IsRunning="true" />
-            </Grid>
-          </DataTemplate>
-
-        </sf:SfListView.FooterTemplate>
-        <sf:SfListView.ItemTemplate>
-          <DataTemplate>
-            <Grid Padding="0" >
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="0.9*" />
-              </Grid.ColumnDefinitions>
-              <BoxView HeightRequest="1" x:Name="RightMargin" HorizontalOptions="Fill" Grid.Column="0"/>
-              <Grid Padding="0" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />   
-             </Grid.ColumnDefinitions>
-
-                 <Label Text="{Binding Name}" Grid.Column="0" 
-                     FontSize="Medium"  VerticalOptions="Center"
-                      />
-              <sf:DragIndicatorView Grid.Column="1" 
-                                    ListView="{x:Reference VisiblePlayersListView}" 
-                                    HorizontalOptions="FillAndExpand" Padding="0,10,0,10" VerticalOptions="Center">
-                <Grid Padding="0" ColumnSpacing="0">
+                <Label Text="Waiting for players to join..."
+                       FontSize="Large"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <sf:SfListView x:Name="VisiblePlayersListView"
+                               AutoFitMode="Height"
+                               IsScrollBarVisible="true"
+                               Grid.Row="1"
+                               SelectionMode="None"
+                               ItemsSource="{Binding DistinctJoinedPlayers, Mode=OneWay}"
+                               DragStartMode="OnDragIndicator"
+                               VerticalOptions="Center">
+                    <sf:SfListView.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Label FontAttributes="Bold"
+                                       HorizontalOptions="Center"
+                                       FontSize="Medium"
+                                       Text="Players" />
+                            </Grid>
+                        </DataTemplate>
+                    </sf:SfListView.HeaderTemplate>
+                    <sf:SfListView.FooterTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <ActivityIndicator IsRunning="true" />
+                            </Grid>
+                        </DataTemplate>
+                    </sf:SfListView.FooterTemplate>
+                    <sf:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.1*" />
+                                    <ColumnDefinition Width="0.9*" />
+                                </Grid.ColumnDefinitions>
+                                <BoxView HeightRequest="1"
+                                         x:Name="RightMargin"
+                                         HorizontalOptions="Fill"
+                                         Grid.Column="0" />
+                                <Grid Padding="0"
+                                      Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Name}"
+                                           Grid.Column="0"
+                                           FontSize="Medium"
+                                           VerticalOptions="Center" />
+                                    <sf:DragIndicatorView Grid.Column="1"
+                                                          ListView="{x:Reference VisiblePlayersListView}"
+                                                          HorizontalOptions="FillAndExpand"
+                                                          Padding="0,10,0,10"
+                                                          VerticalOptions="Center">
+                                        <Grid Padding="0"
+                                              ColumnSpacing="0">
                                             <Grid.ColumnDefinitions>
-
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" /> 
-                                                                                            </Grid.ColumnDefinitions>
-
-                                            <Label Text="⫶" FontAttributes="Bold" Opacity=".75" HorizontalOptions="Fill" Grid.Column="0" VerticalOptions="Center" HorizontalTextAlignment="End"/>
-                                            <BoxView VerticalOptions="Fill"  HeightRequest="0" HorizontalOptions="End"
-                                                     WidthRequest="{Binding Width, Source={x:Reference RightMargin}}" Grid.Column="1"/>
-                                            </Grid>
-              </sf:DragIndicatorView>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="⫶"
+                                                   FontAttributes="Bold"
+                                                   Opacity=".75"
+                                                   HorizontalOptions="Fill"
+                                                   Grid.Column="0"
+                                                   VerticalOptions="Center"
+                                                   HorizontalTextAlignment="End" />
+                                            <BoxView VerticalOptions="Fill"
+                                                     HeightRequest="0"
+                                                     HorizontalOptions="End"
+                                                     WidthRequest="{Binding Width, Source={x:Reference RightMargin}}"
+                                                     Grid.Column="1" />
+                                        </Grid>
+                                    </sf:DragIndicatorView>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </sf:SfListView.ItemTemplate>
+                </sf:SfListView>
             </Grid>
-           </Grid>
-          </DataTemplate>
-        </sf:SfListView.ItemTemplate>
-      </sf:SfListView>
-                </Grid>
+        </StackLayout>
+        <Button x:Name="StartGameButton"
+                FontSize="Large"
+                Clicked="StartButtonClicked"
+                Text="Start Game" />
+        <Button x:Name="CancelButton"
+                Text="Cancel"
+                Clicked="CancelButtonClicked" />
     </StackLayout>
-    <Button x:Name="StartGameButton"
-            FontSize="Large"
-            Clicked="StartButtonClicked"
-            Text="Start Game" />
-
-    <Button x:Name="CancelButton"
-            Text="Cancel" Clicked="CancelButtonClicked" />
-  </StackLayout>
 </ContentPage>

@@ -6,11 +6,11 @@ using Syncfusion.ListView.XForms;
 using Xamarin.Forms;
 
 namespace Manatee7 {
-  public partial class CardList : SfListView {
+    public partial class CardList : SfListView {
     
-    public CardList() {
-      InitializeComponent();
+        public CardList() {
+            InitializeComponent();
+        }
+    
     }
-    
-  }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Rg.Plugins.Popup.Services;
 using System.Linq;
 using Manatee7.Model;
+using Manatee7.PO;
 using Xamarin.Forms;
 
 namespace Manatee7

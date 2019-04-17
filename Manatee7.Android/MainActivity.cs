@@ -17,61 +17,61 @@ using Serilog.Events;
 
 namespace Manatee7.Droid
 {
-  [Activity(Label = "Manatee7", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-  public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity {
-    public static MainActivity MostRecentActivity { private set; get; }
-    protected override void OnCreate(Bundle savedInstanceState) {
-      Log.Logger = new LoggerConfiguration().
-          WriteTo.AndroidLog(outputTemplate:
-              "[{Level:u3} {ThreadId}]{Caller}: {Message:j}").
-          Enrich.WithThreadId().Enrich.WithCaller().
-          CreateLogger();
-      MostRecentActivity = this;
+    [Activity(Label = "Manatee7", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity {
+        public static MainActivity MostRecentActivity { private set; get; }
+        protected override void OnCreate(Bundle savedInstanceState) {
+            Log.Logger = new LoggerConfiguration().
+                         WriteTo.AndroidLog(outputTemplate:
+                                            "[{Level:u3} {ThreadId}]{Caller}: {Message:j}").
+                         Enrich.WithThreadId().Enrich.WithCaller().
+                         CreateLogger();
+            MostRecentActivity = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             base.OnCreate(savedInstanceState);
-      Popup.Init(this, savedInstanceState);
+            Popup.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
 
-    protected override void OnDestroy() {
-      Log.CloseAndFlush();
-      try {
-        PostOffice.Instance.Hibernate();
-      } catch (NullReferenceException) {
-        Log.Error("No post office.  You're running in debug mode, right?");
-      }
-      base.OnDestroy();
-    }
-  }
-
-  internal class CallerEnricher : ILogEventEnricher {
-    public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory) {
-      var skip = 3;
-      while (true) {
-        var stack = new StackFrame(skip);
-        if (!stack.HasMethod()) {
-          logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue("<unknown method>")));
-          return;
+        protected override void OnDestroy() {
+            Log.CloseAndFlush();
+            try {
+                PO.PostOffice.Instance.Hibernate();
+            } catch (NullReferenceException) {
+                Log.Error("No post office.  You're running in debug mode, right?");
+            }
+            base.OnDestroy();
         }
+    }
 
-        var method = stack.GetMethod();
-        if (method.DeclaringType != null && method.DeclaringType.Assembly != typeof(Log).Assembly) {
-          var caller = $"{method.DeclaringType.Name}.{method.Name}";
-          caller = $"{caller,-40}";
-          logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller)));
+    internal class CallerEnricher : ILogEventEnricher {
+        public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory) {
+            var skip = 3;
+            while (true) {
+                var stack = new StackFrame(skip);
+                if (!stack.HasMethod()) {
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue("<unknown method>")));
+                    return;
+                }
+
+                var method = stack.GetMethod();
+                if (method.DeclaringType != null && method.DeclaringType.Assembly != typeof(Log).Assembly) {
+                    var caller = $"{method.DeclaringType.Name}.{method.Name}";
+                    caller = $"{caller,-40}";
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller)));
+                }
+
+                skip++;
+            }
         }
-
-        skip++;
-      }
     }
-  }
 
-  static class LoggerCallerEnrichmentConfiguration {
-    public static LoggerConfiguration WithCaller(this LoggerEnrichmentConfiguration enrichmentConfiguration) {
-      return enrichmentConfiguration.With<CallerEnricher>();
-    }
+    static class LoggerCallerEnrichmentConfiguration {
+        public static LoggerConfiguration WithCaller(this LoggerEnrichmentConfiguration enrichmentConfiguration) {
+            return enrichmentConfiguration.With<CallerEnricher>();
+        }
     }
 }
